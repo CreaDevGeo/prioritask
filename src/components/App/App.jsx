@@ -14,10 +14,6 @@ import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 // Protected routes for user
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-// Material UI
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 // Components
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
@@ -25,7 +21,12 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-
+import Checklists from "../Checklists/Checklists";
+// Material UI
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+// CSS
 import "./App.css";
 
 function App() {
@@ -67,6 +68,14 @@ function App() {
                 path="/user"
               >
                 <UserPage />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows Checklists else shows LoginPage
+                exact
+                path="/checklists"
+              >
+                <Checklists />
               </ProtectedRoute>
 
               <ProtectedRoute
