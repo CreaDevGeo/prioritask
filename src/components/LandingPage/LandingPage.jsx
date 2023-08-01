@@ -1,68 +1,125 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import './LandingPage.css';
+//  - IMPORTING -
+// React
+import React, { useState } from "react";
+// Router
+import { useHistory } from "react-router-dom";
+// Material UI
+import CssBaseline from "@mui/material/CssBaseline"; // MUI CssBaseline
+import Box from "@mui/material/Box"; // MUI Box
+import Grid from "@mui/material/Grid"; // Import Grid from MUI
+import Stack from "@mui/material/Stack"; // MUI Stack
+import Button from "@mui/material/Button"; // MUI Basic Button
 
-// CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
-
+// - LandingPage COMPONENT -
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome');
+  // * Declaring useHistory as variable
   const history = useHistory();
 
-  const onLogin = (event) => {
-    history.push('/login');
-  };
+  // * Function to send user to login page
+  const handleLoginButton = () => {
+    // Logging
+    console.log("Login button clicked");
 
+    // Go to '/login' url
+    history.push("/login");
+  }; // * end handleLoginButton
+
+  // * Function to send user to login page
+  const handleRegisterButton = () => {
+    // Logging
+    console.log("Login button clicked");
+
+    // Go to '/login' url
+    history.push("/registration");
+  }; // * end handleLoginButton
+
+  //  - RENDERING -
   return (
-    <div className="container">
-      <h2>{heading}</h2>
+    <React.Fragment>
+      <CssBaseline />
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        height="100%" // Make the Grid take the full height of the Container
+      >
+        <Grid item>
+          <Box component="header">
+            <h1 style={{ fontSize: "5rem" }}>PRIORITASK</h1>
+          </Box>
+        </Grid>
 
-      <div className="grid">
-        <div className="grid-col grid-col_8">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra lacus
-            ut ex molestie blandit. Etiam et turpis sit amet risus mollis
-            interdum. Suspendisse et justo vitae metus bibendum fringilla sed
-            sed justo. Aliquam sollicitudin dapibus lectus, vitae consequat odio
-            elementum eget. Praesent efficitur eros vitae nunc interdum, eu
-            interdum justo facilisis. Sed pulvinar nulla ac dignissim efficitur.
-            Quisque eget eros metus. Vestibulum bibendum fringilla nibh a
-            luctus. Duis a sapien metus.
-          </p>
+        <Grid
+          item
+          sx={{
+            width: "500px", // Set your desired width for the Box elements here
+            height: "40px",
+            marginBottom: "4rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Stack spacing={5} direction="row">
+            <Box
+              sx={{
+                width: "10rem", // Set your desired width for the Box elements here
+                height: "5rem",
+                backgroundColor: "black",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              <p>Create and edit checklists</p>
+            </Box>
 
-          <p>
-            Praesent consectetur orci dui, id elementum eros facilisis id. Sed
-            id dolor in augue porttitor faucibus eget sit amet ante. Nunc
-            consectetur placerat pharetra. Aenean gravida ex ut erat commodo, ut
-            finibus metus facilisis. Nullam eget lectus non urna rhoncus
-            accumsan quis id massa. Curabitur sit amet dolor nisl. Proin
-            euismod, augue at condimentum rhoncus, massa lorem semper lacus, sed
-            lobortis augue mi vel felis. Duis ultrices sapien at est convallis
-            congue.
-          </p>
+            <Box
+              sx={{
+                width: "10rem", // Set your desired width for the Box elements here
+                height: "5rem",
+                backgroundColor: "black",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              <p>Make priorities</p>
+            </Box>
 
-          <p>
-            Fusce porta diam ac tortor elementum, ut imperdiet metus volutpat.
-            Suspendisse posuere dapibus maximus. Aliquam vitae felis libero. In
-            vehicula sapien at semper ultrices. Vivamus sed feugiat libero. Sed
-            sagittis neque id diam euismod, ut egestas felis ultricies. Nullam
-            non fermentum mauris. Sed in enim ac turpis faucibus pretium in sit
-            amet nisi.
-          </p>
-        </div>
-        <div className="grid-col grid-col_4">
-          <RegisterForm />
+            <Box
+              sx={{
+                width: "10rem", // Set your desired width for the Box elements here
+                height: "5rem",
+                backgroundColor: "black",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              <p>Checkoff completed tasks</p>
+            </Box>
+          </Stack>
+        </Grid>
 
-          <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
+        <Grid item>
+          <Stack spacing={5} direction="row">
+            <Button
+              onClick={handleLoginButton}
+              type="button"
+              variant="contained"
+            >
               Login
-            </button>
-          </center>
-        </div>
-      </div>
-    </div>
+            </Button>
+            <Button
+              onClick={handleRegisterButton}
+              type="button"
+              variant="contained"
+            >
+              Register
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
+    </React.Fragment>
   );
 }
 
