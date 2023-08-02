@@ -10,7 +10,7 @@ import {
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 // Navigation
-import Nav from "../Nav/Nav";
+import PreLoginNav from "../Navigation/PreLoginNav/PreLoginNav";
 import Footer from "../Footer/Footer";
 // Protected routes for user
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -44,7 +44,7 @@ function App() {
       <Container maxWidth="lg" sx={{ bgcolor: "#cfe8fc", height: "100vh" }}>
         <Router>
           <div>
-            <Nav />
+            <PreLoginNav />
             <Switch>
               {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
               <Redirect exact from="/" to="/home" />
