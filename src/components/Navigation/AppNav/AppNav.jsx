@@ -3,7 +3,7 @@
 import React from "react";
 import { useState } from "react";
 // Router
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // Components
 import LogOutButton from "../../LogOutButton/LogOutButton"; // LogoutButton
 // Material UI
@@ -19,17 +19,14 @@ import ListItemButton from "@mui/joy/ListItemButton";
 import Home from "@mui/icons-material/Home";
 import Apps from "@mui/icons-material/Apps";
 
-
 // - AppNav COMPONENT -
 function AppNav() {
+  // * Declaring useHistory
+  const history = useHistory();
 
-  // * Declaring useState local states
-  // MUI
-  const [color, setColor] = useState('neutral');
-  
   // - RENDERING -
   return (
-    <div>
+    <React.Fragment>
       {/* MUI */}
       <List
         sx={{
@@ -37,35 +34,52 @@ function AppNav() {
         }}
       >
         <ListItem>
-          <ListItemButton selected>
-            <ListItemDecorator>
-              <Home />
-            </ListItemDecorator>
-            Home
+          <ListItemButton
+            onClick={() => {
+              history.push("/checklists");
+            }}
+          >
+            Checklists
           </ListItemButton>
         </ListItem>
+
         <ListItem>
-          <ListItemButton>
-            <ListItemDecorator>
-              <Apps />
-            </ListItemDecorator>
-            Apps
+          <ListItemButton
+            onClick={() => {
+              history.push("/history");
+            }}
+          >
+            History
           </ListItemButton>
         </ListItem>
+
         <ListItem>
-          <ListItemButton>
-            <ListItemDecorator />
-            Settings
+          <ListItemButton
+            onClick={() => {
+              history.push("/journal");
+            }}
+          >
+            Journal
           </ListItemButton>
+        </ListItem>
+
+        <ListItem>
+          <ListItemButton
+            onClick={() => {
+              history.push("/about");
+            }}
+          >
+            About
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem>
+          <ListItemButton>Logout</ListItemButton>
         </ListItem>
       </List>
 
       <Link className="navLink" to="/user">
         Home
-      </Link>
-
-      <Link className="navLink" to="/checklists">
-        Checklists
       </Link>
 
       <Link className="navLink" to="/info">
@@ -77,7 +91,7 @@ function AppNav() {
       <Link className="navLink" to="/about">
         About
       </Link>
-    </div>
+    </React.Fragment>
   );
 } // * end AppNav
 
