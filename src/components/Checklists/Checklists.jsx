@@ -1,16 +1,21 @@
 // - IMPORTING -
 // React
-import React from "react";
+import React, { useEffect } from "react";
 
 // - Checklists COMPONENT-
 function Checklists() {
   // Will take in checklist array from redux store, map through adding a checklist to DOM
 
-  // Function to create a new checklist
+  // * Function to create a new checklist
   const handleNewChecklistButton = () => {
     // Logging 
     console.log("Add new checklist button clicked.");
   }; // * end handleNewChecklistButton
+
+// * Run on DOM load
+useEffect(() => {
+  dispatch({ type: "FETCH_CHECKLIST" });
+}, []);
 
   return (
     <React.Fragment>
