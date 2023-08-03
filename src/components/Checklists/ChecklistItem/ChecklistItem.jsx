@@ -21,7 +21,7 @@ function ChecklistItem({ checklist }) {
     <React.Fragment>
       <div className="checklist-item-box">
         <header className="checklist-item-header">
-          <button className="rank-button" type="button">Rank: </button>
+          <button className="rank-button" type="button">Rank:{checklist.checklist_ranking} </button>
           <center>
             <h2>Checklist {checklist.checklist_id}</h2>
           </center>
@@ -34,7 +34,9 @@ function ChecklistItem({ checklist }) {
         <section className="priorities-container">
           {priorities.map((priority) => {
             return (
-              <PriorityItem key={priority.priority_id} priority={priority} />
+              <div key={priority.priority_id} className="priorities-card">
+                <PriorityItem priority={priority} />
+              </div>
             );
           })}
         </section>

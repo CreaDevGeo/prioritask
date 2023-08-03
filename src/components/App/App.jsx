@@ -41,7 +41,10 @@ function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="lg" sx={{ bgcolor: "#cfe8fc", height: "100vh" }}>
+      <Container
+        maxWidth="lg"
+        sx={{ bgcolor: "#cfe8fc", height: "100" }}
+      >
         <Router>
           <div>
             <PreLoginNav />
