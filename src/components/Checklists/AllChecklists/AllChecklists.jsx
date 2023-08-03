@@ -16,7 +16,7 @@ function AllChecklists() {
   // * Declaring checklists from store
   const allChecklists = useSelector((store) => store.allChecklists);
   // Logging
-  console.log("checklists is:", allChecklists);
+  console.log("\nallChecklists is:", allChecklists);
   // Will have to do object traversal to get the data you want
 
   // * Declaring useDispatch hook as variable
