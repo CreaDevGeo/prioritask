@@ -41,7 +41,7 @@ function AllChecklists() {
       </center>
       {/* Display the length of checklist array */}
       <button onClick={handleNewChecklistButton}>
-        Add new checklist: {allChecklists.length}
+        Add new checklist: {allChecklists.length}/4
       </button>
       <button>Sort by recent</button>
 

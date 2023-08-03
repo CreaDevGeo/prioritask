@@ -2,6 +2,10 @@
 .checklist-item-box {
   background-color: gray;
   margin: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Add vertical scrollbar if content overflows */
 }
 
 .checklist-item-header {
@@ -15,13 +19,25 @@
 }
 
 /* Rank and checklist styling */
-.rank-button, .edit-button {
-    width: 6rem;
-    height: 1.5rem;
+.rank-button,
+.edit-button {
+  width: 6rem;
+  height: 1.5rem;
 }
+
 .priorities-container {
+  background-color: red;
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-content: center;
-  gap: 20rem;
+  flex-grow: 1; /* Allow priorities-container to grow and fill available space */
+}
+
+.priorities-card {
+  background-color: blue;
+  width: 18rem;
+  height: 20rem; /* Set a fixed height for the PriorityItem component */
+  margin: 20px;
 }
