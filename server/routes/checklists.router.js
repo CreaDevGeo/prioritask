@@ -9,7 +9,9 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 // * GET request for all checklists of user that is logged in
-router.get("/", (req, res) => {
+router.get("/:id", (req, res) => {
+const userID = req.params.id
+
   // SQL Query for all checklists
   const queryText = `
     SELECT
@@ -48,13 +50,13 @@ LEFT JOIN
 LEFT JOIN
     Priorities ON Checklists.checklist_id = Priorities.checklist_id
 WHERE
-    "user"."id" = 1
+    "user"."id" = $1
 GROUP BY
     Checklists.checklist_id, Checklists.ranking, Checklists.is_completed;
   `;
 
   pool
-    .query(queryText)
+    .query(queryText, [userID])
     .then((result) => {
       console.log("GET request made for checklists! Result is:", result.rows);
       res.send(result.rows);
@@ -65,25 +67,6 @@ GROUP BY
     });
 }); // * end GET all user's checklists
 
-// Handles POST request with new user data
-// The only thing different from this and every other post we've seen
-// is that the password gets encrypted before being inserted
-router.post("/register", (req, res, next) => {
-//   const username = ;
-//   const password = ;
-  // Add other additional info for database here
-
-  // Update query to include additional info
-  const queryText = `INSERT INTO "user" (username, password)
-    VALUES ($1, $2) RETURNING id`;
-  pool
-    .query(queryText, [username, password])
-    .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.log("User registration failed: ", err);
-      res.sendStatus(500);
-    });
-});
 
 
 module.exports = router;
