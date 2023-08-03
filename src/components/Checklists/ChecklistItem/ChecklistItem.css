@@ -1,3 +1,27 @@
-.checklist-box {
-    background-color: gray;
+/* ChecklistItem Style Guide */
+.checklist-item-box {
+  background-color: gray;
+  margin: 2rem;
+}
+
+.checklist-item-header {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-end;
+  align-items: baseline;
+  gap: 15rem;
+}
+
+/* Rank and checklist styling */
+.rank-button, .edit-button {
+    width: 6rem;
+    height: 1.5rem;
+}
+.priorities-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 20rem;
 }

@@ -26,23 +26,28 @@ const userID = req.params.id
             'tasks', (
                 SELECT json_agg(
                     json_build_object(
-                        'task_id', task_id,
-                        'task_description', task_description,
-                        'task_completed', is_completed,
-                        'deadline', deadline,
-                        'todos', (
-                            SELECT json_agg(
-                                json_build_object(
-                                    'todo_id', todo_id,
-                                    'todo_item', todo_item
-                                )
-                            ) FROM ToDos WHERE ToDos.task_id = Tasks.task_id
-                        )
-                    )
-                ) FROM Tasks WHERE Tasks.priority_id = Priorities.priority_id
-            )
-        )
-    ) AS priorities_data
+                        'task_id', Tasks.task_id,
+                        'task_description', Tasks.task_description,
+                        'task_completed', Tasks.is_completed,
+                        'deadline', Tasks.deadline,
+                        'todos', todos_data
+                    ) ORDER BY Tasks.task_id
+                )
+                FROM Tasks
+                LEFT JOIN LATERAL (
+                    SELECT json_agg(
+                        json_build_object(
+                            'todo_id', todo_id,
+                            'todo_item', todo_item
+                        ) ORDER BY todo_id
+                    ) AS todos_data
+                    FROM ToDos
+                    WHERE ToDos.task_id = Tasks.task_id
+                ) AS ToDosSubquery ON true
+                WHERE Tasks.priority_id = Priorities.priority_id
+            ) 
+        ) ORDER BY priority_number
+    ) AS checklist_item_priorities
 FROM
     "user"
 LEFT JOIN
