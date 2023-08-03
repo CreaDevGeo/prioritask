@@ -21,13 +21,13 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import Checklists from "../Checklists/Checklists";
 // Material UI
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 // CSS
 import "./App.css";
+import AllChecklists from "../Checklists/AllChecklists/AllChecklists";
 
 function App() {
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ function App() {
                 exact
                 path="/checklists"
               >
-                <Checklists />
+                <AllChecklists />
               </ProtectedRoute>
 
               <ProtectedRoute
