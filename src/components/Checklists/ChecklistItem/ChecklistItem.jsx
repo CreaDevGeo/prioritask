@@ -6,13 +6,12 @@ import "../ChecklistItem/ChecklistItem.css";
 import PriorityItem from "../../PriorityItem/PriorityItem";
 // Components
 
-
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist }) {
-    // Priorities of checklist
-    const priorities = checklist.checklist_item_priorities;
-  
-    // * Logging
+  // Priorities of checklist
+  const priorities = checklist.checklist_item_priorities;
+
+  // * Logging
   console.log(`\nchecklist ${checklist.checklist_id} is:`, checklist);
   console.log(`priorities are:`, priorities);
   // Probably gotta store priorities in ChecklistItem objects as property values and store in indiviual redux states
@@ -20,17 +19,25 @@ function ChecklistItem({ checklist }) {
   // - RENDERING -
   return (
     <React.Fragment>
-      <div className="checklist-box">
-        <center>
-          <h2>Checklist {checklist.checklist_id}</h2>
-        </center>
+      <div className="checklist-item-box">
+        <header className="checklist-item-header">
+          <button className="rank-button" type="button">Rank: </button>
+          <center>
+            <h2>Checklist {checklist.checklist_id}</h2>
+          </center>
+          <button className="edit-button" type="button">
+            ⚪️⚪️⚪️
+          </button>
+        </header>
         {/* Map checklist, creating a component for each priority */}
         {/* Priorities */}
         <section className="priorities-container">
           {priorities.map((priority) => {
-            return <PriorityItem key={priority.priority_id} />;
+            return (
+              <PriorityItem key={priority.priority_id} priority={priority} />
+            );
           })}
-          </section>
+        </section>
       </div>
     </React.Fragment>
   );
