@@ -62,7 +62,7 @@ function TaskItem({ task }) {
           >
             <Fade in={open}>
               <Box sx={style}>
-                <h2 id="transition-modal-title">Text in a modal</h2>
+                <h2 id="transition-modal-title">{taskDescription}</h2>
                 <span
                   id="transition-modal-description"
                   style={{ marginTop: 16 }}

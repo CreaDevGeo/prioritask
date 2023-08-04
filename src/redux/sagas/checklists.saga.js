@@ -2,13 +2,15 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
+// - LISTENER SAGA -
 // * checklists listener saga
 function* checklistsSaga() {
   yield takeLatest("FETCH_CHECKLISTS", fetchAllChecklists);
   yield takeLatest("ADD_CHECKLIST", addChecklist);
+  yield takeLatest("DELETE_CHECKLIST", deleteChecklist);
 } // * end checklists
 
-// - SAGAS -
+// - ACTION SAGAS -
 // * Gen function to get all checklists from the server
 function* fetchAllChecklists(action) {
   try {
@@ -32,7 +34,7 @@ function* fetchAllChecklists(action) {
 function* addChecklist(action) {
   try {
     // Declaring user's id as payload
-    const userID = action.payload
+    const userID = action.payload;
     console.log("userID is:", userID);
 
     // Declaring response as movie genres
@@ -44,6 +46,36 @@ function* addChecklist(action) {
     console.log("\nError adding checklist.");
   }
 } // * end addChecklist
+
+// * Gen function to remove a checklist via DELETE
+function* deleteChecklist(action) {
+  try {
+    // Declaring user's id as payload
+    const userID = action.payload.userID;
+    // Declaring user's checklist id as payload
+    const checklistID = action.payload.checklistID;
+    // Logging
+    console.log("\nuserID is:", userID, "checklistID is:", checklistID);
+
+    // Axios DELETE request
+    yield axios.delete(
+      `/api/checklists/${userID}/${checklistID}`,
+      action.payload
+    );
+
+      // Dispatch action to run PUT request to update checklist number
+      // Payload is action prop
+    yield put({
+      type: "UPDATE_CHECKLIST_NUMBER",
+      payload: action,
+    });
+
+    // Dispatch action to re-fetch checklists
+    yield put({ type: "FETCH_CHECKLISTS", payload: userID });
+  } catch {
+    console.log("\nError removing checklist.");
+  }
+} // * end deleteChecklist
 
 // - EXPORTING userSaga -
 export default checklistsSaga;

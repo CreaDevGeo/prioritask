@@ -20,6 +20,9 @@ function AllChecklists() {
   console.log("\nallChecklists is:", allChecklists);
   // Will have to do object traversal to get the data you want
 
+  // Variable to keep track of the checklist number
+  let checklistNumber = 0;
+
   // * Function to create a new checklist
   const handleNewChecklistButton = () => {
     // Logging
@@ -28,7 +31,7 @@ function AllChecklists() {
     // Dispatching action to create new checklist
     dispatch({
       type: "ADD_CHECKLIST",
-      payload: {userID: user.id}
+      payload: { userID: user.id },
     });
   }; // * end handleNewChecklistButton
 
@@ -52,8 +55,15 @@ function AllChecklists() {
       {/* Mapping through checklist to create component */}
       <div>
         {allChecklists.map((checklist) => {
+          { /* Increment checklistNumber */}
+          checklistNumber++;
+
           return (
-            <ChecklistItem key={checklist.checklist_id} checklist={checklist} />
+            <ChecklistItem
+              key={checklist.checklist_id}
+              checklist={checklist}
+              checklistNumber={checklistNumber}
+            />
           );
         })}
       </div>

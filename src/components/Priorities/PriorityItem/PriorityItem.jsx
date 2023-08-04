@@ -2,7 +2,7 @@
 // React
 import React from "react";
 // Components
-import TasksList from "../Tasks/TasksList/TasksList";
+import TasksList from "../../Tasks/TasksList/TasksList";
 
 // - PriorityItem COMPONENT -
 function PriorityItem({ priority }) {
