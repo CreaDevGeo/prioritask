@@ -26,7 +26,7 @@
 }
 
 .priorities-container {
-  background-color: red;
+  background-color: rgb(195, 195, 195);
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +36,7 @@
 }
 
 .priorities-card {
-  background-color: blue;
+  background-color: rgb(123, 123, 123);
   width: 18rem;
   height: 20rem; /* Set a fixed height for the PriorityItem component */
   margin: 20px;
