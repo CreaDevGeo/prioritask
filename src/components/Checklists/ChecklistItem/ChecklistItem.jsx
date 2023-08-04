@@ -3,7 +3,7 @@
 import React from "react";
 // Css
 import "../ChecklistItem/ChecklistItem.css";
-import PriorityItem from "../../PriorityItem/PriorityItem";
+import PriorityItem from "../../Priorities/PriorityItem/PriorityItem";
 // Components
 
 // - ChecklistItem COMPONENT -
@@ -21,7 +21,9 @@ function ChecklistItem({ checklist }) {
     <React.Fragment>
       <div className="checklist-item-box">
         <header className="checklist-item-header">
-          <button className="rank-button" type="button">Rank:{checklist.checklist_ranking} </button>
+          <button className="rank-button" type="button">
+            Rank:{checklist.checklist_ranking}
+          </button>
           <center>
             <h2>Checklist {checklist.checklist_id}</h2>
           </center>
