@@ -25,14 +25,21 @@ function AllChecklists() {
 
   // * Function to create a new checklist
   const handleNewChecklistButton = () => {
-    // Logging
-    console.log("Add new checklist button clicked.");
+    if (checklistNumber < 4) {
+      // Logging
+      console.log("Add new checklist button clicked.");
 
-    // Dispatching action to create new checklist
-    dispatch({
-      type: "ADD_CHECKLIST",
-      payload: { userID: user.id },
-    });
+      // Dispatching action to create new checklist
+      dispatch({
+        type: "ADD_CHECKLIST",
+        payload: { userID: user.id },
+      });
+
+    } else {
+      // Logging and alert
+      console.log("Cant create more than 4 checklists.");
+      alert("You cannot create more than 4 checklists.");
+    }
   }; // * end handleNewChecklistButton
 
   // * Run on DOM load
@@ -55,7 +62,7 @@ function AllChecklists() {
       {/* Mapping through checklist to create component */}
       <div>
         {allChecklists.map((checklist) => {
-          { /* Increment checklistNumber */}
+          // Increment checklistNumber
           checklistNumber++;
 
           return (
