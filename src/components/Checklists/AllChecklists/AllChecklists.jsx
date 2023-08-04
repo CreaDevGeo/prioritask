@@ -8,24 +8,28 @@ import ChecklistItem from "../ChecklistItem/ChecklistItem";
 
 // - Checklists COMPONENT-
 function AllChecklists() {
-  // Will take in checklist array from redux store, map through adding a checklist to DOM
+  // * Declaring useDispatch hook as variable
+  const dispatch = useDispatch();
 
   // * Declaring userID from store
   const user = useSelector((store) => store.user);
-  
+
   // * Declaring checklists from store
   const allChecklists = useSelector((store) => store.allChecklists);
   // Logging
   console.log("\nallChecklists is:", allChecklists);
   // Will have to do object traversal to get the data you want
 
-  // * Declaring useDispatch hook as variable
-  const dispatch = useDispatch();
-
   // * Function to create a new checklist
   const handleNewChecklistButton = () => {
     // Logging
     console.log("Add new checklist button clicked.");
+
+    // Dispatching action to create new checklist
+    dispatch({
+      type: "ADD_CHECKLIST",
+      payload: {userID: user.id}
+    });
   }; // * end handleNewChecklistButton
 
   // * Run on DOM load
@@ -47,11 +51,11 @@ function AllChecklists() {
 
       {/* Mapping through checklist to create component */}
       <div>
-      {allChecklists.map((checklist) => {
-        return (
-          <ChecklistItem key={checklist.checklist_id} checklist={checklist}/>
-        )
-      })} 
+        {allChecklists.map((checklist) => {
+          return (
+            <ChecklistItem key={checklist.checklist_id} checklist={checklist} />
+          );
+        })}
       </div>
     </React.Fragment>
   );
