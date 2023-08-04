@@ -8,13 +8,18 @@ import PriorityItem from "../../Priorities/PriorityItem/PriorityItem";
 
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist }) {
+
+  // Number of checklist
+  const checklistNumber = checklist.checklist_number;
   // Priorities of checklist
-  const priorities = checklist.checklist_item_priorities;
+  const priorities = checklist.checklist_data.priorities;
 
   // * Logging
-  console.log(`\nchecklist ${checklist.checklist_id} is:`, checklist);
-  console.log(`priorities are:`, priorities);
-  // Probably gotta store priorities in ChecklistItem objects as property values and store in indiviual redux states
+  console.log(
+    `\nchecklist ${checklistNumber} has ${priorities.length} priorities`
+  );
+
+  // Probably gotta store priorities in ChecklistItem objects as property values and store in individual redux states
 
   // - RENDERING -
   return (
@@ -25,10 +30,10 @@ function ChecklistItem({ checklist }) {
             Rank:{checklist.checklist_ranking}
           </button>
           <center>
-            <h2>Checklist {checklist.checklist_id}</h2>
+            <h2>Checklist {checklistNumber}</h2>
           </center>
           <button className="edit-button" type="button">
-            ⚪️⚪️⚪️
+            ...
           </button>
         </header>
         {/* Map checklist, creating a component for each priority */}

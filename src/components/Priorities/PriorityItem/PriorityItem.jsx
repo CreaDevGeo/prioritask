@@ -8,7 +8,15 @@ import TasksList from "../Tasks/TasksList/TasksList";
 function PriorityItem({ priority }) {
   // * Declaring tasks as variable from priority
   const tasks = priority.tasks;
-  console.log(`\tTasks for Priority ${priority.priority_number} are:`, tasks);
+
+  // Logging Priorities and tasks
+  const taskCount = tasks === null || tasks.length === 0 ? 0 : tasks.length;
+  const pluralize = taskCount === 1 ? "" : "s";
+  console.log(
+    `\t Priority ${priority.priority_number} has ${taskCount} task${pluralize}`
+  );
+
+
 
   // - RENDERING -
   return (
