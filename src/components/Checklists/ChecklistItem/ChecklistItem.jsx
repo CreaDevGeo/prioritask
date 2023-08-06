@@ -1,29 +1,23 @@
 // - IMPORTING -
-// React
 import React from "react";
-// Redux
 import { useDispatch, useSelector } from "react-redux";
-// Css
 import "../ChecklistItem/ChecklistItem.css";
-import PriorityItem from "../../Priorities/PriorityItem/PriorityItem";
-// Components
+import PrioritiesList from "../../Priorities/PrioritiesList/PrioritiesList";
 
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist, checklistNumber }) {
-  // Priorities of checklist
   const priorities = checklist.checklist_data.priorities;
-  // * Logging
+  const checklistID = checklist.checklist_id;
+
+  // Logging
   console.log(
-    `\nchecklist ${checklistNumber} has ${priorities.length} priorities`
-  );
-  console.log(
-    `Checklist with number: ${checklistNumber} has ${priorities.length} priorities`
+    `Checklist ${checklistNumber} has ${priorities.length} priorities`
   );
 
-  // * Declaring useDispatch hook as variable
+  // Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
 
-  // * Declaring userID from store
+  // Getting userID from store
   const user = useSelector((store) => store.user);
 
   // Function to dispatch action with user id to remove selected checklist
@@ -33,42 +27,32 @@ function ChecklistItem({ checklist, checklistNumber }) {
     // Dispatch an action to the redux saga, with a payload of user id and checklist id
     dispatch({
       type: "DELETE_CHECKLIST",
-      payload: { userID: user.id, checklistID: checklist.checklist_id },
+      payload: { userID: user.id, checklistID: checklistID },
     });
-  }; // * end handleDeleteChecklist
+  };
 
   // - RENDERING -
   return (
-    <React.Fragment>
-      <div className="checklist-item-box">
-        <header className="checklist-item-header">
-          <center>
-            <h2>Checklist {checklistNumber}</h2>
-          </center>
-          <button className="edit-button" type="button">
-            ...
-          </button>
-        </header>
-        {/* Map checklist, creating a component for each priority */}
-        {/* Priorities */}
-        <section className="priorities-container">
-          {priorities.map((priority) => {
-            return (
-              <div key={priority.priority_id} className="priorities-card">
-                <PriorityItem priority={priority} />
-              </div>
-            );
-          })}
-        </section>
+    <div className="checklist-item-box">
+      <header className="checklist-item-header">
+        <center>
+          <h2>Checklist {checklistNumber}</h2>
+        </center>
+        <button className="edit-button" type="button">
+          ...
+        </button>
+      </header>
 
-        {/* Delete Button */}
-        <div>
-          <button onClick={handleDeleteChecklist} type="submit">
-            Delete
-          </button>
-        </div>
+      {/* Priorities */}
+      <PrioritiesList checklistID={checklistID} priorities={priorities} />
+
+      {/* Delete Button */}
+      <div>
+        <button onClick={handleDeleteChecklist} type="button">
+          Delete
+        </button>
       </div>
-    </React.Fragment>
+    </div>
   );
 } // - END ChecklistItem COMPONENT -
 
