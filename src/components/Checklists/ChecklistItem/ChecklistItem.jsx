@@ -30,14 +30,6 @@ function ChecklistItem({ checklist, checklistNumber }) {
   const handleDeleteChecklist = () => {
     console.log("Delete checklist button clicked");
 
-    /*  On click of delete button plan
-      1.  Dispatch an action to the redux saga, with a payload of user id and checklist id ✅
-      2.  In redux saga, send DELETE request with dynamic url using user id to server ✅
-      3.  In server checklists router...
-        - want to make delete request that will target user id and checklist id for deletion with query
-        - query to update the checklist number for the user
-    */
-
     // Dispatch an action to the redux saga, with a payload of user id and checklist id
     dispatch({
       type: "DELETE_CHECKLIST",
@@ -50,9 +42,6 @@ function ChecklistItem({ checklist, checklistNumber }) {
     <React.Fragment>
       <div className="checklist-item-box">
         <header className="checklist-item-header">
-          <button className="rank-button" type="button">
-            Rank:{checklist.checklist_ranking}
-          </button>
           <center>
             <h2>Checklist {checklistNumber}</h2>
           </center>
