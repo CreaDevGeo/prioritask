@@ -32,7 +32,7 @@ function AllChecklists() {
       // Dispatching action to create new checklist
       dispatch({
         type: "ADD_CHECKLIST",
-        payload: { userID: user.id },
+        payload: user.id,
       });
 
     } else {
