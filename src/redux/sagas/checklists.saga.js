@@ -8,6 +8,7 @@ function* checklistsSaga() {
   yield takeLatest("FETCH_CHECKLISTS", fetchAllChecklists);
   yield takeLatest("ADD_CHECKLIST", addChecklist);
   yield takeLatest("DELETE_CHECKLIST", deleteChecklist);
+  yield takeLatest("FETCH_UPDATED_CHECKLIST", fetchUpdatedChecklist); 
 } // * end checklists
 
 // - ACTION SAGAS -
@@ -30,6 +31,19 @@ function* fetchAllChecklists(action) {
   }
 } // * end fetchAllChecklists
 
+// * Gen function to fetch updated checklist with priorities
+function* fetchUpdatedChecklist(action) {
+  try {
+    const userID = action.payload;
+
+    const updatedChecklist = yield axios.get(`/api/checklists/${userID}`);
+    yield put({ type: "SET_CHECKLISTS", payload: updatedChecklist.data });
+  } catch {
+    console.log("Error fetching updated checklist.");
+  }
+}; // * end fetchUpdatedChecklist
+
+
 // * Gen function to add a checklist via POST
 function* addChecklist(action) {
   try {
@@ -38,10 +52,10 @@ function* addChecklist(action) {
     console.log("userID is:", userID);
 
     // Declaring response as movie genres
-    yield axios.post("/api/checklists", userID);
+    yield axios.post("/api/checklists", {userID});
 
-    // Dispatch action to re-fetch checklists
-    yield put({ type: "FETCH_CHECKLISTS", payload: userID.userID });
+    // Dispatch action to fetch the updated checklist, including priorities
+    yield put({ type: "FETCH_UPDATED_CHECKLIST", payload: userID });
   } catch {
     console.log("\nError adding checklist.");
   }

@@ -6,12 +6,12 @@ import PrioritiesList from "../../Priorities/PrioritiesList/PrioritiesList";
 
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist, checklistNumber }) {
-  const priorities = checklist.checklist_data.priorities;
+  // const priorities = checklist.checklist_data.priorities;
   const checklistID = checklist.checklist_id;
 
   // Logging
   console.log(
-    `Checklist ${checklistNumber} has ${priorities.length} priorities`
+    // `Checklist ${checklistNumber} has ${priorities.length} priorities`
   );
 
   // Declaring useDispatch hook as a variable
@@ -44,7 +44,7 @@ function ChecklistItem({ checklist, checklistNumber }) {
       </header>
 
       {/* Priorities */}
-      <PrioritiesList checklistID={checklistID} priorities={priorities} />
+      {/* <PrioritiesList checklistID={checklistID} priorities={priorities} /> */}
 
       {/* Delete Button */}
       <div>

@@ -16,48 +16,25 @@ router.get("/:id", (req, res) => {
   // Created a structured object build in select query
   const queryText = `
     SELECT
-    checklists.checklist_id,
-    checklists.checklist_number AS checklist_number,
-    checklists.ranking AS checklist_ranking,
-    checklists.is_completed AS checklist_completed,
-    json_build_object(
-        'priorities', json_agg(
-            json_build_object(
-                'priority_id', priorities.priority_id,
-                'priority_number', priorities.priority_number,
-                'priority_completed', priorities.is_completed,
-                'tasks', (
-                    SELECT json_agg(
-                        json_build_object(
-                            'task_id', tasks.task_id,
-                            'task_description', tasks.task_description,
-                            'task_completed', tasks.is_completed,
-                            'deadline', tasks.deadline,
-                            'todos', (
-                                SELECT json_agg(
-                                    json_build_object(
-                                        'todo_id', todos.todo_id,
-                                        'todo_item', todos.todo_item
-                                    )
-                                ) FROM todos WHERE todos.task_id = tasks.task_id
-                            )
-                        )
-                    ) FROM tasks WHERE tasks.priority_id = priorities.priority_id
-                )
-            )
-        )
-    ) AS checklist_data
-FROM
-    "user"
-LEFT JOIN
-    checklists ON "user".id = checklists.user_id
-LEFT JOIN
-    priorities ON checklists.checklist_id = priorities.checklist_id
-WHERE
-    "user".id = $1
-GROUP BY
-    checklists.checklist_id, checklists.checklist_number, checklists.ranking, checklists.is_completed;
-
+      c.checklist_id,
+      c.ranking,
+      checklist_completed,
+      p.priority_id,
+      p.priority_number,
+      priority_completed,
+      p.num_tasks,
+      t.task_id,
+      t.task_description,
+      task_completed,
+      t.deadline,
+      td.todo_id,
+      td.todo_item
+    FROM checklists_view c
+    LEFT JOIN priorities p ON c.checklist_id = p.checklist_id
+    LEFT JOIN tasks t ON p.priority_id = t.priority_id
+    LEFT JOIN todos td ON t.task_id = td.task_id
+    WHERE c.user_id = $1
+    ORDER BY c.checklist_id, p.priority_number, t.task_id, td.todo_id;
   `;
 
   pool
@@ -79,12 +56,23 @@ router.post("/", (req, res) => {
   console.log("userID is:", userID);
   // SQL query to add a checklist
   const queryText = `
-    INSERT INTO Checklists (user_id)
-    VALUES ($1);
+    INSERT INTO "checklists" ("user_id")
+    VALUES ($1)
+    RETURNING checklist_id;
     `;
 
   pool
     .query(queryText, [userID])
+    .then((result) => {
+      const newChecklistID = result.rows[0].checklist_id;
+
+      // Fetch the newly created checklist with priority data
+      const queryUpdatedChecklist = `
+        SELECT * FROM checklists_view WHERE checklist_id = $1;
+      `;
+
+      return pool.query(queryUpdatedChecklist, [newChecklistID]);
+    })
     .then((result) => {
       console.log("POST request made to add a checklist! Result is:", result);
       res.sendStatus(201);

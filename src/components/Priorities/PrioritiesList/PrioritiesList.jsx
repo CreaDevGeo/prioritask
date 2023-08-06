@@ -13,7 +13,7 @@ function PrioritiesList({ checklistID, priorities }) {
       {/* Mapping through priorities */}
       {priorities.map((priority) => {
         const priorityNumber = priority.priority_number;
-        {/* Want next priority, if also null  */}
+        {/* Want next priority, if also null to  */}
 
 
         return (
