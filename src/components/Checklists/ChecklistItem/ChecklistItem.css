@@ -9,6 +9,7 @@
 }
 
 .checklist-item-header {
+  color: white;
   width: 10rem;
   margin: 0 auto;
   display: flex;
@@ -28,7 +29,6 @@
 }
 
 .priorities-container {
-  background-color: rgb(195, 195, 195);
   width: 100%;
   padding: 2rem;
   display: flex;

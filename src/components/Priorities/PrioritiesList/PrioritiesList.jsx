@@ -7,30 +7,29 @@ import CreatePriority from "../CreatePriority/CreatePriority";
 
 // - PrioritiesList COMPONENT -
 function PrioritiesList({ checklistID, priorities }) {
+// * Declaring priorities' values as object with properties
+
+
   // - RENDERING -
-  return (
-    <section className="priorities-container">
-      {/* Mapping through priorities */}
-      {priorities.map((priority) => {
-        const priorityNumber = priority.priority_number;
-        {/* Want next priority, if also null to  */}
-
-
-        return (
-          <div key={priority.priority_id} className="priorities-card">
-            {/* Conditional rendering based on priorityNumber */}
-            {priorityNumber === null ? (
-              <CreatePriority checklistID={checklistID} />
-            ) : (
-              <div>
-                  <PriorityItem priority={priority} />
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </section>
-  );
+  // return (
+  //   <div className="priorities-container">
+  //     {priorities.map((priority, index) =>
+  //       priority.priority_number !== null ? (
+  //         <PriorityItem
+  //           key={priority.id}
+  //           checklistID={checklistID}
+  //           priority={priority}
+  //         />
+  //       ) : (
+  //         <CreatePriority
+  //           key={index}
+  //           checklistID={checklistID}
+  //           priorityNumber={`Priority ${index + 1}`}
+  //         />
+  //       )
+  //     )}
+  //   </div>
+  // );
 }
 
 export default PrioritiesList;

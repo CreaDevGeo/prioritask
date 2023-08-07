@@ -3,19 +3,18 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../ChecklistItem/ChecklistItem.css";
 import PrioritiesList from "../../Priorities/PrioritiesList/PrioritiesList";
-import CreatePriority from "../../Priorities/CreatePriority/CreatePriority";
 
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist, checklistNumber }) {
   // const priorities = checklist.checklist_data.priorities;
   const checklistID = checklist.checklist_id;
-  const checklistPriorityNumber = checklist.priority_number;
+  const priorities = checklist.priorities_data;
+
   // Logging
   console.log(
-    // `Checklist ${checklistNumber} has ${priorities.length} priorities`
+    `\nChecklist ${checklistNumber} with ChecklistID of ${checklistID} has ${priorities.length} priorities`
   );
-
-  console.log("checklist.priority_number is:", checklist.priority_number);
+  console.log("\tPriorities are:", priorities);
 
   // Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
@@ -36,42 +35,24 @@ function ChecklistItem({ checklist, checklistNumber }) {
 
   // - RENDERING -
   return (
-    <div className="checklist-item-box">
-      <header className="checklist-item-header">
-        <center>
-          <h2 className="checklist-heading">Checklist {checklistNumber}</h2>
-        </center>
-      </header>
+    <>
+      <div className="checklist-item-box">
+        <header className="checklist-item-header">
+          <center>
+            <h2 className="checklist-heading">Checklist {checklistNumber}</h2>
+          </center>
+        </header>
 
-      {/* Conditional */}
-      {/* CreatePriority components if priority_number empty*/}
-      {checklistPriorityNumber === null && (
-        <div className="priorities-container">
-          <CreatePriority
-            checklistID={checklistID}
-            priorityNumber="Priority 1"
-          />
-          <CreatePriority
-            checklistID={checklistID}
-            priorityNumber="Priority 2"
-          />
-          <CreatePriority
-            checklistID={checklistID}
-            priorityNumber="Priority 3"
-          />
+        <PrioritiesList checklistID={checklistID} priorities={priorities} />
+
+        {/* Delete Button */}
+        <div>
+          <button onClick={handleDeleteChecklist} type="button">
+            Delete
+          </button>
         </div>
-      )}
-
-      {/* Priorities */}
-      {/* <PrioritiesList checklistID={checklistID} priorities={priorities} /> */}
-
-      {/* Delete Button */}
-      <div>
-        <button onClick={handleDeleteChecklist} type="button">
-          Delete
-        </button>
       </div>
-    </div>
+    </>
   );
 } // - END ChecklistItem COMPONENT -
 
