@@ -15,7 +15,7 @@ function AllChecklists() {
   const user = useSelector((store) => store.user);
 
   // * Declaring checklists from store
-  const allChecklists = useSelector((store) => store.allChecklists);
+  const allChecklists = useSelector((store) => store.checklistsReducer);
   // Logging
   console.log("\nallChecklists is:", allChecklists);
   // Will have to do object traversal to get the data you want
@@ -44,7 +44,7 @@ function AllChecklists() {
 
   // * Run on DOM load
   useEffect(() => {
-    dispatch({ type: "FETCH_CHECKLISTS", payload: user.id });
+    dispatch({ type: "FETCH_ALL_CHECKLISTS", payload: user.id });
   }, []);
 
   // - RENDERING -
@@ -58,7 +58,7 @@ function AllChecklists() {
         Add new checklist: {allChecklists.length}/4
       </button>
       <button>Sort by recent</button>
-
+    
       {/* Mapping through checklist to create component */}
       <div>
         {allChecklists.map((checklist) => {

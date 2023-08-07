@@ -1,5 +1,6 @@
-const allChecklists = (state = [], action) => {
+const checklistsReducer = (state = [], action) => {
   switch (action.type) {
+    // Set state as all of user's checklists
     case "SET_CHECKLISTS":
       return action.payload;
     default:
@@ -7,6 +8,5 @@ const allChecklists = (state = [], action) => {
   }
 };
 
-// user will be on the redux state at:
-// state.user
-export default allChecklists;
+// - EXPORTING checklistsReducer -
+export default checklistsReducer;
