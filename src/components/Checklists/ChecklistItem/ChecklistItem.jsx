@@ -1,85 +1,77 @@
 // - IMPORTING -
-// React
 import React from "react";
-// Redux
 import { useDispatch, useSelector } from "react-redux";
-// Css
 import "../ChecklistItem/ChecklistItem.css";
-import PriorityItem from "../../Priorities/PriorityItem/PriorityItem";
-// Components
+import PrioritiesList from "../../Priorities/PrioritiesList/PrioritiesList";
+import CreatePriority from "../../Priorities/CreatePriority/CreatePriority";
 
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist, checklistNumber }) {
-  // Priorities of checklist
-  const priorities = checklist.checklist_data.priorities;
-  // * Logging
+  // const priorities = checklist.checklist_data.priorities;
+  const checklistID = checklist.checklist_id;
+  const checklistPriorityNumber = checklist.priority_number;
+  // Logging
   console.log(
-    `\nchecklist ${checklistNumber} has ${priorities.length} priorities`
-  );
-  console.log(
-    `Checklist with number: ${checklistNumber} has ${priorities.length} priorities`
+    // `Checklist ${checklistNumber} has ${priorities.length} priorities`
   );
 
-  // * Declaring useDispatch hook as variable
+  console.log("checklist.priority_number is:", checklist.priority_number);
+
+  // Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
 
-  // * Declaring userID from store
+  // Getting userID from store
   const user = useSelector((store) => store.user);
 
   // Function to dispatch action with user id to remove selected checklist
   const handleDeleteChecklist = () => {
     console.log("Delete checklist button clicked");
 
-    /*  On click of delete button plan
-      1.  Dispatch an action to the redux saga, with a payload of user id and checklist id ✅
-      2.  In redux saga, send DELETE request with dynamic url using user id to server ✅
-      3.  In server checklists router...
-        - want to make delete request that will target user id and checklist id for deletion with query
-        - query to update the checklist number for the user
-    */
-
     // Dispatch an action to the redux saga, with a payload of user id and checklist id
     dispatch({
       type: "DELETE_CHECKLIST",
-      payload: { userID: user.id, checklistID: checklist.checklist_id },
+      payload: { userID: user.id, checklistID: checklistID },
     });
-  }; // * end handleDeleteChecklist
+  };
 
   // - RENDERING -
   return (
-    <React.Fragment>
-      <div className="checklist-item-box">
-        <header className="checklist-item-header">
-          <button className="rank-button" type="button">
-            Rank:{checklist.checklist_ranking}
-          </button>
-          <center>
-            <h2>Checklist {checklistNumber}</h2>
-          </center>
-          <button className="edit-button" type="button">
-            ...
-          </button>
-        </header>
-        {/* Map checklist, creating a component for each priority */}
-        {/* Priorities */}
-        <section className="priorities-container">
-          {priorities.map((priority) => {
-            return (
-              <div key={priority.priority_id} className="priorities-card">
-                <PriorityItem priority={priority} />
-              </div>
-            );
-          })}
-        </section>
+    <div className="checklist-item-box">
+      <header className="checklist-item-header">
+        <center>
+          <h2 className="checklist-heading">Checklist {checklistNumber}</h2>
+        </center>
+      </header>
 
-        {/* Delete Button */}
-        <div>
-          <button onClick={handleDeleteChecklist} type="submit">
-            Delete
-          </button>
+      {/* Conditional */}
+      {/* CreatePriority components if priority_number empty*/}
+      {checklistPriorityNumber === null && (
+        <div className="priorities-container">
+          <CreatePriority
+            checklistID={checklistID}
+            priorityNumber="Priority 1"
+          />
+          <CreatePriority
+            checklistID={checklistID}
+            priorityNumber="Priority 2"
+          />
+          <CreatePriority
+            checklistID={checklistID}
+            priorityNumber="Priority 3"
+          />
         </div>
+      )}
+
+      {/* Priorities */}
+      {/* <PrioritiesList checklistID={checklistID} priorities={priorities} /> */}
+
+      {/* Delete Button */}
+      <div>
+        <button onClick={handleDeleteChecklist} type="button">
+          Delete
+        </button>
       </div>
-    </React.Fragment>
+    </div>
   );
 } // - END ChecklistItem COMPONENT -
 

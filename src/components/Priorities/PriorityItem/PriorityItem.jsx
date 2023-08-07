@@ -3,17 +3,19 @@
 import React from "react";
 // Components
 import TasksList from "../../Tasks/TasksList/TasksList";
+import CreatePriority from "../CreatePriority/CreatePriority";
 
 // - PriorityItem COMPONENT -
 function PriorityItem({ priority }) {
   // * Declaring tasks as variable from priority
   const tasks = priority.tasks;
+  
 
-  // Logging Priorities and tasks
+  // Logging priorities and tasks
   const taskCount = tasks === null || tasks.length === 0 ? 0 : tasks.length;
   const pluralize = taskCount === 1 ? "" : "s";
   console.log(
-    `\t Priority ${priority.priority_number} has ${taskCount} task${pluralize}`
+    `\t Priority ${priorityNumber} has ${taskCount} task${pluralize}`
   );
 
 
@@ -21,12 +23,11 @@ function PriorityItem({ priority }) {
   // - RENDERING -
   return (
     <React.Fragment>
-      <center>
-        <h3>Priority {priority.priority_number}</h3>
-      </center>
-      <div>
-        <TasksList tasks={tasks} />
-      </div>
+      <header>
+        <center>
+          <h3>Priority {priorityNumber}</h3>
+        </center>
+      </header>
     </React.Fragment>
   );
 } // - END PriorityItem COMPONENT -

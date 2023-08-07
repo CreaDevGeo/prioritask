@@ -5,12 +5,13 @@ import axios from "axios";
 // - LISTENER SAGA -
 // * checklists listener saga
 function* checklistsSaga() {
-  yield takeLatest("FETCH_CHECKLISTS", fetchAllChecklists);
+  yield takeLatest("FETCH_ALL_CHECKLISTS", fetchAllChecklists);
   yield takeLatest("ADD_CHECKLIST", addChecklist);
   yield takeLatest("DELETE_CHECKLIST", deleteChecklist);
-} // * end checklists
+} // * end checklistsSaga
 
 // - ACTION SAGAS -
+// Fetch Checklists
 // * Gen function to get all checklists from the server
 function* fetchAllChecklists(action) {
   try {
@@ -20,9 +21,6 @@ function* fetchAllChecklists(action) {
     // Declaring response as variable
     const checklists = yield axios.get(`/api/checklists/${userID}`);
 
-    // Logging response
-    console.log("GET all checklists:", checklists.data);
-
     // Dispatch action to checklists reducer, setting the global state to data
     yield put({ type: "SET_CHECKLISTS", payload: checklists.data });
   } catch {
@@ -30,6 +28,7 @@ function* fetchAllChecklists(action) {
   }
 } // * end fetchAllChecklists
 
+// Add Checklist
 // * Gen function to add a checklist via POST
 function* addChecklist(action) {
   try {
@@ -37,16 +36,21 @@ function* addChecklist(action) {
     const userID = action.payload;
     console.log("userID is:", userID);
 
-    // Declaring response as movie genres
-    yield axios.post("/api/checklists", userID);
+    // Making POST request to url with data
+    yield axios.post("/api/checklists", {userID});
 
-    // Dispatch action to re-fetch checklists
-    yield put({ type: "FETCH_CHECKLISTS", payload: userID.userID });
+    // Dispatch action to fetch the updated checklist
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
   } catch {
     console.log("\nError adding checklist.");
   }
 } // * end addChecklist
 
+// - TO IMPLEMENT SOON -
+// PUT request for updating rank of checklist
+// GET request for order by feature maybe? Highest to lowest rank and vise versa
+
+// Delete Checklist
 // * Gen function to remove a checklist via DELETE
 function* deleteChecklist(action) {
   try {
@@ -63,15 +67,8 @@ function* deleteChecklist(action) {
       action.payload
     );
 
-      // Dispatch action to run PUT request to update checklist number
-      // Payload is action prop
-    yield put({
-      type: "UPDATE_CHECKLIST_NUMBER",
-      payload: action,
-    });
-
     // Dispatch action to re-fetch checklists
-    yield put({ type: "FETCH_CHECKLISTS", payload: userID });
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
   } catch {
     console.log("\nError removing checklist.");
   }

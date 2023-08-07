@@ -1,7 +1,11 @@
+// - IMPORTING -
 import { combineReducers } from 'redux';
+// User Reducers
 import errors from './errors.reducer';
 import user from './user.reducer';
-import allChecklists from "./checklists.reducer";
+// APP Reducers
+import checklistsReducer from './checklists.reducer';
+import prioritiesReducer from './priorities.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -12,7 +16,8 @@ import allChecklists from "./checklists.reducer";
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  allChecklists,
+  checklistsReducer,
+  prioritiesReducer,
 });
 
 export default rootReducer;
