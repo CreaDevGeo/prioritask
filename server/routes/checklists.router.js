@@ -64,6 +64,16 @@ router.post("/", (req, res) => {
   pool
     .query(queryText, [userID])
     .then((result) => {
+      const newChecklistID = result.rows[0].checklist_id;
+
+      // Fetch the newly created checklist with priority data
+      const queryUpdatedChecklist = `
+        SELECT * FROM checklists_view WHERE checklist_id = $1;
+      `;
+
+      return pool.query(queryUpdatedChecklist, [newChecklistID]);
+    })
+    .then((result) => {
       console.log("POST request made to add a checklist! Result is:", result);
       res.sendStatus(201);
     })
