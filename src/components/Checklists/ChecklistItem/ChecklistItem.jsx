@@ -3,16 +3,19 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../ChecklistItem/ChecklistItem.css";
 import PrioritiesList from "../../Priorities/PrioritiesList/PrioritiesList";
+import CreatePriority from "../../Priorities/CreatePriority/CreatePriority";
 
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist, checklistNumber }) {
   // const priorities = checklist.checklist_data.priorities;
   const checklistID = checklist.checklist_id;
-
+  const checklistPriorityNumber = checklist.priority_number;
   // Logging
   console.log(
     // `Checklist ${checklistNumber} has ${priorities.length} priorities`
   );
+
+  console.log("checklist.priority_number is:", checklist.priority_number);
 
   // Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
@@ -36,12 +39,28 @@ function ChecklistItem({ checklist, checklistNumber }) {
     <div className="checklist-item-box">
       <header className="checklist-item-header">
         <center>
-          <h2>Checklist {checklistNumber}</h2>
+          <h2 className="checklist-heading">Checklist {checklistNumber}</h2>
         </center>
-        <button className="edit-button" type="button">
-          ...
-        </button>
       </header>
+
+      {/* Conditional */}
+      {/* CreatePriority components if priority_number empty*/}
+      {checklistPriorityNumber === null && (
+        <div className="priorities-container">
+          <CreatePriority
+            checklistID={checklistID}
+            priorityNumber="Priority 1"
+          />
+          <CreatePriority
+            checklistID={checklistID}
+            priorityNumber="Priority 2"
+          />
+          <CreatePriority
+            checklistID={checklistID}
+            priorityNumber="Priority 3"
+          />
+        </div>
+      )}
 
       {/* Priorities */}
       {/* <PrioritiesList checklistID={checklistID} priorities={priorities} /> */}

@@ -48,7 +48,7 @@ function* addChecklist(action) {
 
 // - TO IMPLEMENT SOON -
 // PUT request for updating rank of checklist
-// GET request for order by feature
+// GET request for order by feature maybe? Highest to lowest rank and vise versa
 
 // Delete Checklist
 // * Gen function to remove a checklist via DELETE
