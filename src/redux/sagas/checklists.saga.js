@@ -19,10 +19,10 @@ function* fetchAllChecklists(action) {
     const userID = action.payload;
 
     // Declaring response as variable
-    const checklists = yield axios.get(`/api/checklists/${userID}`);
+    const allChecklists = yield axios.get(`/checklists/${userID}`);
 
     // Dispatch action to checklists reducer, setting the global state to data
-    yield put({ type: "SET_CHECKLISTS", payload: checklists.data });
+    yield put({ type: "SET_CHECKLISTS", payload: allChecklists.data });
   } catch {
     console.log("\nError getting all checklists.");
   }
@@ -37,7 +37,7 @@ function* addChecklist(action) {
     console.log("userID is:", userID);
 
     // Making POST request to url with data
-    yield axios.post("/api/checklists", {userID});
+    yield axios.post("/checklists", {userID});
 
     // Dispatch action to fetch the updated checklist
     yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
@@ -63,7 +63,7 @@ function* deleteChecklist(action) {
 
     // Axios DELETE request
     yield axios.delete(
-      `/api/checklists/${userID}/${checklistID}`,
+      `/checklists/${userID}/${checklistID}`,
       action.payload
     );
 

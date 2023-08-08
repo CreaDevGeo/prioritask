@@ -57,7 +57,7 @@ function AllChecklists() {
       <button onClick={handleNewChecklistButton}>
         Add new checklist: {allChecklists.length}/4
       </button>
-      <button>Sort by recent</button>
+      <button>Sort by rank</button>
     
       {/* Mapping through checklist to create component */}
       <div>

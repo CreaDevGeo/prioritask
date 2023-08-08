@@ -25,8 +25,8 @@ app.use(passport.session());
 
 /* Routes */
 app.use("/api/user", userRouter); // user route
-app.use("/api/checklists", checklistsRouter); // checklists route
-app.use("/api/priorities", prioritiesRouter); // priorities route
+app.use("/checklists", checklistsRouter); // checklists route
+app.use("/priorities", prioritiesRouter); // priorities route
 
 // Serve static files
 app.use(express.static("build"));

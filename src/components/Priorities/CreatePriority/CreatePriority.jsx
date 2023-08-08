@@ -18,16 +18,23 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
   const handleClose = () => {
     setOpen(false);
   };
-  
-//   * Declaring useDispatch Redux hook state as variable
 
-
+  //   * Declaring useDispatch Redux hook state as variable
+  const dispatch = useDispatch();
 
   // * Function to dispatch new priority via save button click
+  // Meant for update
   function handleSavePriorityClick() {
-        console.log("\nSave Priority button clicked!");
-        // Dispatch an action to add a priority
-    } // * end handleCreatePriorityClick
+    console.log("\nSave Priority button clicked!");
+
+    // If priority ID null and under checklistID dispatch ADD_PRIORITY
+    // Else dispatch UPDATE
+    // Dispatch an action to add a priority
+    dispatch({
+      type: "ADD_PRIORITY",
+      payload: checklistID,
+    });
+  } // * end handleCreatePriorityClick
 
   // * Function to handle dispatch of new task
   const handleCreateTask = () => {
@@ -43,7 +50,7 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
           width: 200,
           height: 300,
           bgcolor: "background.paper",
-          border: "2px solid #000",
+          borderRadius: 5,
           boxShadow: 24,
           pt: 2,
           px: 5,
@@ -51,7 +58,7 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
         }}
         onClick={handleOpen}
       >
-        Create Priority
+        <h2>Create Priority</h2>
       </Box>
       <Modal
         open={open}
@@ -65,24 +72,26 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
             top: "50%", // Center vertically
             left: "50%", // Center horizontally
             transform: "translate(-50%, -50%)", // Center both horizontally and vertically
-            width: 400,
-            height: 600,
+            width: 300,
+            height: 500,
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 5,
             boxShadow: 24,
             pt: 2,
             px: 5,
             pb: 3,
           }}
         >
-          <h2 id="parent-modal-title">{priorityNumber}</h2>
+          <h2 style={{ textAlign: "center" }} id="parent-modal-title">
+            {priorityNumber}
+          </h2>
           <div>
             <ChildModal onClick={handleCreateTask} />
             <br />
             <ChildModal onClick={handleCreateTask} />
           </div>
           <div>
-            <Button>Save Priority</Button>
+            <Button onClick={handleSavePriorityClick}>Save Priority</Button>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
           </div>
         </Box>
@@ -139,11 +148,12 @@ function ChildModal() {
             top: "50%", // Center vertically
             left: "50%", // Center horizontally
             transform: "translate(-50%, -50%)", // Center both horizontally and vertically
-            width: 600,
-            height: 400,
+            width: 500,
+            height: 300,
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 5,
             boxShadow: 24,
+            textAlign: "center",
             pt: 2,
             px: 5,
             pb: 3,
