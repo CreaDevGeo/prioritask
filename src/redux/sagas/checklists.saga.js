@@ -5,13 +5,13 @@ import axios from "axios";
 // - LISTENER SAGA -
 // * checklists listener saga
 function* checklistsSaga() {
-  yield takeLatest("FETCH_CHECKLISTS", fetchAllChecklists);
+  yield takeLatest("FETCH_ALL_CHECKLISTS", fetchAllChecklists);
   yield takeLatest("ADD_CHECKLIST", addChecklist);
   yield takeLatest("DELETE_CHECKLIST", deleteChecklist);
-  yield takeLatest("FETCH_UPDATED_CHECKLIST", fetchUpdatedChecklist); 
-} // * end checklists
+} // * end checklistsSaga
 
 // - ACTION SAGAS -
+// Fetch Checklists
 // * Gen function to get all checklists from the server
 function* fetchAllChecklists(action) {
   try {
@@ -19,31 +19,16 @@ function* fetchAllChecklists(action) {
     const userID = action.payload;
 
     // Declaring response as variable
-    const checklists = yield axios.get(`/api/checklists/${userID}`);
-
-    // Logging response
-    console.log("GET all checklists:", checklists.data);
+    const allChecklists = yield axios.get(`/checklists/${userID}`);
 
     // Dispatch action to checklists reducer, setting the global state to data
-    yield put({ type: "SET_CHECKLISTS", payload: checklists.data });
+    yield put({ type: "SET_CHECKLISTS", payload: allChecklists.data });
   } catch {
     console.log("\nError getting all checklists.");
   }
 } // * end fetchAllChecklists
 
-// * Gen function to fetch updated checklist with priorities
-function* fetchUpdatedChecklist(action) {
-  try {
-    const userID = action.payload;
-
-    const updatedChecklist = yield axios.get(`/api/checklists/${userID}`);
-    yield put({ type: "SET_CHECKLISTS", payload: updatedChecklist.data });
-  } catch {
-    console.log("Error fetching updated checklist.");
-  }
-}; // * end fetchUpdatedChecklist
-
-
+// Add Checklist
 // * Gen function to add a checklist via POST
 function* addChecklist(action) {
   try {
@@ -51,16 +36,21 @@ function* addChecklist(action) {
     const userID = action.payload;
     console.log("userID is:", userID);
 
-    // Declaring response as movie genres
-    yield axios.post("/api/checklists", {userID});
+    // Making POST request to url with data
+    yield axios.post("/checklists", {userID});
 
-    // Dispatch action to fetch the updated checklist, including priorities
-    yield put({ type: "FETCH_UPDATED_CHECKLIST", payload: userID });
+    // Dispatch action to fetch the updated checklist
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
   } catch {
     console.log("\nError adding checklist.");
   }
 } // * end addChecklist
 
+// - TO IMPLEMENT SOON -
+// PUT request for updating rank of checklist
+// GET request for order by feature maybe? Highest to lowest rank and vise versa
+
+// Delete Checklist
 // * Gen function to remove a checklist via DELETE
 function* deleteChecklist(action) {
   try {
@@ -73,19 +63,12 @@ function* deleteChecklist(action) {
 
     // Axios DELETE request
     yield axios.delete(
-      `/api/checklists/${userID}/${checklistID}`,
+      `/checklists/${userID}/${checklistID}`,
       action.payload
     );
 
-      // Dispatch action to run PUT request to update checklist number
-      // Payload is action prop
-    yield put({
-      type: "UPDATE_CHECKLIST_NUMBER",
-      payload: action,
-    });
-
     // Dispatch action to re-fetch checklists
-    yield put({ type: "FETCH_CHECKLISTS", payload: userID });
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
   } catch {
     console.log("\nError removing checklist.");
   }

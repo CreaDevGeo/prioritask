@@ -8,60 +8,46 @@ const userStrategy = require("../strategies/user.strategy");
 
 const router = express.Router();
 
-// * GET request for all checklists of user that is logged in
-router.get("/:userID", (req, res) => {
-  const userID = req.params.userID;
+// * GET request for all priorities of user that is logged in
+router.get("/:checklistID", (req, res) => {
+  const checklistID = req.params.checklistID;
 
-  // SQL Query for all checklists
-  // Selecting using json object agg build
-  const queryText = `
-  SELECT
-    c.checklist_id,
-    c.ranking,
+  // SQL Query for all priorities
+  // Selecting from view table
+ const queryText = `
+SELECT
+    p.priority_id,
+    p.priority_number,
+    p.is_completed AS priority_completed,
     COALESCE(
         json_agg(
             json_build_object(
-                'priority_id', p.priority_id,
-                'priority_number', p.priority_number,
-                'priority_completed', p.is_completed,
-                'num_tasks', p.num_tasks,
-                'priority_completed_at', p.priority_completed_at,
-                'tasks', (
-                    SELECT COALESCE(
-                        json_agg(
-                            json_build_object(
-                                'task_id', t.task_id,
-                                'task_description', t.task_description,
-                                'task_completed', t.is_completed,
-                                'deadline', t.deadline
-                            ) ORDER BY t.task_id
-                        ),
-                        '[]'::json
-                    )
-                    FROM tasks t WHERE t.priority_id = p.priority_id
-                )
-            ) ORDER BY p.priority_number
+                'task_id', t.task_id,
+                'task_description', t.task_description,
+                'task_completed', t.is_completed,
+                'deadline', t.deadline
+            ) ORDER BY t.task_id
         ),
         '[]'::json
-    ) AS priorities_data
-FROM checklists c
-LEFT JOIN priorities p ON c.checklist_id = p.checklist_id
-WHERE c.user_id = $1
-GROUP BY c.checklist_id, c.ranking
-ORDER BY c.checklist_id;
+    ) AS tasks
+FROM priorities p
+LEFT JOIN tasks t ON p.priority_id = t.priority_id
+WHERE p.checklist_id = $1
+GROUP BY p.priority_id, p.priority_number, p.is_completed
+ORDER BY p.priority_number;
 `;
 
   pool
-    .query(queryText, [userID])
+    .query(queryText, [checklistID])
     .then((result) => {
-      console.log("GET request made for checklists! Result is:", result.rows);
+      console.log("GET request made for priorities! Result is:", result.rows);
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log("Failed to retrieve checklists! Error is:", error);
+      console.log("Failed to retrieve priorities! Error is:", error);
       res.sendStatus(500);
     });
-}); // * end GET all user's checklists
+}); // * end GET all user's checklist priorities
 
 // * POST request for adding checklist of user that is logged in
 router.post("/", (req, res) => {
@@ -70,10 +56,10 @@ router.post("/", (req, res) => {
   console.log("userID is:", userID);
   // SQL query to add a checklist
   const queryText = `
-      INSERT INTO "checklists" ("user_id")
-      VALUES ($1)
-      RETURNING checklist_id;
-      `;
+    INSERT INTO "priorities" ("checklist_id")
+    VALUES ($1)
+    RETURNING priorities_id;
+    `;
 
   pool
     .query(queryText, [userID])
@@ -82,8 +68,8 @@ router.post("/", (req, res) => {
 
       // Fetch the newly created checklist with priority data
       const queryUpdatedChecklist = `
-          SELECT * FROM checklists_view WHERE checklist_id = $1;
-        `;
+        SELECT * FROM checklists_view WHERE checklist_id = $1;
+      `;
 
       return pool.query(queryUpdatedChecklist, [newChecklistID]);
     })
@@ -98,31 +84,37 @@ router.post("/", (req, res) => {
 });
 
 // * DELETE request of user's selected checklist
-router.delete("/:userID/:checklistID", (req, res) => {
+router.delete("/:userID/:checklist", (req, res) => {
   // Declaring user's id as parameter
-  const userID = req.params.userID;
+  const userID = req.params.id;
   // Declaring user's checklist id as parameter
-  const checklistID = req.params.checklistID;
+  const checklistID = req.params.checklist;
 
   // Queries
   // Query to remove todos from selected checklist
+  const deleteTodosQuery = `
+    DELETE FROM todos WHERE task_id IN (SELECT task_id FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1));
+  `;
+
+  // Query to remove todos from selected checklist
   const deleteTasksQuery = `
-      DELETE FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1);
-    `;
+    DELETE FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1);
+  `;
 
   // Query to remove todos from selected checklist
   const deletePrioritiesQuery = `
-      DELETE FROM priorities WHERE checklist_id = $1;
-    `;
+    DELETE FROM priorities WHERE checklist_id = $1;
+  `;
 
   // Query to remove todos from selected checklist
   const deleteChecklistQuery = `
-      DELETE FROM checklists WHERE checklist_id = $1 AND user_id = $2;
-    `;
+    DELETE FROM checklists WHERE checklist_id = $1 AND user_id = $2;
+  `;
 
   // Running multiple queries in the pool query
   pool
-    .query(deleteTasksQuery, [checklistID])
+    .query(deleteTodosQuery, [checklistID])
+    .then(() => pool.query(deleteTasksQuery, [checklistID]))
     .then(() => pool.query(deletePrioritiesQuery, [checklistID]))
     .then(() => pool.query(deleteChecklistQuery, [checklistID, userID]))
     .then(() => {

@@ -1,36 +1,61 @@
 // - IMPORTING -
-// React
-import React from "react";
-// Components
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PriorityItem from "../../Priorities/PriorityItem/PriorityItem";
 import CreatePriority from "../CreatePriority/CreatePriority";
 
 // - PrioritiesList COMPONENT -
 function PrioritiesList({ checklistID, priorities }) {
+  // * Declaring useDispatch hook as a variable
+  const dispatch = useDispatch();
+
+  // * Getting userID from store
+  const user = useSelector((store) => store.user);
+
+  // * Getting priorities from store based on checklistID
+  const prioritiesData = useSelector((store) => store.prioritiesReducer);
+
+
+  // Logging
+  console.log("\npriorities state data is:", prioritiesData);
+
+  // * Run on DOM load
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_CHECKLIST_PRIORITIES",
+      payload: { userID: user.id, checklistID: checklistID },
+    });
+  }, []);
+
   // - RENDERING -
   return (
-    <section className="priorities-container">
-      {/* Mapping through priorities */}
-      {priorities.map((priority) => {
-        const priorityNumber = priority.priority_number;
-        {/* Want next priority, if also null to  */}
-
-
-        return (
-          <div key={priority.priority_id} className="priorities-card">
-            {/* Conditional rendering based on priorityNumber */}
-            {priorityNumber === null ? (
-              <CreatePriority checklistID={checklistID} />
-            ) : (
-              <div>
-                  <PriorityItem priority={priority} />
-              </div>
-            )}
-          </div>
+    <div className="priorities-container">
+      {[1, 2, 3].map((priorityNumber) => {
+        const matchingPriority = prioritiesData[checklistID]?.find(
+          (priority) => priority.priority_number === priorityNumber
         );
+
+        if (matchingPriority) {
+          return (
+            <PriorityItem
+              key={matchingPriority.priority_id}
+              checklistID={checklistID}
+              priority={matchingPriority}
+            />
+          );
+        } else {
+          return (
+            <CreatePriority
+              key={`create-priority-${checklistID}-${priorityNumber}`}
+              checklistID={checklistID}
+              priorityNumber={priorityNumber}
+            />
+          );
+        }
       })}
-    </section>
+    </div>
   );
 }
 
+// - EXPORTING -
 export default PrioritiesList;

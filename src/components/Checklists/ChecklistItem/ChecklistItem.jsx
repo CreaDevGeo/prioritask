@@ -6,13 +6,15 @@ import PrioritiesList from "../../Priorities/PrioritiesList/PrioritiesList";
 
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist, checklistNumber }) {
-  const priorities = checklist.checklist_data.priorities;
+  // const priorities = checklist.checklist_data.priorities;
   const checklistID = checklist.checklist_id;
+  const priorities = checklist.priorities_data;
 
   // Logging
   console.log(
-    `Checklist ${checklistNumber} has ${priorities.length} priorities`
+    `\nChecklist ${checklistNumber} with ChecklistID of ${checklistID} has ${priorities.length} priorities`
   );
+  console.log("\tPriorities are:", priorities);
 
   // Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
@@ -33,26 +35,24 @@ function ChecklistItem({ checklist, checklistNumber }) {
 
   // - RENDERING -
   return (
-    <div className="checklist-item-box">
-      <header className="checklist-item-header">
-        <center>
-          <h2>Checklist {checklistNumber}</h2>
-        </center>
-        <button className="edit-button" type="button">
-          ...
-        </button>
-      </header>
+    <>
+      <div className="checklist-item-box">
+        <header className="checklist-item-header">
+          <center>
+            <h2 className="checklist-heading">Checklist {checklistNumber}</h2>
+          </center>
+        </header>
 
-      {/* Priorities */}
-      <PrioritiesList checklistID={checklistID} priorities={priorities} />
+        <PrioritiesList checklistID={checklistID} priorities={priorities} />
 
-      {/* Delete Button */}
-      <div>
-        <button onClick={handleDeleteChecklist} type="button">
-          Delete
-        </button>
+        {/* Delete Button */}
+        <div>
+          <button onClick={handleDeleteChecklist} type="button">
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 } // - END ChecklistItem COMPONENT -
 

@@ -1,19 +1,15 @@
 // - IMPORTING -
 // React
-import React from "react";
+import * as React from "react";
 // Redux
 import { useDispatch } from "react-redux";
-// Components
-import TasksList from "../../Tasks/TasksList/TasksList";
-import CreatePriority from "../CreatePriority/CreatePriority";
 // MUI
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 
-
-// - PriorityItem COMPONENT -
-export default function PriorityItem({ checklistID, priority }) {
+// - CreatePriority COMPONENT -
+export default function CreatePriority({ checklistID, priorityNumber }) {
   // * States for modal open and close functionality
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -22,17 +18,6 @@ export default function PriorityItem({ checklistID, priority }) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // * Declaring tasks as variable from priority
-  // const tasks = priority.tasks;
-  
-
-  // Logging priorities and tasks
-  // const taskCount = tasks === null || tasks.length === 0 ? 0 : tasks.length;
-  // const pluralize = taskCount === 1 ? "" : "s";
-  // console.log(
-  //   `\t Priority ${priorityNumber} has ${taskCount} task${pluralize}`
-  // );
 
   //   * Declaring useDispatch Redux hook state as variable
   const dispatch = useDispatch();
@@ -73,7 +58,7 @@ export default function PriorityItem({ checklistID, priority }) {
         }}
         onClick={handleOpen}
       >
-        <h2>Priority Name</h2>
+        <h2>Create Priority</h2>
       </Box>
       <Modal
         open={open}
@@ -98,7 +83,7 @@ export default function PriorityItem({ checklistID, priority }) {
           }}
         >
           <h2 style={{ textAlign: "center" }} id="parent-modal-title">
-            {/* {priorityNumber} */}
+            {priorityNumber}
           </h2>
           <div>
             <ChildModal onClick={handleCreateTask} />
