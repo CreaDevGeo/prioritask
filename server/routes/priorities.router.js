@@ -9,40 +9,36 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 // * GET request for all priorities of user that is logged in
-router.get("/:userID/:checklistID", (req, res) => {
-  const userID = req.params.userID;
+router.get("/:checklistID", (req, res) => {
   const checklistID = req.params.checklistID;
 
   // SQL Query for all priorities
   // Selecting from view table
  const queryText = `
 SELECT
-    c.checklist_id,
-    c.ranking,
-    json_agg(json_build_object(
-      'priority_id', p.priority_id,
-      'priority_number', p.priority_number,
-      'priority_completed', p.is_completed,
-      'num_tasks', p.num_tasks,
-      'priority_completed_at', p.priority_completed_at,
-      'tasks', (
-        SELECT json_agg(json_build_object(
-          'task_id', t.task_id,
-          'task_description', t.task_description,
-          'task_completed', t.is_completed,
-          'deadline', t.deadline
-        )) FROM tasks t WHERE t.priority_id = p.priority_id
-      )
-    ) ORDER BY p.priority_number) AS priorities_data
-  FROM checklists_view c
-  LEFT JOIN priorities p ON c.checklist_id = p.checklist_id
-  WHERE c.user_id = $1 AND c.checklist_id = $2
-  GROUP BY c.checklist_id, c.ranking
-  ORDER BY c.checklist_id;
+    p.priority_id,
+    p.priority_number,
+    p.is_completed AS priority_completed,
+    COALESCE(
+        json_agg(
+            json_build_object(
+                'task_id', t.task_id,
+                'task_description', t.task_description,
+                'task_completed', t.is_completed,
+                'deadline', t.deadline
+            ) ORDER BY t.task_id
+        ),
+        '[]'::json
+    ) AS tasks
+FROM priorities p
+LEFT JOIN tasks t ON p.priority_id = t.priority_id
+WHERE p.checklist_id = $1
+GROUP BY p.priority_id, p.priority_number, p.is_completed
+ORDER BY p.priority_number;
 `;
 
   pool
-    .query(queryText, [userID, checklistID])
+    .query(queryText, [checklistID])
     .then((result) => {
       console.log("GET request made for priorities! Result is:", result.rows);
       res.send(result.rows);
@@ -88,7 +84,7 @@ router.post("/", (req, res) => {
 });
 
 // * DELETE request of user's selected checklist
-router.delete("/:id/:checklist", (req, res) => {
+router.delete("/:userID/:checklist", (req, res) => {
   // Declaring user's id as parameter
   const userID = req.params.id;
   // Declaring user's checklist id as parameter

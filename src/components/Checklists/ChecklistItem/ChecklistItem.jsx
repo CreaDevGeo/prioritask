@@ -43,7 +43,7 @@ function ChecklistItem({ checklist, checklistNumber }) {
           </center>
         </header>
 
-        <PrioritiesList checklistID={checklistID} />
+        <PrioritiesList checklistID={checklistID} priorities={priorities} />
 
         {/* Delete Button */}
         <div>
