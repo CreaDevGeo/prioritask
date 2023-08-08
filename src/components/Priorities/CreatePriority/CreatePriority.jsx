@@ -58,7 +58,7 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
         }}
         onClick={handleOpen}
       >
-        Create Priority
+        <h2>Create Priority</h2>
       </Box>
       <Modal
         open={open}

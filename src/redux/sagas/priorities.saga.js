@@ -1,11 +1,11 @@
 // - IMPORTING -
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeLatest, takeEvery } from "redux-saga/effects";
 import axios from "axios";
 
 // - LISTENER SAGA -
 // * priorities listener saga
 function* prioritiesSaga() {
-  yield takeLatest("FETCH_CHECKLIST_PRIORITIES", fetchPriorities);
+  yield takeEvery("FETCH_CHECKLIST_PRIORITIES", fetchPriorities);
   yield takeLatest("ADD_PRIORITY", addPriority);
   yield takeLatest("DELETE_PRIORITY", deletePriority);
 } // * end prioritiesSaga
@@ -15,18 +15,16 @@ function* prioritiesSaga() {
 // * Gen function to get all priorities from the server
 function* fetchPriorities(action) {
   try {
-    // Declaring user's id as payload
-    const userID = action.payload.userID;
     // Declaring user's checklistID as payload
     const checklistID = action.payload.checklistID;
 
     // Declaring response as variable
     const priorities = yield axios.get(
-      `/priorities/${userID}/${checklistID}`
+      `/priorities/${checklistID}`
     );
 
     // Logging
-    console.log("\nPriorities received! Priorities data is:", priorities)
+    console.log("\nPriorities received! Priorities data is:", priorities.data)
 
     // Dispatch action to priorities reducer, setting the global state to data
     yield put({

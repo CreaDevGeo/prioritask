@@ -9,35 +9,46 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 // * GET request for all checklists of user that is logged in
-router.get("/:id", (req, res) => {
-  const userID = req.params.id;
+router.get("/:userID", (req, res) => {
+  const userID = req.params.userID;
 
   // SQL Query for all checklists
   // Selecting using json object agg build
- const queryText = `
+  const queryText = `
   SELECT
     c.checklist_id,
     c.ranking,
-    json_agg(json_build_object(
-      'priority_id', p.priority_id,
-      'priority_number', p.priority_number,
-      'priority_completed', p.is_completed,
-      'num_tasks', p.num_tasks,
-      'priority_completed_at', p.priority_completed_at,
-      'tasks', (
-        SELECT json_agg(json_build_object(
-          'task_id', t.task_id,
-          'task_description', t.task_description,
-          'task_completed', t.is_completed,
-          'deadline', t.deadline
-        )) FROM tasks t WHERE t.priority_id = p.priority_id
-      )
-    ) ORDER BY p.priority_number) AS priorities_data
-  FROM checklists_view c
-  LEFT JOIN priorities p ON c.checklist_id = p.checklist_id
-  WHERE c.user_id = $1
-  GROUP BY c.checklist_id, c.ranking
-  ORDER BY c.checklist_id;
+    COALESCE(
+        json_agg(
+            json_build_object(
+                'priority_id', p.priority_id,
+                'priority_number', p.priority_number,
+                'priority_completed', p.is_completed,
+                'num_tasks', p.num_tasks,
+                'priority_completed_at', p.priority_completed_at,
+                'tasks', (
+                    SELECT COALESCE(
+                        json_agg(
+                            json_build_object(
+                                'task_id', t.task_id,
+                                'task_description', t.task_description,
+                                'task_completed', t.is_completed,
+                                'deadline', t.deadline
+                            ) ORDER BY t.task_id
+                        ),
+                        '[]'::json
+                    )
+                    FROM tasks t WHERE t.priority_id = p.priority_id
+                )
+            ) ORDER BY p.priority_number
+        ),
+        '[]'::json
+    ) AS priorities_data
+FROM checklists c
+LEFT JOIN priorities p ON c.checklist_id = p.checklist_id
+WHERE c.user_id = $1
+GROUP BY c.checklist_id, c.ranking
+ORDER BY c.checklist_id;
 `;
 
   pool
@@ -87,18 +98,13 @@ router.post("/", (req, res) => {
 });
 
 // * DELETE request of user's selected checklist
-router.delete("/:id/:checklist", (req, res) => {
+router.delete("/:userID/:checklistID", (req, res) => {
   // Declaring user's id as parameter
-  const userID = req.params.id;
+  const userID = req.params.userID;
   // Declaring user's checklist id as parameter
-  const checklistID = req.params.checklist;
+  const checklistID = req.params.checklistID;
 
   // Queries
-  // Query to remove todos from selected checklist
-  const deleteTodosQuery = `
-      DELETE FROM todos WHERE task_id IN (SELECT task_id FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1));
-    `;
-
   // Query to remove todos from selected checklist
   const deleteTasksQuery = `
       DELETE FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1);
@@ -116,8 +122,7 @@ router.delete("/:id/:checklist", (req, res) => {
 
   // Running multiple queries in the pool query
   pool
-    .query(deleteTodosQuery, [checklistID])
-    .then(() => pool.query(deleteTasksQuery, [checklistID]))
+    .query(deleteTasksQuery, [checklistID])
     .then(() => pool.query(deletePrioritiesQuery, [checklistID]))
     .then(() => pool.query(deleteChecklistQuery, [checklistID, userID]))
     .then(() => {

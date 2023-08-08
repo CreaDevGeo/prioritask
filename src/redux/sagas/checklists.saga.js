@@ -19,10 +19,10 @@ function* fetchAllChecklists(action) {
     const userID = action.payload;
 
     // Declaring response as variable
-    const checklists = yield axios.get(`/checklists/${userID}`);
+    const allChecklists = yield axios.get(`/checklists/${userID}`);
 
     // Dispatch action to checklists reducer, setting the global state to data
-    yield put({ type: "SET_CHECKLISTS", payload: checklists.data });
+    yield put({ type: "SET_CHECKLISTS", payload: allChecklists.data });
   } catch {
     console.log("\nError getting all checklists.");
   }

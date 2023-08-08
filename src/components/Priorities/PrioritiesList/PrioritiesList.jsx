@@ -5,7 +5,7 @@ import PriorityItem from "../../Priorities/PriorityItem/PriorityItem";
 import CreatePriority from "../CreatePriority/CreatePriority";
 
 // - PrioritiesList COMPONENT -
-function PrioritiesList({ checklistID }) {
+function PrioritiesList({ checklistID, priorities }) {
   // * Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ function PrioritiesList({ checklistID }) {
 
 
   // Logging
-  console.log("\npriorities state data is:", prioritiesData[checklistID].prioritiesData);
+  console.log("\npriorities state data is:", prioritiesData);
 
   // * Run on DOM load
   useEffect(() => {
