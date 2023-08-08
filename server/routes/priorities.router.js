@@ -9,36 +9,40 @@ const userStrategy = require("../strategies/user.strategy");
 const router = express.Router();
 
 // * GET request for all priorities of user that is logged in
-router.get("/:id", (req, res) => {
-  const userID = req.params.id;
+router.get("/:userID/:checklistID", (req, res) => {
+  const userID = req.params.userID;
+  const checklistID = req.params.checklistID;
 
   // SQL Query for all priorities
   // Selecting from view table
-  const queryText = `
-    SELECT
-  c.checklist_id,
-  c.ranking,
-  c.checklist_completed,
-  p.priority_id,
-  p.priority_number,
-  p.priority_completed,
-  p.num_tasks,
-  t.task_id,
-  t.task_description,
-  t.task_completed,
-  t.deadline,
-  td.todo_id,
-  td.todo_item
-FROM checklists_view c
-LEFT JOIN priorities p ON c.checklist_id = p.checklist_id
-LEFT JOIN tasks t ON p.priority_id = t.priority_id
-LEFT JOIN todos td ON t.task_id = td.task_id
-WHERE c.user_id = $1
-ORDER BY c.checklist_id, p.priority_number, t.task_id, td.todo_id;
-  `;
+ const queryText = `
+SELECT
+    c.checklist_id,
+    c.ranking,
+    json_agg(json_build_object(
+      'priority_id', p.priority_id,
+      'priority_number', p.priority_number,
+      'priority_completed', p.is_completed,
+      'num_tasks', p.num_tasks,
+      'priority_completed_at', p.priority_completed_at,
+      'tasks', (
+        SELECT json_agg(json_build_object(
+          'task_id', t.task_id,
+          'task_description', t.task_description,
+          'task_completed', t.is_completed,
+          'deadline', t.deadline
+        )) FROM tasks t WHERE t.priority_id = p.priority_id
+      )
+    ) ORDER BY p.priority_number) AS priorities_data
+  FROM checklists_view c
+  LEFT JOIN priorities p ON c.checklist_id = p.checklist_id
+  WHERE c.user_id = $1 AND c.checklist_id = $2
+  GROUP BY c.checklist_id, c.ranking
+  ORDER BY c.checklist_id;
+`;
 
   pool
-    .query(queryText, [userID])
+    .query(queryText, [userID, checklistID])
     .then((result) => {
       console.log("GET request made for priorities! Result is:", result.rows);
       res.send(result.rows);
@@ -47,7 +51,7 @@ ORDER BY c.checklist_id, p.priority_number, t.task_id, td.todo_id;
       console.log("Failed to retrieve priorities! Error is:", error);
       res.sendStatus(500);
     });
-}); // * end GET all user's checklists
+}); // * end GET all user's checklist priorities
 
 // * POST request for adding checklist of user that is logged in
 router.post("/", (req, res) => {
