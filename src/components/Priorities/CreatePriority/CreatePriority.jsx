@@ -1,12 +1,14 @@
 // - IMPORTING -
 // React
-import * as React from "react";
+import React from "react";
 // Redux
 import { useDispatch } from "react-redux";
 // MUI
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
+// Components
+import TasksList from "../../Tasks/TasksList/TasksList";
 
 // - CreatePriority COMPONENT -
 export default function CreatePriority({ checklistID, priorityNumber }) {
@@ -19,7 +21,7 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
     setOpen(false);
   };
 
-  //   * Declaring useDispatch Redux hook state as variable
+  //  * Declaring useDispatch Redux hook state as variable
   const dispatch = useDispatch();
 
   // * Function to dispatch new priority via save button click
@@ -59,6 +61,7 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
         onClick={handleOpen}
       >
         <h2>Create Priority</h2>
+        <TasksList />
       </Box>
       <Modal
         open={open}
@@ -83,7 +86,7 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
           }}
         >
           <h2 style={{ textAlign: "center" }} id="parent-modal-title">
-            {priorityNumber}
+            Priority {priorityNumber}
           </h2>
           <div>
             <ChildModal onClick={handleCreateTask} />
