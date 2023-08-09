@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 
 
 // - PriorityItem COMPONENT -
-export default function PriorityItem({ checklistID, priority, priorityNumber }) {
+export default function PriorityItem({ checklistID, priority, priorityNumber, priorityID }) {
   // * States for modal open and close functionality
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -22,17 +22,17 @@ export default function PriorityItem({ checklistID, priority, priorityNumber }) 
     setOpen(false);
   };
 
-  console.log("priority is:", priority.priority_id);
-
   // * Declaring tasks as variable from priority
-  // const tasks = priority.tasks;
+  const tasks = priority.tasks;
 
   // Logging priorities and tasks
-  // const taskCount = tasks === null || tasks.length === 0 ? 0 : tasks.length;
-  // const pluralize = taskCount === 1 ? "" : "s";
-  // console.log(
-  //   `\t Priority ${priorityNumber} has ${taskCount} task${pluralize}`
-  // );
+  const taskCount = tasks === null || tasks.length === 0 ? 0 : tasks.length;
+  const pluralize = taskCount === 1 ? "" : "s";
+  console.log(
+    `\n Priority ${priorityNumber} has ${taskCount} task${pluralize}`
+  );
+
+console.log("PriorityID in PriorityItem is:", priorityID);
 
   //   * Declaring useDispatch Redux hook state as variable
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ export default function PriorityItem({ checklistID, priority, priorityNumber }) 
     console.log("Add new task button clicked!");
   }; // * end handleCreateTask
 
-// - RENDERING -
+  // - RENDERING -
   return (
     <div>
       <Box
@@ -75,7 +75,7 @@ export default function PriorityItem({ checklistID, priority, priorityNumber }) 
         onClick={handleOpen}
       >
         <h2>Priority {priorityNumber}</h2>
-        <TasksList priorityID={priority.priority_id}/>
+        <TasksList priorityID={priorityID} />
       </Box>
       <Modal
         open={open}

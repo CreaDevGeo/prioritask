@@ -15,10 +15,12 @@ function TaskItem({ task }) {
   const handleClose = () => setOpen(false);
 
   // * Declaring task's description 
-  const taskDescription = task?.task_description;
+  const taskDescription = task?.tasks.task_description;
+  // * Declaring task's id
+  const taskID = task.tasks.task_id;
 
   // * Logging
-  console.log("\t\tTask is:", taskDescription);
+  // console.log("\t\tTask is:", taskDescription);
 
   // - RENDERING -
   // Conditional rendering of MUI content (Undefined or description)
@@ -26,7 +28,7 @@ function TaskItem({ task }) {
     <React.Fragment>
       {taskDescription === undefined ? (
         <div>
-          <TriggerButton onClick={handleOpen}>Add a Task</TriggerButton>
+          <TriggerButton onClick={handleOpen}>TaskItem Component</TriggerButton>
           <StyledModal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"

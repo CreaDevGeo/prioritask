@@ -61,7 +61,9 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
         onClick={handleOpen}
       >
         <h2>Create Priority</h2>
-        <TasksList />
+        <div>
+          <TasksList />
+        </div>
       </Box>
       <Modal
         open={open}
@@ -88,6 +90,9 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
           <h2 style={{ textAlign: "center" }} id="parent-modal-title">
             Priority {priorityNumber}
           </h2>
+          <div>
+            <TasksList />
+          </div>
           <div>
             <ChildModal onClick={handleCreateTask} />
             <br />
