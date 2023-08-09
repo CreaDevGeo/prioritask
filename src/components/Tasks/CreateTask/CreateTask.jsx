@@ -1,20 +1,19 @@
 // - IMPORTING -
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import PriorityItem from "../../Priorities/PriorityItem/PriorityItem";
-import CreatePriority from "../CreatePriority/CreatePriority";
+// React
+import React, {useEffect, useState} from "react";
+// Redux
+import { useDispatch } from "react-redux";
 
-// - PrioritiesList COMPONENT -
-function PrioritiesList({ checklistID, priorities }) {
+// Components
+
+
+// - CreateTask COMPONENT -
+function CreateTask({priorityID}) {
   // * Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
 
-  // * Getting userID from store
-  const user = useSelector((store) => store.user);
-
   // * Getting priorities from store based on checklistID
   const prioritiesData = useSelector((store) => store.prioritiesReducer);
-
 
   // Logging
   console.log("\npriorities state data is:", prioritiesData);
@@ -56,7 +55,7 @@ function PrioritiesList({ checklistID, priorities }) {
       })}
     </div>
   );
-}
+} // - END CreateTask COMPONENT -
 
-// - EXPORTING -
-export default PrioritiesList;
+// * Exporting CreateTask component
+export default CreateTask;

@@ -1,31 +1,34 @@
 // - IMPORTING -
 // React
-import React from "react";
+import React, {useEffect} from "react";
+
+// Components
 import TaskItem from "../TaskItem/TaskItem";
 
-// - PriorityTasks COMPONENT -
-function TasksList({tasks}) {
+// - TasksList COMPONENT -
+function TasksList({priorityID}) {
+  
+  
+  
+  // * Run on DOM load
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "FETCH_PRIORITY_TASKS",
+  //     payload: { priorityID: priority.priority_id },
+  //   });
+  // }, []);
 
   // - RENDERING -
-  {
+  // {
     /* Map through an array of tasks, rendering a new component for each */
-  }
+  // }
   return (
     <div>
-      {tasks === null || tasks.length === 0 ? (
-        <TaskItem />
-      ) : (
-        tasks.map((task) => {
-          return (
-            <div key={task.task_id}>
-              <TaskItem task={task} /> {/* Corrected this line */}
-            </div>
-          );
-        })
-      )}
+      <h2>In Tasks List</h2>
+      {/* CONDITION RENDER FOR TASKS HER */}
     </div>
   );
-} // - END PriorityTasks COMPONENT -
+} // - END TasksList COMPONENT -
 
-// * Exporting PriorityTasks component
+// * Exporting TasksList component
 export default TasksList;

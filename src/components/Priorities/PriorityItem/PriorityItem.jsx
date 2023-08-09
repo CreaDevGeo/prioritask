@@ -1,11 +1,10 @@
 // - IMPORTING -
 // React
-import React from "react";
+import React, {useEffect} from "react";
 // Redux
 import { useDispatch } from "react-redux";
 // Components
 import TasksList from "../../Tasks/TasksList/TasksList";
-import CreatePriority from "../CreatePriority/CreatePriority";
 // MUI
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -13,7 +12,7 @@ import Button from "@mui/material/Button";
 
 
 // - PriorityItem COMPONENT -
-export default function PriorityItem({ checklistID, priority }) {
+export default function PriorityItem({ checklistID, priority, priorityNumber }) {
   // * States for modal open and close functionality
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -23,9 +22,10 @@ export default function PriorityItem({ checklistID, priority }) {
     setOpen(false);
   };
 
+  console.log("priority is:", priority.priority_id);
+
   // * Declaring tasks as variable from priority
   // const tasks = priority.tasks;
-  
 
   // Logging priorities and tasks
   // const taskCount = tasks === null || tasks.length === 0 ? 0 : tasks.length;
@@ -56,6 +56,7 @@ export default function PriorityItem({ checklistID, priority }) {
     console.log("Add new task button clicked!");
   }; // * end handleCreateTask
 
+// - RENDERING -
   return (
     <div>
       <Box
@@ -73,7 +74,8 @@ export default function PriorityItem({ checklistID, priority }) {
         }}
         onClick={handleOpen}
       >
-        <h2>Priority Name</h2>
+        <h2>Priority {priorityNumber}</h2>
+        <TasksList priorityID={priority.priority_id}/>
       </Box>
       <Modal
         open={open}
@@ -98,7 +100,7 @@ export default function PriorityItem({ checklistID, priority }) {
           }}
         >
           <h2 style={{ textAlign: "center" }} id="parent-modal-title">
-            {/* {priorityNumber} */}
+            Priority {priorityNumber}
           </h2>
           <div>
             <ChildModal onClick={handleCreateTask} />
@@ -145,8 +147,11 @@ function ChildModal() {
 
     // Setting input field back to text
     setShowTaskInput(false);
-  };
+  }; // * end handleCreateTask
 
+  // 
+
+  // - RENDERING -
   return (
     <React.Fragment>
       <Button onClick={handleOpen}>Add a Task</Button>
