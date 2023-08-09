@@ -7,6 +7,7 @@ import userSaga from "./user.saga";
 // App Redux
 import checklistsSaga from "./checklists.saga";
 import prioritiesSaga from "./priorities.saga";
+import tasksSaga from "./tasks.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,6 +22,7 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     checklistsSaga(),
-    prioritiesSaga()
+    prioritiesSaga(),
+    tasksSaga(),
   ]);
 }

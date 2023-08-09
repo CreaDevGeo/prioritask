@@ -14,10 +14,7 @@ function PrioritiesList({ checklistID, priorities }) {
 
   // * Getting priorities from store based on checklistID
   const prioritiesData = useSelector((store) => store.prioritiesReducer);
-
-
-  // Logging
-  console.log("\npriorities state data is:", prioritiesData);
+  console.log("prioritiesData in PrioritiesList is:", prioritiesData);
 
   // * Run on DOM load
   useEffect(() => {
@@ -41,6 +38,7 @@ function PrioritiesList({ checklistID, priorities }) {
               key={matchingPriority.priority_id}
               checklistID={checklistID}
               priority={matchingPriority}
+              priorityID={matchingPriority.priority_id}
               priorityNumber={priorityNumber}
             />
           );
