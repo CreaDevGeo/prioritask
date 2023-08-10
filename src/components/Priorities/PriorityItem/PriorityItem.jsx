@@ -149,8 +149,6 @@ function ChildModal() {
     setShowTaskInput(false);
   }; // * end handleCreateTask
 
-  // 
-
   // - RENDERING -
   return (
     <React.Fragment>

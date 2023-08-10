@@ -14,14 +14,17 @@ function TasksList({ priorityID }) {
 
   // * Getting priorities from store based on priorityID
   const tasksData = useSelector((store) => store.tasksReducer);
-
+  
+  // * Declaring the array of tasks as variable
+  const tasksForPriority = tasksData[priorityID] || [];
+  console.log("tasksData in TaskList is:", tasksForPriority);
   // Logging
-  console.log(
-    "\ntasks state data is:",
-    tasksData,
-    "with priorityID:",
-    priorityID
-  );
+  // console.log(
+  //   "\ntasks state data is:",
+  //   tasksData,
+  //   "with priorityID:",
+  //   priorityID
+  // );
 
   // Conditional for priorityID payload dispatch
   useEffect(() => {
@@ -31,24 +34,38 @@ function TasksList({ priorityID }) {
         payload: { priorityID: priorityID },
       });
     }
-  }, [priorityID]);
+  }, [dispatch, priorityID]);
 
   // - RENDERING -
   return (
     <div className="task-container">
-      {tasksData[priorityID]?.length > 0 ? (
-        tasksData[priorityID].map((task) => (
-          <TaskItem key={task.task_id} priorityID={priorityID} task={task} />
-        ))
-      ) : (
-        <CreateTask key={`createTask_${priorityID}`} priorityID={priorityID} />
-      )}
-      <h2>TasksList</h2>
+      {[1, 2].map((taskNumber) => {
+        const matchingTask = tasksForPriority.find(
+          (task) => task.task_number === taskNumber
+        );
+
+        if (matchingTask) {
+          return (
+            <TaskItem
+              key={matchingTask.task_id}
+              priorityID={priorityID}
+              task={matchingTask}
+            />
+          );
+        } else {
+          return (
+            <CreateTask
+              key={`createTask_${priorityID}_${taskNumber}`}
+              priorityID={priorityID}
+              taskNumber={taskNumber}
+            />
+          );
+        }
+      })}
     </div>
   );
-
-
 } // - END TasksList COMPONENT -
 
 // * Exporting TasksList component
 export default TasksList;
+

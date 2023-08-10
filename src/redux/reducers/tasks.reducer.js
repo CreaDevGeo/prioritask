@@ -1,9 +1,10 @@
 const tasksReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_TASKS":
+      const { priorityID, tasks } = action.payload;
       return {
         ...state,
-        [action.payload.priorityID]: action.payload?.priorityTasks,
+        [priorityID]: [...tasks],
       };
     default:
       return state;
