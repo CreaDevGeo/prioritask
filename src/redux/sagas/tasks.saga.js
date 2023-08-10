@@ -6,8 +6,8 @@ import axios from "axios";
 // * priorities listener saga
 function* tasksSaga() {
   yield takeEvery("FETCH_PRIORITY_TASKS", fetchTasks);
-//   yield takeLatest("ADD_TASK", addPriority);
-//   yield takeLatest("DELETE_PRIORITY", deletePriority);
+  //   yield takeLatest("ADD_TASK", addPriority);
+  //   yield takeLatest("DELETE_PRIORITY", deletePriority);
 } // * end prioritiesSaga
 
 // - ACTION SAGAS -
@@ -21,21 +21,14 @@ function* fetchTasks(action) {
 
     // Declaring response as variable
     const priorityTasks = yield axios.get(`/tasks/${priorityID}`);
-    
 
     // Logging
-    console.log(
-      "\Tasks received! priorityTasks data is:",
-      priorityTasks.data
-    );
+    console.log("Tasks received! priorityTasks data is:", priorityTasks?.data);
 
     // Dispatch action to priorities reducer, setting the global state to data
     yield put({
       type: "SET_TASKS",
-      payload: {
-        priorityID: priorityID,
-        priorityTasks: priorityTasks.data,
-      },
+      payload: { priorityID: priorityID, tasks: priorityTasks.data },
     });
   } catch (error) {
     console.log("Error fetching priorities:", error);
