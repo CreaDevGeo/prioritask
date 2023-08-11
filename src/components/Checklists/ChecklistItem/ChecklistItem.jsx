@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../ChecklistItem/ChecklistItem.css";
 import PrioritiesList from "../../Priorities/PrioritiesList/PrioritiesList";
+import ChecklistDeleteButton from "./ChecklistDeleteButton";
 
 // - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist, checklistNumber }) {
@@ -16,22 +17,7 @@ function ChecklistItem({ checklist, checklistNumber }) {
   );
   console.log("\tPriorities are:", priorities);
 
-  // Declaring useDispatch hook as a variable
-  const dispatch = useDispatch();
-
-  // Getting userID from store
-  const user = useSelector((store) => store.user);
-
-  // Function to dispatch action with user id to remove selected checklist
-  const handleDeleteChecklist = () => {
-    console.log("Delete checklist button clicked");
-
-    // Dispatch an action to the redux saga, with a payload of user id and checklist id
-    dispatch({
-      type: "DELETE_CHECKLIST",
-      payload: { userID: user.id, checklistID: checklistID },
-    });
-  };
+ 
 
   // - RENDERING -
   return (
@@ -46,11 +32,7 @@ function ChecklistItem({ checklist, checklistNumber }) {
         <PrioritiesList checklistID={checklistID} priorities={priorities} />
 
         {/* Delete Button */}
-        <div>
-          <button onClick={handleDeleteChecklist} type="button">
-            Delete
-          </button>
-        </div>
+        <ChecklistDeleteButton checklistID={checklistID} />
       </div>
     </>
   );

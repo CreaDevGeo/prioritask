@@ -15,23 +15,8 @@ router.get("/:priorityID", (req, res) => {
   // SQL Query for all priorities
   // Selecting from view table
   const queryText = `
-SELECT
-    t.priority_id,
-    p.priority_number,
-    p.is_completed AS priority_completed,
-    json_agg(
-        json_build_object(
-            'task_id', t.task_id,
-            'task_description', t.task_description,
-            'task_completed', t.is_completed,
-            'deadline', t.deadline
-        ) ORDER BY t.task_id
-    ) AS tasks
-FROM tasks t
-LEFT JOIN priorities p ON t.priority_id = p.priority_id
-WHERE t.priority_id = $1 
-GROUP BY t.priority_id, p.priority_number, p.is_completed
-ORDER BY p.priority_number;
+SELECT * FROM "tasks"
+WHERE priority_id = $1;
 `;
 
   pool

@@ -1,20 +1,17 @@
 // - IMPORTING -
 // React
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-// Components
-import TaskItem from "../TaskItem/TaskItem";
-import CreateTask from "../CreateTask/CreateTask";
 
-// - TasksList COMPONENT -
-function TasksList({ priorityID }) {
+// - TaskPriorityHeader COMPONENT -
+function TaskPriorityHeader({ priorityID }) {
   // * Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
 
   // * Getting priorities from store based on priorityID
   const tasksData = useSelector((store) => store.tasksReducer);
-  
+
   // * Declaring the array of tasks as variable
   const tasksForPriority = tasksData[priorityID] || [];
   console.log("tasksData in TaskList is:", tasksForPriority);
@@ -45,27 +42,14 @@ function TasksList({ priorityID }) {
         );
 
         if (matchingTask) {
-          return (
-            <TaskItem
-              key={matchingTask.task_id}
-              priorityID={priorityID}
-              task={matchingTask}
-            />
-          );
+          return <h3>{matchingTask.task_title}</h3>;
         } else {
-          return (
-            <CreateTask
-              key={`createTask_${priorityID}_${taskNumber}`}
-              priorityID={priorityID}
-              taskNumber={taskNumber}
-            />
-          );
+          return <h3>Add a task</h3>;
         }
       })}
     </div>
   );
-} // - END TasksList COMPONENT -
+} // - END TaskPriorityHeader COMPONENT -
 
-// * Exporting TasksList component
-export default TasksList;
-
+// * Exporting TaskPriorityHeader component
+export default TaskPriorityHeader;

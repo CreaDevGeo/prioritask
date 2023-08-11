@@ -15,9 +15,9 @@ function TaskItem({ task }) {
   const handleClose = () => setOpen(false);
 
   // * Declaring task's description 
-  const taskDescription = task?.tasks.task_description;
+  const taskDescription = task;
   // * Declaring task's id
-  const taskID = task.tasks.task_id;
+  // const taskID = task.tasks.task_id;
 
   // * Logging
   // console.log("\t\tTask is:", taskDescription);
@@ -26,9 +26,9 @@ function TaskItem({ task }) {
   // Conditional rendering of MUI content (Undefined or description)
   return (
     <React.Fragment>
-      {taskDescription === undefined ? (
+      {/* {taskDescription === undefined ? (
         <div>
-          <TriggerButton onClick={handleOpen}>TaskItem Component</TriggerButton>
+          <TriggerButton onClick={handleOpen}>task title</TriggerButton>
           <StyledModal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
@@ -64,7 +64,7 @@ function TaskItem({ task }) {
           >
             <Fade in={open}>
               <Box sx={style}>
-                <h2 id="transition-modal-title">{taskDescription}</h2>
+                <h2 id="transition-modal-title">Task title</h2>
                 <span
                   id="transition-modal-description"
                   style={{ marginTop: 16 }}
@@ -76,7 +76,8 @@ function TaskItem({ task }) {
             </Fade>
           </StyledModal>
         </div>
-      )}
+      )} */}
+      <h3>{task.task_title}</h3>
     </React.Fragment>
   );
 } // - END TaskItem COMPONENT -

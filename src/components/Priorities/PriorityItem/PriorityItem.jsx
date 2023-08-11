@@ -2,9 +2,10 @@
 // React
 import React, {useEffect} from "react";
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Components
 import TasksList from "../../Tasks/TasksList/TasksList";
+import TaskPriorityHeader from "../../Tasks/TaskPriorityHeader/TaskPriorityHeader";
 // MUI
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -22,6 +23,13 @@ export default function PriorityItem({ checklistID, priority, priorityNumber, pr
     setOpen(false);
   };
 
+  // * Getting priorities from store based on priorityID
+  const tasksData = useSelector((store) => store.tasksReducer);
+  // * Declaring the array of tasks as variable
+  const tasksForPriority = tasksData[priorityID] || [];
+  console.log("tasksData in TaskList is:", tasksForPriority);
+  // Loop through array of tasks and render task title for each one
+
   // * Declaring tasks as variable from priority
   const tasks = priority.tasks;
 
@@ -32,10 +40,7 @@ export default function PriorityItem({ checklistID, priority, priorityNumber, pr
     `\n Priority ${priorityNumber} has ${taskCount} task${pluralize}`
   );
 
-console.log("PriorityID in PriorityItem is:", priorityID);
-
-  //   * Declaring useDispatch Redux hook state as variable
-  const dispatch = useDispatch();
+  console.log("PriorityID in PriorityItem is:", priorityID);
 
   // * Function to dispatch new priority via save button click
   // Meant for update
@@ -75,7 +80,10 @@ console.log("PriorityID in PriorityItem is:", priorityID);
         onClick={handleOpen}
       >
         <h2>Priority {priorityNumber}</h2>
-        <TasksList priorityID={priorityID} />
+        {/* Want to make a render here for all task titles */}
+        <div className="task-container">
+          <TaskPriorityHeader priorityID={priorityID} />
+        </div>
       </Box>
       <Modal
         open={open}
@@ -101,6 +109,8 @@ console.log("PriorityID in PriorityItem is:", priorityID);
         >
           <h2 style={{ textAlign: "center" }} id="parent-modal-title">
             Priority {priorityNumber}
+            {/* TasksList component */}
+            <TasksList priorityID={priorityID} />
           </h2>
           <div>
             <ChildModal onClick={handleCreateTask} />
@@ -148,8 +158,6 @@ function ChildModal() {
     // Setting input field back to text
     setShowTaskInput(false);
   }; // * end handleCreateTask
-
-  // 
 
   // - RENDERING -
   return (
