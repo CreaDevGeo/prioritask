@@ -77,7 +77,7 @@ function TaskItem({ task }) {
           </StyledModal>
         </div>
       )} */}
-      <h3>Task Item component</h3>
+      <h3>{task.task_title}</h3>
     </React.Fragment>
   );
 } // - END TaskItem COMPONENT -

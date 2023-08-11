@@ -18,7 +18,7 @@ function CreateTask({priorityID}) {
 
   // - RENDERING -
   return (
-  <h3>Hi in createTask!</h3>
+  <h3>Add Task</h3>
   );
 } // - END CreateTask COMPONENT -
 
