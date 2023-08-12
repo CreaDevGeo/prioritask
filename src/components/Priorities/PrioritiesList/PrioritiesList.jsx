@@ -1,7 +1,7 @@
 // - IMPORTING -
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PriorityCard from "../PriorityCard/PriorityCard";
+import PriorityCard from "../PriorityCard/PriorityCard"
 import CreatePriority from "../CreatePriority/CreatePriority";
 
 // - PrioritiesList COMPONENT -
