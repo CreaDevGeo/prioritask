@@ -14,14 +14,6 @@ function TaskPriorityHeader({ priorityID }) {
 
   // * Declaring the array of tasks as variable
   const tasksForPriority = tasksData[priorityID] || [];
-  console.log("tasksData in TaskList is:", tasksForPriority);
-  // Logging
-  // console.log(
-  //   "\ntasks state data is:",
-  //   tasksData,
-  //   "with priorityID:",
-  //   priorityID
-  // );
 
   // Conditional for priorityID payload dispatch
   useEffect(() => {
@@ -42,9 +34,9 @@ function TaskPriorityHeader({ priorityID }) {
         );
 
         if (matchingTask) {
-          return <h3>{matchingTask.task_title}</h3>;
+          return <h3 key={`task_${taskNumber}`}>{matchingTask.task_title}</h3>;
         } else {
-          return <h3>Add a task</h3>;
+          return <h3 key={`task_${taskNumber}`}>Add a task</h3>;
         }
       })}
     </div>

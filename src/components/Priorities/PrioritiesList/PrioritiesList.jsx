@@ -1,7 +1,7 @@
 // - IMPORTING -
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PriorityItem from "../../Priorities/PriorityItem/PriorityItem";
+import PriorityCard from "../PriorityCard/PriorityCard";
 import CreatePriority from "../CreatePriority/CreatePriority";
 
 // - PrioritiesList COMPONENT -
@@ -40,7 +40,7 @@ function PrioritiesList({ checklistID, priorities }) {
         }
 
         return matchingPriority ? (
-          <PriorityItem
+          <PriorityCard
             key={matchingPriority.priority_id}
             checklistID={checklistID}
             priority={matchingPriority}
