@@ -1,5 +1,5 @@
 // - IMPORTING -
-import { put, takeLatest, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 // - LISTENER SAGA -
@@ -19,12 +19,10 @@ function* fetchPriorities(action) {
     const checklistID = action.payload.checklistID;
 
     // Declaring response as variable
-    const priorities = yield axios.get(
-      `/priorities/${checklistID}`
-    );
+    const priorities = yield axios.get(`/priorities/${checklistID}`);
 
     // Logging
-    console.log("\nPriorities received! Priorities data is:", priorities.data)
+    console.log("\nPriorities received! Priorities data is:", priorities.data);
 
     // Dispatch action to priorities reducer, setting the global state to data
     yield put({
@@ -42,16 +40,24 @@ function* fetchPriorities(action) {
 // Add Priority
 // * Gen function to add a priority via POST
 function* addPriority(action) {
+  console.log("Gen function addPriority started with action:", action.type);
   try {
-    console.log("action.payload is:", action.payload);
-    // Declaring checklist id and priority data as payload
-    // const { checklistID: checklistID, priorities: priorityData } = action.payload;
+    const checklistID = action.payload.checklistID;
+    const priorityNumber = action.payload.priorityNumber;
+    const userID = action.payload.userID;
+
+    const priorityToAdd = {
+      checklistID: checklistID,
+      priorityNumber: priorityNumber,
+    };
 
     // Making POST request to url with data
-    yield axios.post(`/priorities/${checklistID}`, priorityData);
+    yield axios.post("/priorities", priorityToAdd);
 
-    // Dispatch action to fetch priorities
-    yield put({ type: "FETCH_PRIORITIES", payload: checklistID });
+    // Dispatch action to fetch priorities and wait for its completion
+    yield call(fetchPriorities, { payload: { checklistID } });
+    // Dispatch action to fetch checklists
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
   } catch (error) {
     console.log("Error adding priority:", error);
   }
@@ -65,12 +71,24 @@ function* addPriority(action) {
 // Delete Priority
 // * Gen function to remove a priority via DELETE
 function* deletePriority(action) {
+  console.log("Gen function deletePriority started with action:", action.type);
   try {
     // Declaring user's id as payload
-    const { checklistID, priorityID } = action.payload;
+    const userID = action.payload.userID;
 
-    yield axios.delete(`/priorities/${checklistID}/${priorityID}`);
-    yield put({ type: "FETCH_PRIORITIES", payload: checklistID });
+    // Declaring user's priority id as payload
+    const priorityID = action.payload.priorityID;
+    // Declaring priority's checklist id as payload
+    const checklistID = action.payload.checklistID;
+
+    // DELETE request
+    yield axios.delete(`/priorities/${priorityID}`);
+
+    // Dispatch action to fetch priorities and wait for its completion
+    yield call(fetchPriorities, { payload: { checklistID } });
+
+    // Dispatch action to 
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
   } catch (error) {
     console.log("Error deleting priority:", error);
   }

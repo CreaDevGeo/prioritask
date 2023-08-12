@@ -2,9 +2,10 @@
 // React
 import React, {useEffect} from "react";
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Components
 import TasksList from "../../Tasks/TasksList/TasksList";
+import TaskPriorityHeader from "../../Tasks/TaskPriorityHeader/TaskPriorityHeader";
 // MUI
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -12,7 +13,7 @@ import Button from "@mui/material/Button";
 
 
 // - PriorityItem COMPONENT -
-export default function PriorityItem({ checklistID, priority, priorityNumber }) {
+export default function PriorityItem({ checklistID, priority, priorityNumber, priorityID }) {
   // * States for modal open and close functionality
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -22,20 +23,13 @@ export default function PriorityItem({ checklistID, priority, priorityNumber }) 
     setOpen(false);
   };
 
-  console.log("priority is:", priority.priority_id);
+  // * Getting priorities from store based on priorityID
+  const tasksData = useSelector((store) => store.tasksReducer);
+  // * Declaring the array of tasks as variable
+  const tasksForPriority = tasksData[priorityID] || [];
 
   // * Declaring tasks as variable from priority
-  // const tasks = priority.tasks;
-
-  // Logging priorities and tasks
-  // const taskCount = tasks === null || tasks.length === 0 ? 0 : tasks.length;
-  // const pluralize = taskCount === 1 ? "" : "s";
-  // console.log(
-  //   `\t Priority ${priorityNumber} has ${taskCount} task${pluralize}`
-  // );
-
-  //   * Declaring useDispatch Redux hook state as variable
-  const dispatch = useDispatch();
+  const tasks = priority.tasks;
 
   // * Function to dispatch new priority via save button click
   // Meant for update
@@ -56,7 +50,7 @@ export default function PriorityItem({ checklistID, priority, priorityNumber }) 
     console.log("Add new task button clicked!");
   }; // * end handleCreateTask
 
-// - RENDERING -
+  // - RENDERING -
   return (
     <div>
       <Box
@@ -75,7 +69,15 @@ export default function PriorityItem({ checklistID, priority, priorityNumber }) 
         onClick={handleOpen}
       >
         <h2>Priority {priorityNumber}</h2>
-        <TasksList priorityID={priority.priority_id}/>
+        {/* Want to make a render here for all task titles */}
+        <div className="task-container">
+          {/* TaskPriorityHeader component */}
+          <TaskPriorityHeader priorityID={priorityID} />
+        </div>
+        <div>
+          {/* Delete priority button will go here */}
+          <Button>Delete</Button>
+        </div>
       </Box>
       <Modal
         open={open}
@@ -101,14 +103,12 @@ export default function PriorityItem({ checklistID, priority, priorityNumber }) 
         >
           <h2 style={{ textAlign: "center" }} id="parent-modal-title">
             Priority {priorityNumber}
+            {/* TasksList component */}
+            <TasksList priorityID={priorityID} />
           </h2>
+          {/* Delete and cancel buttons */}
           <div>
-            <ChildModal onClick={handleCreateTask} />
-            <br />
-            <ChildModal onClick={handleCreateTask} />
-          </div>
-          <div>
-            <Button onClick={handleSavePriorityClick}>Save Priority</Button>
+            {/* <Button onClick={handleSavePriorityClick}>Save Priority</Button> */}
             <Button onClick={() => setOpen(false)}>Cancel</Button>
           </div>
         </Box>
@@ -117,111 +117,6 @@ export default function PriorityItem({ checklistID, priority, priorityNumber }) 
   );
 } // - END CreatePriority COMPONENT -
 
-// * MUI Child Modal
-function ChildModal() {
-  // * State for modal open/close appearance conditional rendering
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // * State for adding a task input field conditional rendering
-  const [showTaskInput, setShowTaskInput] = React.useState(false);
-
-  // State for input value
-  const [taskInputValue, setTaskInputValue] = React.useState("");
-
-  // * Function to handle task creation
-  const handleCreateTask = (event) => {
-    // Preventing default submit functionality
-    event.preventDefault();
-
-    // Logging
-    console.log("Task save button clicked!");
-    console.log("taskInputValue is:", taskInputValue);
-
-    // Dispatch action to add a task
-
-    // Setting input field back to text
-    setShowTaskInput(false);
-  }; // * end handleCreateTask
-
-  // 
-
-  // - RENDERING -
-  return (
-    <React.Fragment>
-      <Button onClick={handleOpen}>Add a Task</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <Box
-          c
-          sx={{
-            position: "absolute",
-            top: "50%", // Center vertically
-            left: "50%", // Center horizontally
-            transform: "translate(-50%, -50%)", // Center both horizontally and vertically
-            width: 500,
-            height: 300,
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            textAlign: "center",
-            pt: 2,
-            px: 5,
-            pb: 3,
-          }}
-        >
-          {showTaskInput ? (
-            <form onSubmit={handleCreateTask}>
-              <label>Task 1</label>
-              <input
-                placeholder="Enter task 1 here"
-                onChange={(event) => setTaskInputValue(event.target.value)}
-                value={taskInputValue}
-              />
-              <Button type="submit">Save</Button>
-              <Button
-                type="button"
-                onClick={() => {
-                  setShowTaskInput(false);
-                }}
-              >
-                Cancel
-              </Button>
-            </form>
-          ) : (
-            <div>
-              {/* Checking if taskInputValue has text or not */}
-              {taskInputValue !== "" ? (
-                <div>
-                  <p>Click task to edit</p>
-                  <h2 onClick={() => setShowTaskInput(true)}>
-                    {taskInputValue}
-                  </h2>
-                </div>
-              ) : (
-                <h2
-                  id="child-modal-title"
-                  onClick={() => setShowTaskInput(true)}
-                >
-                  Click here to add a task
-                </h2>
-              )}
-            </div>
-          )}
-        </Box>
-      </Modal>
-    </React.Fragment>
-  );
-}
 
 // * MUI Modal Styling
 const style = {
