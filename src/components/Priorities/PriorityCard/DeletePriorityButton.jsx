@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// MUI
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-
-function TaskItem({ priorityID, taskNumber, task }) {
+// Turning into a DeletePriorityButton
+function DeletePriorityButton({ priorityID, priorityNumber }) {
   // * Local state for modal
   const [open, setOpen] = useState(false);
 
@@ -33,43 +32,26 @@ function TaskItem({ priorityID, taskNumber, task }) {
   // * Declaring useDispatch hook as variable
   const dispatch = useDispatch();
 
-  // * Declaring checklists from store
-  const allChecklists = useSelector((store) => store.checklistsReducer);
-
   // * Function to create a new checklist
-  const handleCreateTaskButton = () => {
+  const handleDeletePriorityButton = () => {
     // Logging
-    console.log("Add new task button clicked!");
+    console.log("Delete priority button clicked!");
 
-    // * Conditional
-    // if taskInput != "" then run dispatch action with priorityID
-    // Else show user taskInputPrompt true, which renders taskInput Prompt with text,
-    // "Make sure you enter a task title first!";
-    if (taskInput != "") {
-      dispatch({
-        type: "ADD_TASK",
-        payload: {
-          userID: userID,
-          priorityID: priorityID,
-          taskInput: taskInput,
-          taskNumber: taskNumber,
-        },
-      });
-
-      setTaskInputPrompt(false);
-      // handleClose();
-    } else {
-      setTaskInputPrompt(true);
-    }
+    // Dispatch action to delete the priority
+    dispatch({
+      type: "DELETE_PRIORITY",
+      payload: {
+        userID: userID,
+        priorityID: priorityID,
+      },
+    });
   };
 
   return (
     <div>
-      <Button onClick={() => setOpen(true)} variant="contained">
-        {task.task_title}
+      <Button onClick={() => setOpen(true)} variant="outlined" color="error">
+        Delete
       </Button>
-    {/* Delete Button Component Here */}
-    {/* <DeleteTaskButton/> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -90,7 +72,7 @@ function TaskItem({ priorityID, taskNumber, task }) {
             p: 4,
           }}
         >
-          <h2 id="modal-title">Task Details</h2>
+          <h2 id="modal-title">Delete Confirmation</h2>
           <Box
             component="form"
             sx={{
@@ -98,27 +80,17 @@ function TaskItem({ priorityID, taskNumber, task }) {
             }}
             noValidate
             autoComplete="on"
-          >
-            <h3>
-              {task.task_title}
-            </h3>
-            {taskInputPrompt === true && (
-              <p>Make sure you enter a task title first!</p>
-            )}
-            <TextField
-              id="filled-basic"
-              label="Enter a new task"
-              variant="outlined"
-              onChange={(event) => setTaskInput(event.target.value)}
-              value={taskInput}
-            />
-          </Box>
+          ></Box>
+          <p>
+            Are you sure you would like to delete{" "}
+            <strong>priority {priorityNumber}</strong>?
+          </p>
           <Button
-            onClick={handleCreateTaskButton}
+            onClick={handleDeletePriorityButton}
             variant="contained"
-            color="secondary"
+            color="error"
           >
-            Edit Task
+            Delete
           </Button>
           <Button onClick={handleClose} variant="outlined" color="secondary">
             Cancel
@@ -129,4 +101,4 @@ function TaskItem({ priorityID, taskNumber, task }) {
   );
 }
 
-export default TaskItem;
+export default DeletePriorityButton;

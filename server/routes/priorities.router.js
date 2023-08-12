@@ -14,7 +14,7 @@ router.get("/:checklistID", (req, res) => {
 
   // SQL Query for all priorities
   // Selecting from view table
- const queryText = `
+  const queryText = `
 SELECT
     p.priority_id,
     p.priority_number,
@@ -51,30 +51,25 @@ ORDER BY p.priority_number;
 
 // * POST request for adding checklist of user that is logged in
 router.post("/", (req, res) => {
-  // Declaring req.body as variable
-  const userID = req.body.userID;
-  console.log("userID is:", userID);
+  // Declaring user's checklist id as parameter
+  const checklistID = req.params.checklistID;
+  // Declaring user's checklist id as parameter
+  const priorityNumber = req.params.priorityNumber;
+
+  const checklistIDToSend = req.body.checklistID
+  const priorityNumberToSend = req.body.priorityNumber
+
   // SQL query to add a checklist
   const queryText = `
-    INSERT INTO "priorities" ("checklist_id")
-    VALUES ($1)
-    RETURNING priorities_id;
+    INSERT INTO priorities (checklist_id, priority_number)
+VALUES ($1, $2)
+RETURNING priority_id;
     `;
 
   pool
-    .query(queryText, [userID])
+    .query(queryText, [checklistIDToSend, priorityNumberToSend])
     .then((result) => {
-      const newChecklistID = result.rows[0].checklist_id;
-
-      // Fetch the newly created checklist with priority data
-      const queryUpdatedChecklist = `
-        SELECT * FROM checklists_view WHERE checklist_id = $1;
-      `;
-
-      return pool.query(queryUpdatedChecklist, [newChecklistID]);
-    })
-    .then((result) => {
-      console.log("POST request made to add a checklist! Result is:", result);
+      console.log("Added new priority! Result is:", result);
       res.sendStatus(201);
     })
     .catch((error) => {
@@ -84,17 +79,11 @@ router.post("/", (req, res) => {
 });
 
 // * DELETE request of user's selected checklist
-router.delete("/:userID/:checklist", (req, res) => {
-  // Declaring user's id as parameter
-  const userID = req.params.id;
+router.delete("/:checklistID", (req, res) => {
   // Declaring user's checklist id as parameter
-  const checklistID = req.params.checklist;
+  const checklistID = req.params.checklistID;
 
   // Queries
-  // Query to remove todos from selected checklist
-  const deleteTodosQuery = `
-    DELETE FROM todos WHERE task_id IN (SELECT task_id FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1));
-  `;
 
   // Query to remove todos from selected checklist
   const deleteTasksQuery = `
@@ -113,8 +102,7 @@ router.delete("/:userID/:checklist", (req, res) => {
 
   // Running multiple queries in the pool query
   pool
-    .query(deleteTodosQuery, [checklistID])
-    .then(() => pool.query(deleteTasksQuery, [checklistID]))
+    .query(deleteTasksQuery, [checklistID])
     .then(() => pool.query(deletePrioritiesQuery, [checklistID]))
     .then(() => pool.query(deleteChecklistQuery, [checklistID, userID]))
     .then(() => {

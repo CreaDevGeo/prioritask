@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // Components
 import ChecklistItem from "../ChecklistItem/ChecklistItem";
+import AddChecklistButton from "./AddChecklistButton";
 
 // - Checklists COMPONENT-
 function AllChecklists() {
@@ -23,25 +24,6 @@ function AllChecklists() {
   // Variable to keep track of the checklist number
   let checklistNumber = 0;
 
-  // * Function to create a new checklist
-  const handleNewChecklistButton = () => {
-    if (checklistNumber < 4) {
-      // Logging
-      console.log("Add new checklist button clicked.");
-
-      // Dispatching action to create new checklist
-      dispatch({
-        type: "ADD_CHECKLIST",
-        payload: user.id,
-      });
-
-    } else {
-      // Logging and alert
-      console.log("Cant create more than 4 checklists.");
-      alert("You cannot create more than 4 checklists.");
-    }
-  }; // * end handleNewChecklistButton
-
   // * Run on DOM load
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_CHECKLISTS", payload: user.id });
@@ -54,11 +36,8 @@ function AllChecklists() {
         <h1>Checklists</h1>
       </center>
       {/* Display the length of checklist array */}
-      <button onClick={handleNewChecklistButton}>
-        Add new checklist: {allChecklists.length}/4
-      </button>
+      <AddChecklistButton/>
       <button>Sort by rank</button>
-    
       {/* Mapping through checklist to create component */}
       <div>
         {allChecklists.map((checklist) => {
