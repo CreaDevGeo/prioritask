@@ -25,6 +25,7 @@ function TasksList({ priorityID }) {
   //   "with priorityID:",
   //   priorityID
   // );
+  
 
   // Conditional for priorityID payload dispatch
   useEffect(() => {
@@ -50,6 +51,7 @@ function TasksList({ priorityID }) {
               key={matchingTask.task_id}
               priorityID={priorityID}
               task={matchingTask}
+              taskNumber={taskNumber}
             />
           );
         } else {

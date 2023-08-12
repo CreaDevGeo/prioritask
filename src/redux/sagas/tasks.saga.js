@@ -6,7 +6,7 @@ import axios from "axios";
 // * priorities listener saga
 function* tasksSaga() {
   yield takeEvery("FETCH_PRIORITY_TASKS", fetchTasks);
-  //   yield takeLatest("ADD_TASK", addPriority);
+  yield takeLatest("ADD_TASK", addTask);
   //   yield takeLatest("DELETE_PRIORITY", deletePriority);
 } // * end prioritiesSaga
 
@@ -35,23 +35,39 @@ function* fetchTasks(action) {
   }
 } // * end fetchPriorities
 
-// // Add Priority
-// // * Gen function to add a priority via POST
-// function* addPriority(action) {
-//   try {
-//     console.log("action.payload is:", action.payload);
-//     // Declaring checklist id and priority data as payload
-//     // const { checklistID: checklistID, priorities: priorityData } = action.payload;
+// Add Task
+// * Gen function to add a task via POST
+function* addTask(action) {
+  console.log("Gen function addTask running due to action: ", action.type);
+  try {
+    // Declaring userID from payload
+    const userID = action.payload.userID;
 
-//     // Making POST request to url with data
-//     yield axios.post(`/priorities/${checklistID}`, priorityData);
+    // Declaring priorityID from payload
+    const priorityID = action.payload.priorityID;
 
-//     // Dispatch action to fetch priorities
-//     yield put({ type: "FETCH_PRIORITIES", payload: checklistID });
-//   } catch (error) {
-//     console.log("Error adding priority:", error);
-//   }
-// } // * end addPriority
+    // Declaring taskInput from payload
+    const taskInput = action.payload.taskInput;
+
+    // Declaring taskInput from payload
+    const taskNumber = action.payload.taskNumber;
+
+    // Making POST request to url with data
+    yield axios.post("/tasks", {
+      priorityID: priorityID,
+      taskInput: taskInput,
+      taskNumber: taskNumber,
+    });
+
+    // Dispatch action to fetch priorities
+    yield put({ type: "FETCH_PRIORITY_TASKS", payload: priorityID });
+
+    // Dispatch action to fetch checklists
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
+  } catch (error) {
+    console.log("Error adding priority:", error);
+  }
+} // * end addTask
 
 // // Possibly a PUT request to update priority
 // // But what would I be updating??

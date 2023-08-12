@@ -8,11 +8,11 @@ const userStrategy = require("../strategies/user.strategy");
 
 const router = express.Router();
 
-// * GET request for all priorities of user that is logged in
+// * GET request for all tasks of user that is logged in
 router.get("/:priorityID", (req, res) => {
   const priorityID = req.params.priorityID;
 
-  // SQL Query for all priorities
+  // SQL Query for all tasks
   // Selecting from view table
   const queryText = `
 SELECT * FROM "tasks"
@@ -29,41 +29,42 @@ WHERE priority_id = $1;
       console.log("Failed to retrieve priority's tasks! Error is:", error);
       res.sendStatus(500);
     });
-}); // * end GET all user's checklist priorities
+}); // * end GET all user's priority tasks
 
-// // * POST request for adding checklist of user that is logged in
-// router.post("/", (req, res) => {
-//   // Declaring req.body as variable
-//   const userID = req.body.userID;
-//   console.log("userID is:", userID);
-//   // SQL query to add a checklist
-//   const queryText = `
-//     INSERT INTO "priorities" ("checklist_id")
-//     VALUES ($1)
-//     RETURNING priorities_id;
-//     `;
+// * POST request for adding checklist of user that is logged in
+router.post("/", (req, res) => {
+  // Declaring priority id as variable
+  const priorityID = req.body.priorityID;
+  console.log("\nPriorityID in server is:", priorityID);
 
-//   pool
-//     .query(queryText, [userID])
-//     .then((result) => {
-//       const newpriorityID = result.rows[0].checklist_id;
+  // Declaring task title id as variable
+  const taskInput = req.body.taskInput;
+  console.log("\ntaskInput in server is:", taskInput);
+  
+  // Declaring task title id as variable
+  const taskNumber = req.body.taskNumber;
+  console.log("\ntaskInput in server is:", taskNumber);
 
-//       // Fetch the newly created checklist with priority data
-//       const queryUpdatedChecklist = `
-//         SELECT * FROM checklists_view WHERE checklist_id = $1;
-//       `;
+  // SQL query to add a checklist
+  const queryText = `
+    INSERT INTO "tasks" ("priority_id", "task_title", "task_number")
+    VALUES ($1, $2, $3)
+    `;
 
-//       return pool.query(queryUpdatedChecklist, [newpriorityID]);
-//     })
-//     .then((result) => {
-//       console.log("POST request made to add a checklist! Result is:", result);
-//       res.sendStatus(201);
-//     })
-//     .catch((error) => {
-//       console.log("Failed to add checklist! Error is:", error);
-//       res.sendStatus(500);
-//     });
-// });
+  pool
+    .query(queryText, [priorityID, taskInput, taskNumber])
+    .then((result) => {
+      console.log(
+        "POST request made to add a task to the priority! Result is:",
+        result
+      );
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log("Failed to add task to priority! Error is:", error);
+      res.sendStatus(500);
+    });
+});
 
 // // * DELETE request of user's selected checklist
 // router.delete("/:userID/:checklist", (req, res) => {

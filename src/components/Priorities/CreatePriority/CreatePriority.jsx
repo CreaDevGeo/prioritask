@@ -58,7 +58,7 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
           pb: 3,
         }}
       >
-        <h2>Create Priority</h2>
+        <h2>Create Priority {priorityNumber}</h2>
         <div>
           <Button onClick={handleAddNewPriority}>Create a new priority</Button>
         </div>
