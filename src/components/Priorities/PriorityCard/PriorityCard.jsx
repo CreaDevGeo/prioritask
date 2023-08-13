@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // Components
 import TasksList from "../../Tasks/TasksList/TasksList";
-import TaskPriorityHeader from "../../Tasks/TaskPriorityHeader/TaskPriorityHeader";
 import DeletePriorityButton from "./DeletePriorityButton";
 // MUI
 import Box from "@mui/material/Box";
@@ -45,8 +44,8 @@ export default function PriorityCard({
         sx={{
           top: "50%",
           left: "50%",
-          width: 200,
-          height: 300,
+          width: 300,
+          height: 400,
           bgcolor: "background.paper",
           borderRadius: 5,
           boxShadow: 24,
@@ -55,13 +54,28 @@ export default function PriorityCard({
           pb: 3,
         }}
       >
+        <p>
         <h2>Priority {priorityNumber}</h2>
+        </p>
+       
         {/* Want to make a render here for all task titles */}
-        <div className="task-container">
+        <div
+          className="scrollable-container"
+          style={{
+            maxHeight: "230px", // Set the maximum height
+            overflowY: "auto", // Enable vertical scrolling
+          }}
+        >
           {/* TasksList component */}
           <TasksList priorityID={priorityID} />
         </div>
-        <div>
+        <div 
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          margin: "10px"
+        }}
+        >
           {/* Delete priority button will go here */}
           <DeletePriorityButton
             priorityID={priorityID}

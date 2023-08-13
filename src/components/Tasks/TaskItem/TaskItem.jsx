@@ -5,10 +5,10 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 // Components
 import DeleteTaskButton from "./DeleteTaskButton";
+import TaskDeadline from "./TaskDeadline/TaskDeadline";
+import { Margin } from "@mui/icons-material";
 
 
 
@@ -70,10 +70,30 @@ function TaskItem({ priorityID, taskNumber, task }) {
 
   return (
     <div>
+      {/* Task number header and delete button */}
+      <header>
+      
+      <center>
+        <h3 style={{
+          margin: "3px auto 3px"
+        }}>
+         Task {taskNumber}
+        </h3>
+      </center>
+        <div style={
+          {display: "flex",
+          justifyContent: "center",
+          margin: "3px auto 3px"
+          }
+        }>
+          <TaskDeadline priorityID={priorityID} taskNumber={taskNumber} />
+          <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
+        </div>
+      </header>
+
       <Button onClick={() => setOpen(true)} variant="contained">
         {task.task_title}
       </Button>
-      <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
       {/* Delete Button Component Here */}
       {/* <DeleteTaskButton/> */}
       <Modal
@@ -94,6 +114,7 @@ function TaskItem({ priorityID, taskNumber, task }) {
             border: "2px solid #000",
             boxShadow: 24,
             p: 4,
+            margin: 10 
           }}
         >
           <h2 id="modal-title">Task Details</h2>

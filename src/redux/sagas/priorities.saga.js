@@ -75,7 +75,6 @@ function* deletePriority(action) {
   try {
     // Declaring user's id as payload
     const userID = action.payload.userID;
-
     // Declaring user's priority id as payload
     const priorityID = action.payload.priorityID;
     // Declaring priority's checklist id as payload
