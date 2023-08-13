@@ -8,6 +8,7 @@ const userStrategy = require("../strategies/user.strategy");
 
 const router = express.Router();
 
+// - GET -
 // * GET request for all tasks of user that is logged in
 router.get("/:priorityID", (req, res) => {
   const priorityID = req.params.priorityID;
@@ -31,6 +32,7 @@ WHERE priority_id = $1;
     });
 }); // * end GET all user's priority tasks
 
+// - POST -
 // * POST request for adding checklist of user that is logged in
 router.post("/", (req, res) => {
   // Declaring priority id as variable
@@ -40,7 +42,7 @@ router.post("/", (req, res) => {
   // Declaring task title id as variable
   const taskInput = req.body.taskInput;
   console.log("\ntaskInput in server is:", taskInput);
-  
+
   // Declaring task title id as variable
   const taskNumber = req.body.taskNumber;
   console.log("\ntaskInput in server is:", taskNumber);
@@ -64,50 +66,31 @@ router.post("/", (req, res) => {
       console.log("Failed to add task to priority! Error is:", error);
       res.sendStatus(500);
     });
-});
+}); // * end POST request for a task
 
-// // * DELETE request of user's selected checklist
-// router.delete("/:userID/:checklist", (req, res) => {
-//   // Declaring user's id as parameter
-//   const userID = req.params.id;
-//   // Declaring user's checklist id as parameter
-//   const priorityID = req.params.checklist;
+// - DELETE -
+// * DELETE request of user's selected task
+router.delete("/:priorityID/:taskNumber", (req, res) => {
+  // Declaring user's priority id as parameter
+  const priorityID = req.params.priorityID;
+  // Declaring user's task number as parameter
+  const taskNumber = req.params.taskNumber;
 
-//   // Queries
-//   // Query to remove todos from selected checklist
-//   const deleteTodosQuery = `
-//     DELETE FROM todos WHERE task_id IN (SELECT task_id FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1));
-//   `;
+  // Query
+  const deleteTasksQuery = `
+    DELETE FROM tasks WHERE priority_id = $1 AND task_number = $2
+  `;
 
-//   // Query to remove todos from selected checklist
-//   const deleteTasksQuery = `
-//     DELETE FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1);
-//   `;
-
-//   // Query to remove todos from selected checklist
-//   const deletePrioritiesQuery = `
-//     DELETE FROM priorities WHERE checklist_id = $1;
-//   `;
-
-//   // Query to remove todos from selected checklist
-//   const deleteChecklistQuery = `
-//     DELETE FROM checklists WHERE checklist_id = $1 AND user_id = $2;
-//   `;
-
-//   // Running multiple queries in the pool query
-//   pool
-//     .query(deleteTodosQuery, [priorityID])
-//     .then(() => pool.query(deleteTasksQuery, [priorityID]))
-//     .then(() => pool.query(deletePrioritiesQuery, [priorityID]))
-//     .then(() => pool.query(deleteChecklistQuery, [priorityID, userID]))
-//     .then(() => {
-//       console.log("DELETE request made to remove a checklist!");
-//       res.sendStatus(201);
-//     })
-//     .catch((error) => {
-//       console.log("Failed to remove checklist! Error is:", error);
-//       res.sendStatus(500);
-//     });
-// });
+  pool
+    .query(deleteTasksQuery, [priorityID, taskNumber])
+    .then((result) => {
+      console.log("DELETE request made to remove a selected task!");
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log("Failed to remove task! Error is:", error);
+      res.sendStatus(500);
+    });
+}); // * end POST request for a task
 
 module.exports = router;

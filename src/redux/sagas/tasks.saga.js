@@ -5,9 +5,9 @@ import axios from "axios";
 // - LISTENER SAGA -
 // * priorities listener saga
 function* tasksSaga() {
-  yield takeEvery("FETCH_PRIORITY_TASKS", fetchTasks);
+  yield takeEvery("FETCH_TASKS", fetchTasks);
   yield takeLatest("ADD_TASK", addTask);
-  //   yield takeLatest("DELETE_PRIORITY", deletePriority);
+  yield takeLatest("DELETE_TASK", deleteTask);
 } // * end prioritiesSaga
 
 // - ACTION SAGAS -
@@ -69,23 +69,34 @@ function* addTask(action) {
   }
 } // * end addTask
 
+// Delete Task
+// * Gen function to delete a task via POST
+function* deleteTask(action) {
+  console.log("Gen function deleteTask running due to action: ", action.type);
+  try {
+    // Declaring userID from payload
+    const userID = action.payload.userID;
+    // Declaring priorityID from payload
+    const priorityID = action.payload.priorityID;
+    // Declaring taskNumber from payload
+    const taskNumber = action.payload.taskNumber;
+
+    // DELETE request
+    yield axios.delete(`/tasks/${priorityID}/${taskNumber}`);
+
+    // Dispatch action to fetch tasks and wait for its completion
+    yield call(fetchTasks, { payload: { priorityID } });
+
+    // Dispatch action to fetch checklists
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
+  } catch (error) {
+    console.log("Error deleting task:", error);
+  }
+} // * end deleteTask
+
 // // Possibly a PUT request to update priority
 // // But what would I be updating??
 // // I can only update the task description and to do text so maybe don't need it?
 // // Maybe priority completion?
-
-// // Delete Priority
-// // * Gen function to remove a priority via DELETE
-// function* deletePriority(action) {
-//   try {
-//     // Declaring user's id as payload
-//     const { checklistID, priorityID } = action.payload;
-
-//     yield axios.delete(`/priorities/${checklistID}/${priorityID}`);
-//     yield put({ type: "FETCH_PRIORITIES", payload: checklistID });
-//   } catch (error) {
-//     console.log("Error deleting priority:", error);
-//   }
-// }
 
 export default tasksSaga;

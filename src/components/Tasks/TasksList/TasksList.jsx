@@ -31,7 +31,7 @@ function TasksList({ priorityID }) {
   useEffect(() => {
     if (priorityID) {
       dispatch({
-        type: "FETCH_PRIORITY_TASKS",
+        type: "FETCH_TASKS",
         payload: { priorityID: priorityID },
       });
     }
@@ -47,12 +47,19 @@ function TasksList({ priorityID }) {
 
         if (matchingTask) {
           return (
-            <TaskItem
-              key={matchingTask.task_id}
-              priorityID={priorityID}
-              task={matchingTask}
-              taskNumber={taskNumber}
-            />
+            <div
+            style={{
+              margin: "20px auto"
+            }}
+            >
+              <TaskItem
+                key={matchingTask.task_id}
+                priorityID={priorityID}
+                task={matchingTask}
+                taskNumber={taskNumber}
+              />
+            </div
+           >
           );
         } else {
           return (

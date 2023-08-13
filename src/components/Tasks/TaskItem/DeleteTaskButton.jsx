@@ -38,12 +38,13 @@ function DeleteTaskButton({ priorityID, taskNumber }) {
     // Logging
     console.log("Delete priority button clicked!");
 
-    // Dispatch action to delete the priority
+    // Dispatch action to delete the priority 
     dispatch({
       type: "DELETE_TASK",
       payload: {
         userID: userID,
         priorityID: priorityID,
+        taskNumber: taskNumber,
       },
     });
 
