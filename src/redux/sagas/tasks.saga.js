@@ -1,5 +1,5 @@
 // - IMPORTING -
-import { put, takeLatest, takeEvery } from "redux-saga/effects";
+import { call, put, takeLatest, takeEvery } from "redux-saga/effects";
 import axios from "axios";
 
 // - LISTENER SAGA -
@@ -59,8 +59,8 @@ function* addTask(action) {
       taskNumber: taskNumber,
     });
 
-    // Dispatch action to fetch priorities
-    yield put({ type: "FETCH_PRIORITY_TASKS", payload: priorityID });
+    // Dispatch action to fetch tasks and wait for its completion
+    yield call(fetchTasks, { payload: { priorityID } });
 
     // Dispatch action to fetch checklists
     yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });

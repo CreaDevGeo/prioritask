@@ -5,6 +5,11 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+// Components
+import DeleteTaskButton from "./DeleteTaskButton";
+
 
 
 function TaskItem({ priorityID, taskNumber, task }) {
@@ -68,8 +73,9 @@ function TaskItem({ priorityID, taskNumber, task }) {
       <Button onClick={() => setOpen(true)} variant="contained">
         {task.task_title}
       </Button>
-    {/* Delete Button Component Here */}
-    {/* <DeleteTaskButton/> */}
+      <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
+      {/* Delete Button Component Here */}
+      {/* <DeleteTaskButton/> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -99,9 +105,7 @@ function TaskItem({ priorityID, taskNumber, task }) {
             noValidate
             autoComplete="on"
           >
-            <h3>
-              {task.task_title}
-            </h3>
+            <h3>{task.task_title}</h3>
             {taskInputPrompt === true && (
               <p>Make sure you enter a task title first!</p>
             )}

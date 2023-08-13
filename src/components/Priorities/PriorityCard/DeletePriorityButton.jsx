@@ -4,9 +4,11 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SendIcon from "@mui/icons-material/Send";
 
 // Turning into a DeletePriorityButton
-function DeletePriorityButton({ priorityID, priorityNumber }) {
+function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
   // * Local state for modal
   const [open, setOpen] = useState(false);
 
@@ -43,13 +45,16 @@ function DeletePriorityButton({ priorityID, priorityNumber }) {
       payload: {
         userID: userID,
         priorityID: priorityID,
+        checklistID: checklistID,
       },
     });
+
+    setOpen(false);
   };
 
   return (
     <div>
-      <Button onClick={() => setOpen(true)} variant="outlined" color="error">
+      <Button onClick={handleOpen} variant="outlined" color="error">
         Delete
       </Button>
       <Modal
@@ -87,8 +92,9 @@ function DeletePriorityButton({ priorityID, priorityNumber }) {
           </p>
           <Button
             onClick={handleDeletePriorityButton}
-            variant="contained"
+            variant="outlined"
             color="error"
+            startIcon={<DeleteIcon />}
           >
             Delete
           </Button>

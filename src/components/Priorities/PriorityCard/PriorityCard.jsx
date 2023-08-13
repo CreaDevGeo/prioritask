@@ -54,7 +54,6 @@ export default function PriorityCard({
           px: 5,
           pb: 3,
         }}
-
       >
         <h2>Priority {priorityNumber}</h2>
         {/* Want to make a render here for all task titles */}
@@ -64,7 +63,11 @@ export default function PriorityCard({
         </div>
         <div>
           {/* Delete priority button will go here */}
-          <DeletePriorityButton priorityID={priorityID} priorityNumber={priorityNumber} />
+          <DeletePriorityButton
+            priorityID={priorityID}
+            priorityNumber={priorityNumber}
+            checklistID={checklistID}
+          />
         </div>
       </Box>
     </div>

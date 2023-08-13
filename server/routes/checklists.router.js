@@ -24,7 +24,6 @@ router.get("/:userID", (req, res) => {
                 'priority_id', p.priority_id,
                 'priority_number', p.priority_number,
                 'priority_completed', p.is_completed,
-                'num_tasks', p.num_tasks,
                 'priority_completed_at', p.priority_completed_at,
                 'tasks', (
                     SELECT COALESCE(

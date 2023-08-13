@@ -38,7 +38,7 @@ function ChecklistDeleteButton(checklistID) {
 
   return (
     <div>
-      <Button variant="contained" color="secondary" onClick={handleOpen}>
+      <Button variant="contained" color="error" onClick={handleOpen}>
         Delete
       </Button>
       <Modal
