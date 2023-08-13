@@ -14,12 +14,12 @@ const checklistHistoryData = [
   {
     checklistID: 1,
     priorities: [
-      { priority: "Priority 1", deadline: "Deadline 1" },
-      { priority: "Priority 2", deadline: "Deadline 2" },
-      { priority: "Priority 3", deadline: "Deadline 3" },
+      { priority: "Priority 1", },
+      { priority: "Priority 2",},
+      { priority: "Priority 3" },
     ],
     prioritiesCompletedAt: "Priorities Completion Date",
-    tasks: ["Task 1", "Task 2", "Task 3"],
+    tasks: ["Task 1", "Task 2"],
     tasksCompletedAt: "Tasks Completion Date",
   },
   // Add more data entries as needed
@@ -37,7 +37,7 @@ function ChecklistHistory() {
           <TableHead>
             <TableRow>
               <TableCell>Checklist ID</TableCell>
-              <TableCell>Priorities and Deadlines</TableCell>
+              <TableCell>Priorities</TableCell>
               <TableCell>Priorities Completed At</TableCell>
               <TableCell>Tasks</TableCell>
               <TableCell>Tasks Completed At</TableCell>
