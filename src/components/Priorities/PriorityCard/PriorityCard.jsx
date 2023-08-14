@@ -55,7 +55,9 @@ export default function PriorityCard({
         }}
       >
         <p>
+        <center>
         <h2>Priority {priorityNumber}</h2>
+        </center>
         </p>
        
         {/* Want to make a render here for all task titles */}

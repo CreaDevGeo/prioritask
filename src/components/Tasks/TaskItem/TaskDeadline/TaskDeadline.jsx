@@ -10,7 +10,6 @@ import { IconButton } from "@mui/material";
 function TaskDeadline({ priorityID, taskNumber }) {
   const [open, setOpen] = useState(false);
   const [deadlineDate, setDeadlineDate] = useState("");
-  const [deadlineTime, setDeadlineTime] = useState("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -27,7 +26,7 @@ function TaskDeadline({ priorityID, taskNumber }) {
       payload: {
         priorityID: priorityID,
         taskNumber: taskNumber,
-        deadline: `${deadlineDate} ${deadlineTime}`,
+        taskDeadline: `${deadlineDate}`,
       },
     });
 
@@ -60,8 +59,8 @@ function TaskDeadline({ priorityID, taskNumber }) {
             p: 4,
             display: "flex",
             flexDirection: "column",
-            gap: "1rem", // Adds spacing between elements
-            alignItems: "center", // Centers the elements horizontally
+            gap: "1rem", 
+            alignItems: "center",
           }}
         >
           <h2 id="modal-title">Set Deadline</h2>
@@ -71,16 +70,6 @@ function TaskDeadline({ priorityID, taskNumber }) {
             type="date"
             value={deadlineDate}
             onChange={(e) => setDeadlineDate(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="time"
-            label="Time"
-            type="time"
-            value={deadlineTime}
-            onChange={(e) => setDeadlineTime(e.target.value)}
             InputLabelProps={{
               shrink: true,
             }}

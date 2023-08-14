@@ -7,6 +7,7 @@ import axios from "axios";
 function* tasksSaga() {
   yield takeEvery("FETCH_TASKS", fetchTasks);
   yield takeLatest("ADD_TASK", addTask);
+  yield takeLatest("UPDATE_TASK_DEADLINE", updateTaskDeadline);
   yield takeLatest("DELETE_TASK", deleteTask);
 } // * end prioritiesSaga
 
@@ -68,6 +69,36 @@ function* addTask(action) {
     console.log("Error adding priority:", error);
   }
 } // * end addTask
+
+// Update Task Deadline
+// * Gen function to update a task's deadline via PUT
+function* updateTaskDeadline(action) {
+  console.log(
+    "Gen function updateTaskDeadline running due to action: ",
+    action.type
+  );
+  try {
+    // Declaring userID from payload
+    const userID = action.payload.userID;
+    // Declaring priorityID from payload
+    const priorityID = action.payload.priorityID;
+    // Declaring taskNumber from payload
+    const taskNumber = action.payload.taskNumber;
+    // Declaring task deadline from payload
+    const taskDeadline = action.payload.taskDeadline;
+
+    // PUT request
+    yield axios.put(`/tasks/${priorityID}/${taskNumber}`, { taskDeadline });
+
+    // Dispatch action to fetch tasks and wait for its completion
+    yield call(fetchTasks, { payload: { priorityID } });
+
+    // Dispatch action to fetch checklists
+    // yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
+  } catch (error) {
+    console.log("Error deleting task:", error);
+  }
+} // * end updateTaskDeadline
 
 // Delete Task
 // * Gen function to delete a task via POST

@@ -10,8 +10,6 @@ import DeleteTaskButton from "./DeleteTaskButton";
 import TaskDeadline from "./TaskDeadline/TaskDeadline";
 import { Margin } from "@mui/icons-material";
 
-
-
 function TaskItem({ priorityID, taskNumber, task }) {
   // * Local state for modal
   const [open, setOpen] = useState(false);
@@ -72,23 +70,30 @@ function TaskItem({ priorityID, taskNumber, task }) {
     <div>
       {/* Task number header and delete button */}
       <header>
-      
-      <center>
-        <h3 style={{
-          margin: "3px auto 3px"
-        }}>
-         Task {taskNumber}
-        </h3>
-      </center>
-        <div style={
-          {display: "flex",
-          justifyContent: "center",
-          margin: "3px auto 3px"
-          }
-        }>
+        <center>
+          <h3
+            style={{
+              margin: "3px auto 3px",
+            }}
+          >
+            Task {taskNumber}
+          </h3>
+        </center>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "3px auto 3px",
+          }}
+        >
           <TaskDeadline priorityID={priorityID} taskNumber={taskNumber} />
           <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
         </div>
+        <center>
+          <div>
+            <p>{task.due_date_formatted}</p>
+          </div>
+        </center>
       </header>
 
       <Button onClick={() => setOpen(true)} variant="contained">
@@ -114,7 +119,7 @@ function TaskItem({ priorityID, taskNumber, task }) {
             border: "2px solid #000",
             boxShadow: 24,
             p: 4,
-            margin: 10 
+            margin: 10,
           }}
         >
           <h2 id="modal-title">Task Details</h2>
