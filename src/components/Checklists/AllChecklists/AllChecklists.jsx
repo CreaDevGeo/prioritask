@@ -31,12 +31,12 @@ function AllChecklists() {
 
   // - RENDERING -
   return (
-    <React.Fragment>
+    <div >
       <center>
         <h1>Checklists</h1>
       </center>
       {/* Display the length of checklist array */}
-      <AddChecklistButton/>
+      <AddChecklistButton />
       {/* <button>Sort by rank</button> */}
       {/* Mapping through checklist to create component */}
       <div>
@@ -53,7 +53,7 @@ function AllChecklists() {
           );
         })}
       </div>
-    </React.Fragment>
+    </div>
   );
 } // * end Checklists
 

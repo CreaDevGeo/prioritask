@@ -48,18 +48,20 @@ function App() {
     // Main app container
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="lg" sx={{ bgcolor: "#cfe8fc", height: "100" }}>
+      <Container maxWidth="xlg" sx={{ bgcolor: "#cfe8fc", height: "100" }}>
         <Router>
           <div
             className={`app-container ${
               isUserLoggedIn ? "horizontal-layout" : ""
             }`}
           >
-            {/* Show PreLoginNav only when user is not logged in */}
             {!user.id && <PreLoginNav />}
-            {/* Show AppNav only when logged in */}
             {user.id && <AppNav />}
-            <div className="content-container">
+            <div
+              className={`content-container ${
+                isUserLoggedIn ? "content-margin" : ""
+              }`}
+            >
               <Switch>
                 {/* Redirect to home */}
                 <Redirect exact from="/" to="/home" />
@@ -121,7 +123,7 @@ function App() {
 
                 {/* If the user is already logged in, redirect to /user, else show LandingPage */}
                 <Route exact path="/home">
-                  {user.id ? <Redirect to="/user" /> : <LandingPage />}
+                  {user.id ? <Redirect to="/home" /> : <LandingPage />}
                 </Route>
 
                 {/* If none of the other routes matched, show a 404 */}
