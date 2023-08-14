@@ -54,7 +54,9 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="outlined" color="error">
+      <Button 
+      style={{backgroundColor: "black"}}
+       onClick={handleOpen} variant="contained" color="error">
         Delete
       </Button>
       <Modal

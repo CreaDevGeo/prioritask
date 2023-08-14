@@ -58,6 +58,10 @@ export default function PriorityCard({
           fontWeight: "600",
           color: "white",
           lineHeight: "35px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "flex-start", // Align the content to the left
         }}
       >
         <center>
@@ -77,12 +81,15 @@ export default function PriorityCard({
         </div>
         <div
           style={{
-            position: "absolute",
-            bottom: 10,
-            right: 10,
+            // Adjust margin and padding as needed
+            margin: "10px", // Add some margin
+            padding: "10px", // Add some padding
+            display: "flex",
+            justifyContent: "flex-end", // Move content to the right
+            alignItems: "flex-end", // Align content to the bottom
           }}
         >
-          {/* Delete priority button will go here */}
+          {/* Delete priority button */}
           <DeletePriorityButton
             priorityID={priorityID}
             priorityNumber={priorityNumber}
