@@ -36,12 +36,6 @@ function AppNav() {
         </ListItemButton>
         <ListItemButton
           className="list-item-hover"
-          onClick={() => handleNavigation("/journal")}
-        >
-          <ListItemText primary="Journal" />
-        </ListItemButton>
-        <ListItemButton
-          className="list-item-hover"
           onClick={() => handleNavigation("/about")}
         >
           <ListItemText primary="About" />
