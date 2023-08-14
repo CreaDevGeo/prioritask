@@ -22,6 +22,17 @@ Container
   padding: 20px;
 }
 
+.horizontal-layout {
+  display: flex;
+}
+
+.content-container {
+  flex: 1;
+  padding-left: 240px;
+  overflow-y: auto;
+  background-color: #cfe8fc;
+}
+
 /* --------------------------------------------------------------------------------
 Button
 -------------------------------------------------------------------------------- */

@@ -37,7 +37,7 @@ function AllChecklists() {
       </center>
       {/* Display the length of checklist array */}
       <AddChecklistButton/>
-      <button>Sort by rank</button>
+      {/* <button>Sort by rank</button> */}
       {/* Mapping through checklist to create component */}
       <div>
         {allChecklists.map((checklist) => {

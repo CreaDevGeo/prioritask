@@ -1,99 +1,76 @@
-// - IMPORTING -
-// React
 import React from "react";
-import { useState } from "react";
-// Router
-import { Link, useHistory } from "react-router-dom";
-// Components
-import LogOutButton from "../../LogOutButton/LogOutButton"; // LogoutButton
-// Material UI
-import CssBaseline from "@mui/material/CssBaseline"; // MUI CssBaseline
-import Box from "@mui/material/Box"; // MUI Box
-import Grid from "@mui/material/Grid"; // Import Grid from MUI
-import Stack from "@mui/material/Stack"; // MUI Stack
-import Button from "@mui/material/Button"; // MUI Basic Button
-import List from "@mui/joy/List";
-import ListItem from "@mui/joy/ListItem";
-import ListItemDecorator from "@mui/joy/ListItemDecorator";
-import ListItemButton from "@mui/joy/ListItemButton";
-import Home from "@mui/icons-material/Home";
-import Apps from "@mui/icons-material/Apps";
+import { useHistory, Link } from "react-router-dom";
+import { List, ListItemButton, ListItemText } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { styled } from "@mui/system";
+import { useDispatch } from "react-redux";
 
-// - AppNav COMPONENT -
+const SideNav = styled("div")(({ theme }) => ({
+  width: 240,
+  backgroundColor: "red",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  paddingTop: theme.spacing(2),
+  paddingLeft: theme.spacing(2),
+  height: "100vh", // Set the sidebar to full viewport height
+  position: "fixed", // Fixed positioning to make it sticky
+  top: 0, // Align to the top of the screen
+}));
+
+const ListItemHover = styled(ListItemButton)(({ theme }) => ({
+  "&:hover": {
+    backgroundColor: "blue",
+  },
+}));
+
+const LogoutButton = styled(ListItemButton)(({ theme }) => ({
+  "&:hover": {
+    backgroundColor: "blue",
+  },
+}));
+
 function AppNav() {
-  // * Declaring useHistory
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  // - RENDERING -
+  const handleNavigation = (path) => {
+    history.push(path);
+  };
+
+  const handleLogoutButton = () => {
+    console.log("User logged out");
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
-    <React.Fragment>
-      {/* MUI */}
-      <List
-        sx={{
-          maxWidth: 320,
-        }}
-      >
-        <ListItem>
-          <ListItemButton
-            onClick={() => {
-              history.push("/checklists");
+    <SideNav>
+      <List>
+        <ListItemHover onClick={() => handleNavigation("/checklists")}>
+          <ListItemText primary="Checklists" />
+        </ListItemHover>
+        <ListItemHover onClick={() => handleNavigation("/checklist-history")}>
+          <ListItemText primary="History" />
+        </ListItemHover>
+        <ListItemHover onClick={() => handleNavigation("/journal")}>
+          <ListItemText primary="Journal" />
+        </ListItemHover>
+        <ListItemHover onClick={() => handleNavigation("/about")}>
+          <ListItemText primary="About" />
+        </ListItemHover>
+        <LogoutButton onClick={handleLogoutButton}>
+          <span
+            style={{
+              marginRight: "10px",
             }}
           >
-            Checklists
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem>
-          <ListItemButton
-            onClick={() => {
-              history.push("/checklist-history");
-            }}
-          >
-            History
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem>
-          <ListItemButton
-            onClick={() => {
-              history.push("/journal");
-            }}
-          >
-            Journal
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem>
-          <ListItemButton
-            onClick={() => {
-              history.push("/about");
-            }}
-          >
-            About
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem>
-          <ListItemButton>Logout</ListItemButton>
-        </ListItem>
+            Logout
+          </span>
+          <LogoutIcon />
+        </LogoutButton>
       </List>
-
-      <Link className="navLink" to="/user">
-        Home
-      </Link>
-
-      <Link className="navLink" to="/info">
-        Info Page
-      </Link>
-
-      <LogOutButton className="navLink" />
-
-      <Link className="navLink" to="/about">
-        About
-      </Link>
-    </React.Fragment>
+    </SideNav>
   );
-} // * end AppNav
+}
 
-// - EXPORTING AppNav COMPONENT -
 export default AppNav;
