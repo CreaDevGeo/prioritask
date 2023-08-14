@@ -1,0 +1,21 @@
+/* Post Login Navigation */
+.side-nav {
+  width: 240px;
+  height: 100vh;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 16px;
+  padding-left: 16px;
+  position: fixed;
+  top: 0;
+}
+
+.list-item-hover:hover {
+  background-color: blue;
+}
+
+.logout-button:hover {
+  background-color: blue;
+}

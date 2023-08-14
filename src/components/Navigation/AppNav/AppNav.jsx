@@ -1,34 +1,9 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { List, ListItemButton, ListItemText } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { styled } from "@mui/system";
 import { useDispatch } from "react-redux";
-
-const SideNav = styled("div")(({ theme }) => ({
-  width: 240,
-  backgroundColor: "red",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  paddingTop: theme.spacing(2),
-  paddingLeft: theme.spacing(2),
-  height: "100vh", // Set the sidebar to full viewport height
-  position: "fixed", // Fixed positioning to make it sticky
-  top: 0, // Align to the top of the screen
-}));
-
-const ListItemHover = styled(ListItemButton)(({ theme }) => ({
-  "&:hover": {
-    backgroundColor: "blue",
-  },
-}));
-
-const LogoutButton = styled(ListItemButton)(({ theme }) => ({
-  "&:hover": {
-    backgroundColor: "blue",
-  },
-}));
+import "./AppNav.css";
 
 function AppNav() {
   const history = useHistory();
@@ -41,24 +16,37 @@ function AppNav() {
   const handleLogoutButton = () => {
     console.log("User logged out");
     dispatch({ type: "LOGOUT" });
+    history.push("/home"); // Redirect to home page after logout
   };
 
   return (
-    <SideNav>
+    <div className="side-nav">
       <List>
-        <ListItemHover onClick={() => handleNavigation("/checklists")}>
+        <ListItemButton
+          className="list-item-hover"
+          onClick={() => handleNavigation("/checklists")}
+        >
           <ListItemText primary="Checklists" />
-        </ListItemHover>
-        <ListItemHover onClick={() => handleNavigation("/checklist-history")}>
+        </ListItemButton>
+        <ListItemButton
+          className="list-item-hover"
+          onClick={() => handleNavigation("/checklist-history")}
+        >
           <ListItemText primary="History" />
-        </ListItemHover>
-        <ListItemHover onClick={() => handleNavigation("/journal")}>
+        </ListItemButton>
+        <ListItemButton
+          className="list-item-hover"
+          onClick={() => handleNavigation("/journal")}
+        >
           <ListItemText primary="Journal" />
-        </ListItemHover>
-        <ListItemHover onClick={() => handleNavigation("/about")}>
+        </ListItemButton>
+        <ListItemButton
+          className="list-item-hover"
+          onClick={() => handleNavigation("/about")}
+        >
           <ListItemText primary="About" />
-        </ListItemHover>
-        <LogoutButton onClick={handleLogoutButton}>
+        </ListItemButton>
+        <ListItemButton className="logout-button" onClick={handleLogoutButton}>
           <span
             style={{
               marginRight: "10px",
@@ -67,9 +55,9 @@ function AppNav() {
             Logout
           </span>
           <LogoutIcon />
-        </LogoutButton>
+        </ListItemButton>
       </List>
-    </SideNav>
+    </div>
   );
 }
 
