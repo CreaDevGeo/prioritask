@@ -9,9 +9,7 @@ const passport = require("./strategies/user.strategy");
 
 // Route includes
 const userRouter = require("./routes/user.router"); // user router
-const checklistsRouter = require("./routes/checklists.router"); // checklists router
-const prioritiesRouter = require("./routes/priorities.router"); // priorities router
-const tasksRouter = require("./routes/tasks.router"); // tasks router
+const checklistsRouter = require("./routes/checklists.router"); // user router
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -26,9 +24,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use("/api/user", userRouter); // user route
-app.use("/checklists", checklistsRouter); // checklists route
-app.use("/priorities", prioritiesRouter); // priorities route
-app.use("/tasks", tasksRouter); // tasks route
+app.use("/api/checklists", checklistsRouter); // checklists route
 
 // Serve static files
 app.use(express.static("build"));

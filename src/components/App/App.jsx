@@ -14,6 +14,13 @@ import PreLoginNav from "../Navigation/PreLoginNav/PreLoginNav";
 import Footer from "../Footer/Footer";
 // Protected routes for user
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
+// Material UI
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+// CSS
+import "./App.css";
 // Components
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
@@ -21,13 +28,8 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import Checklists from "../Checklists/Checklists";
-// Material UI
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-// CSS
-import "./App.css";
+import AllChecklists from "../Checklists/AllChecklists/AllChecklists";
+import ChecklistHistory from "../ChecklistHistory/ChecklistHistory";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,7 +43,10 @@ function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="lg" sx={{ bgcolor: "#cfe8fc", height: "100vh" }}>
+      <Container
+        maxWidth="lg"
+        sx={{ bgcolor: "#cfe8fc", height: "100" }}
+      >
         <Router>
           <div>
             <PreLoginNav />
@@ -75,7 +80,15 @@ function App() {
                 exact
                 path="/checklists"
               >
-                <Checklists />
+                <AllChecklists />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows Checklists else shows LoginPage
+                exact
+                path="/checklist-history"
+              >
+                <ChecklistHistory />
               </ProtectedRoute>
 
               <ProtectedRoute

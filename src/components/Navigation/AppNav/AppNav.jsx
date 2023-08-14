@@ -46,7 +46,7 @@ function AppNav() {
         <ListItem>
           <ListItemButton
             onClick={() => {
-              history.push("/history");
+              history.push("/checklist-history");
             }}
           >
             History
