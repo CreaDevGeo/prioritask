@@ -14,11 +14,15 @@ router.get("/:priorityID", (req, res) => {
   const priorityID = req.params.priorityID;
 
   // SQL Query for all tasks
-  // Selecting from view table
   const queryText = `
-SELECT * FROM "tasks"
-WHERE priority_id = $1;
-`;
+    SELECT
+    *,
+    TO_CHAR(deadline, 'Mon DD, YYYY') AS due_date_formatted
+FROM
+    tasks
+WHERE
+    priority_id = $1;
+  `;
 
   pool
     .query(queryText, [priorityID])
@@ -31,6 +35,31 @@ WHERE priority_id = $1;
       res.sendStatus(500);
     });
 }); // * end GET all user's priority tasks
+
+// - GET -
+// * GET request for all task deadlines of user that is logged in
+router.get("/task-deadline", (req, res) => {
+  // Query
+  let tasksDeadlineQuery = `SELECT
+    t.deadline
+FROM
+    tasks t
+JOIN
+    priorities p ON t.priority_id = p.priority_id
+ORDER BY
+    p.priority_number ASC;`;
+
+  pool
+    .query(tasksDeadlineQuery)
+    .then((result) => {
+      console.log("GET request made to retrieve task deadline!");
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log("Failed to get task deadline! Error is:", error);
+      res.sendStatus(500);
+    });
+}); // * end GET request for a task
 
 // - POST -
 // * POST request for adding checklist of user that is logged in
@@ -68,6 +97,35 @@ router.post("/", (req, res) => {
     });
 }); // * end POST request for a task
 
+// - PUT: TASK DEADLINE -
+// * PUT request of selected task's deadline
+router.put("/:priorityID/:taskNumber", (req, res) => {
+  // Declaring user's priority id as parameter
+  const priorityID = req.params.priorityID;
+  // Declaring user's task number as parameter
+  const taskNumber = req.params.taskNumber;
+  // Declaring task deadline as parameter
+  const taskDeadline = req.body.taskDeadline;
+
+  // Query
+  const updateTaskDeadlineQuery = `
+    UPDATE tasks
+    SET deadline = $1
+    WHERE priority_id = $2 AND task_number = $3
+  `;
+
+  pool
+    .query(updateTaskDeadlineQuery, [taskDeadline, priorityID, taskNumber])
+    .then((result) => {
+      console.log("PUT request made to update task deadline!");
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Failed to update task deadline! Error is:", error);
+      res.sendStatus(500);
+    });
+}); // * end PUT request for a task deadline
+
 // - DELETE -
 // * DELETE request of user's selected task
 router.delete("/:priorityID/:taskNumber", (req, res) => {
@@ -91,6 +149,6 @@ router.delete("/:priorityID/:taskNumber", (req, res) => {
       console.log("Failed to remove task! Error is:", error);
       res.sendStatus(500);
     });
-}); // * end POST request for a task
+}); // * end DELETE request for a task
 
 module.exports = router;
