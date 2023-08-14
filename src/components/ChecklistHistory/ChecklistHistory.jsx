@@ -9,6 +9,8 @@ import {
   Paper,
 } from "@mui/material";
 
+import "../App/App.css"
+
 // Example dynamic data (replace this with your actual data)
 const checklistHistoryData = [
   {
@@ -30,7 +32,16 @@ function ChecklistHistory() {
   return (
     <>
       <center>
-        <h1>Checklist History</h1>
+        <h1
+          style={{
+            fontFamily: "poppins, sans-serif",
+            fontSize: "7rem",
+            fontWeight: "800",
+            marginRight: "4rem",
+          }}
+        >
+          Checklist History
+        </h1>
       </center>
       <TableContainer component={Paper} style={{ marginBottom: "16px" }}>
         <Table>

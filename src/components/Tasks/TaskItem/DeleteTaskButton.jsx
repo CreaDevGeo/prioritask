@@ -98,7 +98,7 @@ function DeleteTaskButton({ priorityID, taskNumber }) {
           >
             Delete
           </Button>
-          <Button onClick={handleClose} variant="outlined" color="secondary">
+          <Button onClick={handleClose} color="primary" variant="contained">
             Cancel
           </Button>
         </Box>

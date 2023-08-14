@@ -22,17 +22,35 @@ function ChecklistItem({ checklist, checklistNumber }) {
   // - RENDERING -
   return (
     <>
-      <div className="checklist-item-box">
+      <div
+        className="checklist-item-box"
+        style={{
+          backgroundColor: "#26abc0",
+          borderRadius: "20px",
+          boxShadow: "5px 20px 50px -15px",
+          margin: "4rem"
+        }}
+      >
         <header className="checklist-item-header">
           <center>
-            <h2 className="checklist-heading">Checklist {checklistNumber}</h2>
+            <h2 className="checklist-heading"
+            style={{
+              fontFamily: "poppins, sans-serif",
+              fontSize: "2.5rem",
+              fontWeight: "700",
+              width: "40rem"
+            }}
+            >Checklist {checklistNumber}</h2>
           </center>
         </header>
 
         <PrioritiesList checklistID={checklistID} priorities={priorities} />
 
         {/* Delete Button */}
-        <ChecklistDeleteButton checklistID={checklistID} />
+        <ChecklistDeleteButton
+          checklistID={checklistID}
+          checklistNumber={checklistNumber}
+        />
       </div>
     </>
   );

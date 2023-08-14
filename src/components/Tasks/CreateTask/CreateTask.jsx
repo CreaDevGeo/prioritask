@@ -82,8 +82,19 @@ function CreateTask({ priorityID, taskNumber }) {
   };
 
   return (
-    <div>
-      <Button onClick={() => setOpen(true)} variant="outlined">
+    <div style={{ textAlign: "center", margin: "10px auto" }}>
+      <Button
+        onClick={() => setOpen(true)}
+        variant="contained"
+        style={{
+          backgroundColor: "#edf7c0",
+          color: "black",
+          fontFamily: "poppins, sans-serif",
+          fontSize: "1rem",
+          fontWeight: "500",
+          boxShadow: "4px 10px 0.5rem -9px"
+        }}
+      >
         Add a new task
       </Button>
       <Modal
@@ -136,11 +147,11 @@ function CreateTask({ priorityID, taskNumber }) {
           <Button
             onClick={handleCreateTaskButton}
             variant="contained"
-            color="secondary"
+            color="primary"
           >
             Create Task
           </Button>
-          <Button onClick={handleClose} variant="outlined" color="secondary">
+          <Button onClick={handleClose} color="primary" variant="outlined">
             Cancel
           </Button>
         </Box>

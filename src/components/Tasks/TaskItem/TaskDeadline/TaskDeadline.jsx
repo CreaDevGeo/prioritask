@@ -52,18 +52,18 @@ function TaskDeadline({ priorityID, taskNumber }) {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 300,
+            width: 300, 
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 5,
             boxShadow: 24,
             p: 4,
             display: "flex",
             flexDirection: "column",
-            gap: "1rem", 
+            gap: "1rem",
             alignItems: "center",
           }}
         >
-          <h2 id="modal-title">Set Deadline</h2>
+          <h2 id="modal-title">Set a Deadline</h2>
           <TextField
             id="date"
             label="Date"
@@ -81,7 +81,7 @@ function TaskDeadline({ priorityID, taskNumber }) {
           >
             Set Deadline
           </Button>
-          <Button onClick={handleClose} variant="outlined" color="secondary">
+          <Button onClick={handleClose} color="primary" variant="contained">
             Cancel
           </Button>
         </Box>

@@ -47,7 +47,7 @@ function App() {
     // Main app container
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="xlg" sx={{ bgcolor: "#cfe8fc", height: "100" }}>
+      <Container maxWidth="xlg" sx={{ height: "100" }}>
         <Router>
           <div
             className={`app-container ${
