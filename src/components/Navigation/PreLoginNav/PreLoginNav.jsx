@@ -20,7 +20,7 @@ function Nav() {
         <Toolbar>
           <Typography variant="h6" component="div">
             <Link to="/home" className="nav-title">
-              Prime Solo Project
+              Prioritask
             </Link>
           </Typography>
           <div style={{ marginLeft: "auto" }}>

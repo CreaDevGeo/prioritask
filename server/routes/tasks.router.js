@@ -17,7 +17,8 @@ router.get("/:priorityID", (req, res) => {
   const queryText = `
     SELECT
     *,
-    TO_CHAR(deadline, 'Mon DD, YYYY') AS due_date_formatted
+    TO_CHAR(deadline, 'Mon DD, YYYY') AS due_date_formatted,
+    TO_CHAR(completed_at, 'Mon DD, YYYY') AS completion_date_formatted
 FROM
     tasks
 WHERE
@@ -96,6 +97,34 @@ router.post("/", (req, res) => {
       res.sendStatus(500);
     });
 }); // * end POST request for a task
+
+// - PUT: TASK DEADLINE -
+// * PUT request updating selected task's completion
+router.put("/:priorityID/:taskNumber/completed", (req, res) => {
+  // Declaring user's priority id as parameter
+  const priorityID = req.params.priorityID;
+  // Declaring user's task number as parameter
+  const taskNumber = req.params.taskNumber;
+
+  // Query
+  const updateTaskCompletionQuery = `
+    UPDATE tasks
+SET is_completed = TRUE,
+    completed_at = NOW() -- NOW() returns the current timestamp
+WHERE priority_id = $1 AND task_number = $2;
+  `;
+
+  pool
+    .query(updateTaskCompletionQuery, [priorityID, taskNumber])
+    .then((result) => {
+      console.log("PUT request made to update task completion!");
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Failed to update task completion! Error is:", error);
+      res.sendStatus(500);
+    });
+}); // * end PUT request for a task completion
 
 // - PUT: TASK DEADLINE -
 // * PUT request of selected task's deadline

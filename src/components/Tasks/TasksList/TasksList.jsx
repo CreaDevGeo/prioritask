@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Components
 import TaskItem from "../TaskItem/TaskItem";
 import CreateTask from "../CreateTask/CreateTask";
+import TaskItemComplete from "../TaskItem/TaskItemComplete/TaskItemComplete";
 
 // - TasksList COMPONENT -
 function TasksList({ priorityID }) {
@@ -31,26 +32,40 @@ function TasksList({ priorityID }) {
 
   // - RENDERING -
   return (
-  <div className="task-container">
-    {[1, 2].map((taskNumber) => {
-      const matchingTask = tasksForPriority.find(
-        (task) => task.task_number === taskNumber
-      );
+    <div className="task-container" style={{ textAlign: "center" }}>
+      {[1, 2].map((taskNumber) => {
+        const matchingTask = tasksForPriority.find(
+          (task) => task.task_number === taskNumber
+        );
 
-      if (matchingTask) {
-        return (
-          <div
-            key={matchingTask.task_id} 
-            style={{
-              margin: "20px auto"
-            }}
-          >
-            <TaskItem
-              key={matchingTask.task_id}  
+        if (matchingTask) {
+          return (
+            <div key={matchingTask.task_id} style={{ margin: "20px auto" }}>
+              {matchingTask.is_completed ? (
+                <TaskItemComplete
+                  key={matchingTask.task_id}
+                  priorityID={priorityID}
+                  task={matchingTask}
+                  taskNumber={taskNumber}
+                />
+              ) : (
+                <TaskItem
+                  key={matchingTask.task_id}
+                  priorityID={priorityID}
+                  task={matchingTask}
+                  taskNumber={taskNumber}
+                />
+              )}
+            </div>
+          );
+        } else {
+          return (
+            <CreateTask
+              key={`createTask_${priorityID}_${taskNumber}`}
               priorityID={priorityID}
-              task={matchingTask}
               taskNumber={taskNumber}
             />
+<<<<<<< HEAD
           </div>
         );
       } else {
@@ -69,3 +84,13 @@ function TasksList({ priorityID }) {
 
 // * Exporting TasksList component
 export default TasksList;
+=======
+          );
+        }
+      })}
+    </div>
+  );
+}
+
+export default TasksList;
+>>>>>>> tasksFeature

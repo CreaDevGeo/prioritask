@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { List, ListItemButton, ListItemText } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch } from "react-redux";
-import "./AppNav.css"
 
 function AppNav() {
   const history = useHistory();

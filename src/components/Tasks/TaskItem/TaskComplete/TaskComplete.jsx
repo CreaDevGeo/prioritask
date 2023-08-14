@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { IconButton } from "@mui/material";
 
 // Turning into a task completed button
@@ -77,7 +78,7 @@ function TaskComplete({ priorityID, taskNumber, taskCompletion }) {
             margin: 10,
           }}
         >
-          <h2 id="modal-title">Delete Confirmation</h2>
+          <h2 id="modal-title">Complete Confirmation</h2>
           <Box
             component="form"
             sx={{
@@ -87,14 +88,14 @@ function TaskComplete({ priorityID, taskNumber, taskCompletion }) {
             autoComplete="on"
           ></Box>
           <p>
-            Are you sure you would like to delete{" "}
-            <strong>task {taskNumber}</strong>?
+            Are you sure you would like to mark{" "}
+            <strong>Task {taskNumber}</strong> as complete?
           </p>
           <Button
             onClick={handleCompleteTaskButton}
             variant="contained"
             color="primary"
-            startIcon={<CheckCircleOutlineIcon />}
+            startIcon={<CheckCircleIcon/>}
           >
             Complete
           </Button>

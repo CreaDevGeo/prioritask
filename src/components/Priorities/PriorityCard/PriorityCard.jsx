@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Components
 import TasksList from "../../Tasks/TasksList/TasksList";
 import DeletePriorityButton from "./DeletePriorityButton";
+import "../../App/App.css";
 // MUI
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -46,17 +47,22 @@ export default function PriorityCard({
           left: "50%",
           width: 300,
           height: 400,
-          bgcolor: "background.paper",
+          bgcolor: "#d03c1b",
           borderRadius: 5,
           boxShadow: 24,
           pt: 2,
           px: 5,
           pb: 3,
+          fontFamily: "poppins, sans-serif",
+          fontSize: "1.5rem",
+          fontWeight: "600",
+          color: "white",
+          lineHeight: "35px",
         }}
       >
-          <center>
-            <h2>Priority {priorityNumber}</h2>
-          </center>
+        <center>
+          <h2>Priority {priorityNumber}</h2>
+        </center>
 
         {/* Want to make a render here for all task titles */}
         <div
@@ -71,9 +77,9 @@ export default function PriorityCard({
         </div>
         <div
           style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            margin: "10px",
+            position: "absolute",
+            bottom: 10,
+            right: 10,
           }}
         >
           {/* Delete priority button will go here */}

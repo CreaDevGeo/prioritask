@@ -46,7 +46,7 @@ function LandingPage() {
       >
         <Grid item>
           <Box component="header">
-            <h1 style={{ fontSize: "5rem" }}>PRIORITASK</h1>
+            <h1 className="landing-page-h1">PRIORITASK</h1>
           </Box>
         </Grid>
 

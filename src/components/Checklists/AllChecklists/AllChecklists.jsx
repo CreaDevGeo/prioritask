@@ -31,13 +31,33 @@ function AllChecklists() {
 
   // - RENDERING -
   return (
-    <div >
-      <center>
-      <h1>Welcome, {user.username}!</h1>
-        <h2>Checklists</h2>
-      </center>
-      {/* Display the length of checklist array */}
-      <AddChecklistButton />
+    <div>
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center", // Center horizontally
+          margin: "30px 50px 3px",
+        }}
+      >
+        <h1
+          style={{
+            fontFamily: "poppins, sans-serif",
+            fontSize: "7rem",
+            fontWeight: "800",
+            marginRight: "1rem",
+          }}
+        >
+          CHECKLISTS
+        </h1>
+        <div
+          style={{
+            width: "9rem",
+          }}
+        >
+          <AddChecklistButton />
+        </div>
+      </header>
       {/* <button>Sort by rank</button> */}
       {/* Mapping through checklist to create component */}
       <div>

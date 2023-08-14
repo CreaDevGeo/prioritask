@@ -48,17 +48,29 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
           left: "50%",
           width: 300,
           height: 400,
-          bgcolor: "background.paper",
+          bgcolor: "#d03c1b",
           borderRadius: 5,
           boxShadow: 24,
           pt: 2,
           px: 5,
           pb: 3,
+          fontFamily: "poppins, sans-serif",
+          fontSize: "1.5rem",
+          fontWeight: "600",
+          color: "white",
+          lineHeight: "35px",
         }}
       >
         <h2>Create Priority {priorityNumber}</h2>
         <div>
-          <Button onClick={handleAddNewPriority}>Create a new priority</Button>
+          <Button
+            style={{
+              color: "white",
+            }}
+            onClick={handleAddNewPriority}
+          >
+            Create a new priority
+          </Button>
         </div>
       </Box>
     </div>
