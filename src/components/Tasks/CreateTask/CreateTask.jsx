@@ -39,7 +39,7 @@ function CreateTask({ priorityID, taskNumber }) {
   // * Function to handle task input value change
   const handleTaskInputChange = (event) => {
     setTaskInput(event.target.value);
-    if (taskInput.length >= 40) {
+    if (taskInput.length >= 50) {
       setTaskInputLengthPrompt(true);
       setTaskInputPrompt(false)
     } else {
@@ -57,7 +57,7 @@ function CreateTask({ priorityID, taskNumber }) {
     // Else show user taskInputPrompt true, which renders taskInput Prompt with text,
     // "Make sure you enter a task title first!";
     if (taskInput !== "") {
-      if (taskInput.length <= 40) {
+      if (taskInput.length <= 50) {
         dispatch({
           type: "ADD_TASK",
           payload: {
@@ -110,7 +110,7 @@ function CreateTask({ priorityID, taskNumber }) {
           <Box
             component="form"
             sx={{
-              "& > :not(style)": { m: 1, width: "40ch" },
+              "& > :not(style)": { m: 1, width: "50ch" },
             }}
             noValidate
             autoComplete="on"
@@ -119,7 +119,7 @@ function CreateTask({ priorityID, taskNumber }) {
           <p>Make sure you enter a task title first!</p>
         )}
         {taskInputLengthPrompt === true && (
-          <p>Make sure your task title isn't too long! <br/>(40 characters max)</p>
+          <p>Make sure your task title isn't too long! <br/>(50 characters max)</p>
         )}
             <TextField
               id="filled-basic"
