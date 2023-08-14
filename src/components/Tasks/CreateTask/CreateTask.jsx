@@ -101,9 +101,10 @@ function CreateTask({ priorityID, taskNumber }) {
             width: 500,
             height: 300,
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 5,
             boxShadow: 24,
             p: 4,
+            margin: 10,
           }}
         >
           <h2 id="modal-title">Enter a new task</h2>
@@ -116,11 +117,14 @@ function CreateTask({ priorityID, taskNumber }) {
             autoComplete="on"
           >
             {taskInputPrompt === true && (
-          <p>Make sure you enter a task title first!</p>
-        )}
-        {taskInputLengthPrompt === true && (
-          <p>Make sure your task title isn't too long! <br/>(50 characters max)</p>
-        )}
+              <p>Make sure you enter a task title first!</p>
+            )}
+            {taskInputLengthPrompt === true && (
+              <p>
+                Make sure your task title isn't too long! <br />
+                (50 characters max)
+              </p>
+            )}
             <TextField
               id="filled-basic"
               label="Enter a new task"

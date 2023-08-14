@@ -3,12 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { IconButton } from "@mui/material";
 
-// Turning into a DeletePriorityButton
-function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
+// Turning into a task completed button
+function TaskComplete({ priorityID, taskNumber, taskCompletion }) {
   // * Local state for modal
   const [open, setOpen] = useState(false);
 
@@ -34,18 +33,18 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
   // * Declaring useDispatch hook as variable
   const dispatch = useDispatch();
 
-  // * Function to create a new checklist
-  const handleDeletePriorityButton = () => {
+  // * Function to complete a task
+  const handleCompleteTaskButton = () => {
     // Logging
-    console.log("Delete priority button clicked!");
+    console.log("Complete task button clicked!");
 
     // Dispatch action to delete the priority
     dispatch({
-      type: "DELETE_PRIORITY",
+      type: "COMPLETE_TASK",
       payload: {
         userID: userID,
         priorityID: priorityID,
-        checklistID: checklistID,
+        taskNumber: taskNumber,
       },
     });
 
@@ -54,9 +53,9 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="outlined" color="error">
-        Delete
-      </Button>
+      <IconButton onClick={handleOpen} color="default">
+        <CheckCircleOutlineIcon />
+      </IconButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -89,15 +88,15 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
           ></Box>
           <p>
             Are you sure you would like to delete{" "}
-            <strong>priority {priorityNumber}</strong>?
+            <strong>task {taskNumber}</strong>?
           </p>
           <Button
-            onClick={handleDeletePriorityButton}
-            variant="outlined"
-            color="error"
-            startIcon={<DeleteIcon />}
+            onClick={handleCompleteTaskButton}
+            variant="contained"
+            color="primary"
+            startIcon={<CheckCircleOutlineIcon />}
           >
-            Delete
+            Complete
           </Button>
           <Button onClick={handleClose} variant="outlined" color="secondary">
             Cancel
@@ -108,4 +107,4 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
   );
 }
 
-export default DeletePriorityButton;
+export default TaskComplete;
