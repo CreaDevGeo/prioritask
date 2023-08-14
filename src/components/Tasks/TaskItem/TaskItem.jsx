@@ -5,11 +5,10 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import "./TaskItem.css"
+import "../TaskItem/TaskItem.css";
 // Components
 import DeleteTaskButton from "./DeleteTaskButton";
 import TaskDeadline from "./TaskDeadline/TaskDeadline";
-
 
 function TaskItem({ priorityID, taskNumber, task }) {
   // * Local state for modal

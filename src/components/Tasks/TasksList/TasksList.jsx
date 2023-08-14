@@ -1,6 +1,6 @@
 // - IMPORTING -
 // React
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 // Components
@@ -14,7 +14,7 @@ function TasksList({ priorityID }) {
 
   // * Getting priorities from store based on priorityID
   const tasksData = useSelector((store) => store.tasksReducer);
-  
+
   // * Declaring the array of tasks as variable
   const tasksForPriority = tasksData[priorityID] || [];
   console.log("tasksData in TaskList is:", tasksForPriority);
@@ -25,7 +25,6 @@ function TasksList({ priorityID }) {
   //   "with priorityID:",
   //   priorityID
   // );
-  
 
   // Conditional for priorityID payload dispatch
   useEffect(() => {
@@ -48,9 +47,9 @@ function TasksList({ priorityID }) {
         if (matchingTask) {
           return (
             <div
-            style={{
-              margin: "20px auto"
-            }}
+              style={{
+                margin: "20px auto",
+              }}
             >
               <TaskItem
                 key={matchingTask.task_id}
@@ -58,8 +57,7 @@ function TasksList({ priorityID }) {
                 task={matchingTask}
                 taskNumber={taskNumber}
               />
-            </div
-           >
+            </div>
           );
         } else {
           return (
@@ -77,4 +75,3 @@ function TasksList({ priorityID }) {
 
 // * Exporting TasksList component
 export default TasksList;
-
