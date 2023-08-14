@@ -1,99 +1,64 @@
-// - IMPORTING -
-// React
 import React from "react";
-import { useState } from "react";
-// Router
-import { Link, useHistory } from "react-router-dom";
-// Components
-import LogOutButton from "../../LogOutButton/LogOutButton"; // LogoutButton
-// Material UI
-import CssBaseline from "@mui/material/CssBaseline"; // MUI CssBaseline
-import Box from "@mui/material/Box"; // MUI Box
-import Grid from "@mui/material/Grid"; // Import Grid from MUI
-import Stack from "@mui/material/Stack"; // MUI Stack
-import Button from "@mui/material/Button"; // MUI Basic Button
-import List from "@mui/joy/List";
-import ListItem from "@mui/joy/ListItem";
-import ListItemDecorator from "@mui/joy/ListItemDecorator";
-import ListItemButton from "@mui/joy/ListItemButton";
-import Home from "@mui/icons-material/Home";
-import Apps from "@mui/icons-material/Apps";
+import { useHistory } from "react-router-dom";
+import { List, ListItemButton, ListItemText } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useDispatch } from "react-redux";
+import "./AppNav.css"
 
-// - AppNav COMPONENT -
 function AppNav() {
-  // * Declaring useHistory
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  // - RENDERING -
+  const handleNavigation = (path) => {
+    history.push(path);
+  };
+
+  const handleLogoutButton = () => {
+    console.log("User logged out");
+    dispatch({ type: "LOGOUT" });
+    history.push("/home"); // Redirect to home page after logout
+  };
+
   return (
-    <React.Fragment>
-      {/* MUI */}
-      <List
-        sx={{
-          maxWidth: 320,
-        }}
-      >
-        <ListItem>
-          <ListItemButton
-            onClick={() => {
-              history.push("/checklists");
+    <div className="side-nav">
+      <List>
+        <ListItemButton
+          className="list-item-hover"
+          onClick={() => handleNavigation("/checklists")}
+        >
+          <ListItemText primary="Checklists" />
+        </ListItemButton>
+        <ListItemButton
+          className="list-item-hover"
+          onClick={() => handleNavigation("/checklist-history")}
+        >
+          <ListItemText primary="History" />
+        </ListItemButton>
+        <ListItemButton
+          className="list-item-hover"
+          onClick={() => handleNavigation("/journal")}
+        >
+          <ListItemText primary="Journal" />
+        </ListItemButton>
+        <ListItemButton
+          className="list-item-hover"
+          onClick={() => handleNavigation("/about")}
+        >
+          <ListItemText primary="About" />
+        </ListItemButton>
+        <ListItemButton className="logout-button" onClick={handleLogoutButton}>
+          <span
+            style={{
+              marginRight: "10px",
             }}
           >
-            Checklists
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem>
-          <ListItemButton
-            onClick={() => {
-              history.push("/checklist-history");
-            }}
-          >
-            History
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem>
-          <ListItemButton
-            onClick={() => {
-              history.push("/journal");
-            }}
-          >
-            Journal
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem>
-          <ListItemButton
-            onClick={() => {
-              history.push("/about");
-            }}
-          >
-            About
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem>
-          <ListItemButton>Logout</ListItemButton>
-        </ListItem>
+            Logout
+          </span>
+          <LogoutIcon />
+        </ListItemButton>
       </List>
-
-      <Link className="navLink" to="/user">
-        Home
-      </Link>
-
-      <Link className="navLink" to="/info">
-        Info Page
-      </Link>
-
-      <LogOutButton className="navLink" />
-
-      <Link className="navLink" to="/about">
-        About
-      </Link>
-    </React.Fragment>
+    </div>
   );
-} // * end AppNav
+}
 
-// - EXPORTING AppNav COMPONENT -
 export default AppNav;
