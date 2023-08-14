@@ -23,7 +23,6 @@ import Container from "@mui/material/Container";
 import "./App.css";
 // Components
 import AboutPage from "../AboutPage/AboutPage";
-import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
