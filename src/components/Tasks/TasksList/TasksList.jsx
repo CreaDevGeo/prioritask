@@ -65,26 +65,6 @@ function TasksList({ priorityID }) {
               priorityID={priorityID}
               taskNumber={taskNumber}
             />
-<<<<<<< HEAD
-          </div>
-        );
-      } else {
-        return (
-          <CreateTask
-            key={`createTask_${priorityID}_${taskNumber}`}
-            priorityID={priorityID}
-            taskNumber={taskNumber}
-          />
-        );
-      }
-    })}
-  </div>
-);
-} // - END TasksList COMPONENT -
-
-// * Exporting TasksList component
-export default TasksList;
-=======
           );
         }
       })}
@@ -93,4 +73,3 @@ export default TasksList;
 }
 
 export default TasksList;
->>>>>>> tasksFeature
