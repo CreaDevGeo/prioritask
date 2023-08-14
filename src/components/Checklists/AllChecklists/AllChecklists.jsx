@@ -33,7 +33,8 @@ function AllChecklists() {
   return (
     <div >
       <center>
-        <h1>Checklists</h1>
+      <h1>Welcome, {user.username}!</h1>
+        <h2>Checklists</h2>
       </center>
       {/* Display the length of checklist array */}
       <AddChecklistButton />

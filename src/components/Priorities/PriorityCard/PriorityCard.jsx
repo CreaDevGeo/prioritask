@@ -54,12 +54,10 @@ export default function PriorityCard({
           pb: 3,
         }}
       >
-        <p>
-        <center>
-        <h2>Priority {priorityNumber}</h2>
-        </center>
-        </p>
-       
+          <center>
+            <h2>Priority {priorityNumber}</h2>
+          </center>
+
         {/* Want to make a render here for all task titles */}
         <div
           className="scrollable-container"
@@ -71,12 +69,12 @@ export default function PriorityCard({
           {/* TasksList component */}
           <TasksList priorityID={priorityID} />
         </div>
-        <div 
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          margin: "10px"
-        }}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            margin: "10px",
+          }}
         >
           {/* Delete priority button will go here */}
           <DeletePriorityButton

@@ -5,10 +5,12 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import "../TaskItem/TaskItem.css";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import "./TaskItem.css"
 // Components
 import DeleteTaskButton from "./DeleteTaskButton";
 import TaskDeadline from "./TaskDeadline/TaskDeadline";
+import TaskComplete from "../TaskItem/TaskComplete/TaskComplete";
 
 function TaskItem({ priorityID, taskNumber, task }) {
   // * Local state for modal
@@ -92,25 +94,22 @@ function TaskItem({ priorityID, taskNumber, task }) {
             margin: "3px auto 3px",
           }}
         >
+          <TaskComplete priorityID={priorityID} taskNumber={taskNumber} taskCompletion={task.is_completed} />
           <TaskDeadline priorityID={priorityID} taskNumber={taskNumber} />
           <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
         </div>
-        <center>
           <div className="due-date-container">
-            {/* Conditionally apply CSS class based on isPastDue */}
             {isPastDue && <p className="past-due-text past-due">Past due:</p>}
             <p className={isPastDue ? "past-due" : ""}>
               {task.due_date_formatted}
             </p>
           </div>
-        </center>
       </header>
 
+      {/* Modal and pop up modal */}
       <Button onClick={() => setOpen(true)} variant="contained">
         {task.task_title}
       </Button>
-      {/* Delete Button Component Here */}
-      {/* <DeleteTaskButton/> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -126,7 +125,7 @@ function TaskItem({ priorityID, taskNumber, task }) {
             width: 500,
             height: 300,
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 5,
             boxShadow: 24,
             p: 4,
             margin: 10,

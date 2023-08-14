@@ -23,7 +23,6 @@ import Container from "@mui/material/Container";
 import "./App.css";
 // Components
 import AboutPage from "../AboutPage/AboutPage";
-import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
@@ -75,15 +74,6 @@ function App() {
                   <AboutPage />
                 </Route>
 
-                {/* Show UserPage if logged in */}
-                <ProtectedRoute
-                  // logged in shows UserPage else shows LoginPage
-                  exact
-                  path="/user"
-                >
-                  <UserPage />
-                </ProtectedRoute>
-
                 {/* Show AllChecklists if logged in */}
                 <ProtectedRoute
                   // logged in shows Checklists else shows LoginPage
@@ -113,12 +103,12 @@ function App() {
 
                 {/* If the user is already logged in, redirect to /user, else show LoginPage */}
                 <Route exact path="/login">
-                  {user.id ? <Redirect to="/user" /> : <LoginPage />}
+                  {user.id ? <Redirect to="/checklists" /> : <LoginPage />}
                 </Route>
 
                 {/* If the user is already logged in, redirect to /user, else show RegisterPage */}
                 <Route exact path="/registration">
-                  {user.id ? <Redirect to="/user" /> : <RegisterPage />}
+                  {user.id ? <Redirect to="/checklists" /> : <RegisterPage />}
                 </Route>
 
                 {/* If the user is already logged in, redirect to /user, else show LandingPage */}

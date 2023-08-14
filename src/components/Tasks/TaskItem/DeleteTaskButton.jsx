@@ -34,11 +34,11 @@ function DeleteTaskButton({ priorityID, taskNumber }) {
   const dispatch = useDispatch();
 
   // * Function to create a new checklist
-  const handleDeletePriorityButton = () => {
+  const handleDeleteTaskButton = () => {
     // Logging
-    console.log("Delete priority button clicked!");
+    console.log("Delete task button clicked!");
 
-    // Dispatch action to delete the priority 
+    // Dispatch action to delete the task
     dispatch({
       type: "DELETE_TASK",
       payload: {
@@ -71,9 +71,10 @@ function DeleteTaskButton({ priorityID, taskNumber }) {
             width: 500,
             height: 300,
             bgcolor: "background.paper",
-            border: "2px solid #000",
+            borderRadius: 5,
             boxShadow: 24,
             p: 4,
+            margin: 10,
           }}
         >
           <h2 id="modal-title">Delete Confirmation</h2>
@@ -90,7 +91,7 @@ function DeleteTaskButton({ priorityID, taskNumber }) {
             <strong>task {taskNumber}</strong>?
           </p>
           <Button
-            onClick={handleDeletePriorityButton}
+            onClick={handleDeleteTaskButton}
             variant="outlined"
             color="error"
             startIcon={<DeleteIcon />}
