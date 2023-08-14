@@ -5,10 +5,11 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import "./TaskItem.css"
 // Components
 import DeleteTaskButton from "./DeleteTaskButton";
 import TaskDeadline from "./TaskDeadline/TaskDeadline";
-import { Margin } from "@mui/icons-material";
+
 
 function TaskItem({ priorityID, taskNumber, task }) {
   // * Local state for modal
@@ -22,11 +23,17 @@ function TaskItem({ priorityID, taskNumber, task }) {
     setOpen(false);
   };
 
+  // - TASK INPUT -
   // * Local state for taskInput
   const [taskInput, setTaskInput] = useState("");
-
   // * Local state for showing text prompt
   const [taskInputPrompt, setTaskInputPrompt] = useState(false);
+
+  // - PAST DUE -
+  // Get the current date
+  const currentDate = new Date();
+  // Check if the task's deadline exceeds the current date
+  const isPastDue = task.deadline && new Date(task.deadline) < currentDate;
 
   // * Declaring user from store
   const user = useSelector((store) => store.user);
@@ -90,8 +97,12 @@ function TaskItem({ priorityID, taskNumber, task }) {
           <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
         </div>
         <center>
-          <div>
-            <p>{task.due_date_formatted}</p>
+          <div className="due-date-container">
+            {/* Conditionally apply CSS class based on isPastDue */}
+            {isPastDue && <p className="past-due-text past-due">Past due:</p>}
+            <p className={isPastDue ? "past-due" : ""}>
+              {task.due_date_formatted}
+            </p>
           </div>
         </center>
       </header>
