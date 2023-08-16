@@ -13,12 +13,6 @@ DROP TABLE IF EXISTS checklists;
 -- Drop the table user last (since checklists depends on it)
 DROP TABLE IF EXISTS "user";
 
-
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
-
 -- Create User Table
 CREATE TABLE "user" (
     id SERIAL PRIMARY KEY,
@@ -41,21 +35,31 @@ CREATE TABLE priorities (
     checklist_id INT REFERENCES checklists(checklist_id),
     priority_number INTEGER CHECK (priority_number BETWEEN 1 AND 3),
     is_completed BOOLEAN NOT NULL DEFAULT FALSE,
-    num_tasks INTEGER CHECK (num_tasks BETWEEN 0 AND 2),
-    priority_completed_at TIMESTAMP,
-    
-    CONSTRAINT check_num_tasks CHECK (num_tasks BETWEEN 0 AND 2)
+    priority_completed_at TIMESTAMP
 );
 
--- Create Tasks Table
 CREATE TABLE tasks (
     task_id SERIAL PRIMARY KEY,
     priority_id INT REFERENCES priorities(priority_id) ON DELETE CASCADE,
     task_title VARCHAR(80),
     task_description TEXT,
     is_completed BOOLEAN NOT NULL DEFAULT FALSE,
-    deadline DATE
+    completed_at TIMESTAMP,
+    deadline DATE,
+    task_number INTEGER CHECK (task_number BETWEEN 1 AND 2)
 );
+
+
+-- Create Checklist History Table
+CREATE TABLE checklist_history (
+    checklist_id SERIAL PRIMARY KEY,
+    priority_1_completed_at TIMESTAMP,
+    priority_2_completed_at TIMESTAMP,
+    priority_3_completed_at TIMESTAMP,
+    task_1_completed_at TIMESTAMP,
+    task_2_completed_at TIMESTAMP
+);
+
 
 -- Create view of all the tables of checklists
 CREATE VIEW checklists_view AS
@@ -67,10 +71,10 @@ SELECT
     priorities.priority_id,
     priorities.priority_number,
     priorities.is_completed AS priority_completed,
-    priorities.num_tasks,
     priorities.priority_completed_at,
     tasks.task_id,
     tasks.task_title,
+    tasks.task_number,
     tasks.task_description,
     tasks.is_completed AS task_completed,
     tasks.deadline
