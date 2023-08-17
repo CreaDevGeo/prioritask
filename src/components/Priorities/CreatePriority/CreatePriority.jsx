@@ -43,6 +43,7 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
   return (
     <div>
       <Box
+        onClick={handleAddNewPriority}
         sx={{
           top: "50%",
           left: "50%",

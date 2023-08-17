@@ -29,7 +29,7 @@ function ChecklistDeleteButton({checklistID, checklistNumber}) {
     // Dispatch an action to the redux saga, with a payload of user id and checklist id
     dispatch({
       type: "DELETE_CHECKLIST",
-      payload: { userID: user.id, checklistID: checklistID.checklistID },
+      payload: { userID: user.id, checklistID: checklistID },
     });
 
     handleClose();
