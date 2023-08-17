@@ -31,13 +31,34 @@ function AllChecklists() {
 
   // - RENDERING -
   return (
-    <React.Fragment>
-      <center>
-        <h1>Checklists</h1>
-      </center>
-      {/* Display the length of checklist array */}
-      <AddChecklistButton/>
-      <button>Sort by rank</button>
+    <div>
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center", // Center horizontally
+          margin: "30px 50px 3px",
+        }}
+      >
+        <h1
+          style={{
+            fontFamily: "poppins, sans-serif",
+            fontSize: "7rem",
+            fontWeight: "800",
+            marginRight: "1rem",
+          }}
+        >
+          CHECKLISTS
+        </h1>
+        <div
+          style={{
+            width: "9rem",
+          }}
+        >
+          <AddChecklistButton />
+        </div>
+      </header>
+      {/* <button>Sort by rank</button> */}
       {/* Mapping through checklist to create component */}
       <div>
         {allChecklists.map((checklist) => {
@@ -53,7 +74,7 @@ function AllChecklists() {
           );
         })}
       </div>
-    </React.Fragment>
+    </div>
   );
 } // * end Checklists
 

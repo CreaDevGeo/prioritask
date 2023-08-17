@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 
 function AddChecklistButton() {
   const [open, setOpen] = useState(false);
-
+  
   const handleOpen = () => {
     setOpen(true);
   };
@@ -46,8 +46,19 @@ function AddChecklistButton() {
 
   return (
     <div>
-      <Button onClick={handleNewChecklistButton} variant="contained" color="secondary">
-         Add new checklist: {allChecklists.length}/4
+      <Button
+        style={{
+          backgroundColor: "#edf7c0",
+          color: "black",
+          fontFamily: "poppins, sans-serif",
+          fontSize: "1rem",
+          fontWeight: "600"
+        }}
+        onClick={handleNewChecklistButton}
+        variant="contained"
+        color="primary"
+      >
+        Add new checklist: {allChecklists.length}/4
       </Button>
       <Modal
         open={open}
@@ -69,7 +80,10 @@ function AddChecklistButton() {
           }}
         >
           <h2 id="modal-title">Slow your road!</h2>
-          <p id="modal-description">Don't get too ahead of your self with the checklist! You can only have 4 max.</p>
+          <p id="modal-description">
+            Don't get too ahead of your self with the checklist! You can only
+            have 4 max.
+          </p>
           <Button onClick={handleClose} color="secondary">
             Okay
           </Button>

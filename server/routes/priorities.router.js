@@ -56,8 +56,8 @@ router.post("/", (req, res) => {
   // Declaring user's checklist id as parameter
   const priorityNumber = req.params.priorityNumber;
 
-  const checklistIDToSend = req.body.checklistID
-  const priorityNumberToSend = req.body.priorityNumber
+  const checklistIDToSend = req.body.checklistID;
+  const priorityNumberToSend = req.body.priorityNumber;
 
   // SQL query to add a checklist
   const queryText = `
@@ -79,38 +79,28 @@ RETURNING priority_id;
 });
 
 // * DELETE request of user's selected checklist
-router.delete("/:checklistID", (req, res) => {
-  // Declaring user's checklist id as parameter
-  const checklistID = req.params.checklistID;
+router.delete("/:priorityID", (req, res) => {
+  const priorityID = req.params.priorityID;
 
-  // Queries
-
-  // Query to remove todos from selected checklist
+  // Query to delete tasks belonging to the selected priority
   const deleteTasksQuery = `
-    DELETE FROM tasks WHERE priority_id IN (SELECT priority_id FROM priorities WHERE checklist_id = $1);
+    DELETE FROM tasks WHERE priority_id = $1;
   `;
 
-  // Query to remove todos from selected checklist
-  const deletePrioritiesQuery = `
-    DELETE FROM priorities WHERE checklist_id = $1;
+  // Query to delete the selected priority
+  const deletePriorityQuery = `
+    DELETE FROM priorities WHERE priority_id = $1;
   `;
 
-  // Query to remove todos from selected checklist
-  const deleteChecklistQuery = `
-    DELETE FROM checklists WHERE checklist_id = $1 AND user_id = $2;
-  `;
-
-  // Running multiple queries in the pool query
   pool
-    .query(deleteTasksQuery, [checklistID])
-    .then(() => pool.query(deletePrioritiesQuery, [checklistID]))
-    .then(() => pool.query(deleteChecklistQuery, [checklistID, userID]))
+    .query(deleteTasksQuery, [priorityID])
+    .then(() => pool.query(deletePriorityQuery, [priorityID]))
     .then(() => {
-      console.log("DELETE request made to remove a checklist!");
+      console.log("DELETE request made to remove a priority and its tasks!");
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.log("Failed to remove checklist! Error is:", error);
+      console.log("Failed to remove priority and tasks! Error is:", error);
       res.sendStatus(500);
     });
 });

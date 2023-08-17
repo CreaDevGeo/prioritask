@@ -1,177 +1,293 @@
-// - IMPORTING -
-import React, {useState} from "react";
-// MUI Modal
-import PropTypes from "prop-types";
-import { Box, styled } from "@mui/system";
-import Modal from "@mui/base/Modal";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/base/Button";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Button, Modal, Box, TextField } from "@mui/material";
+import DeleteTaskButton from "./DeleteTaskButton";
+import TaskDeadline from "./TaskDeadline/TaskDeadline";
+import TaskComplete from "./TaskComplete/TaskComplete";
+import "../../App/App.css";
 
-// - TaskItem COMPONENT -
-function TaskItem({ task }) {
-  // * MUI modal states
+function TaskItem({ priorityID, taskNumber, task }) {
+  // Local state for modal
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
-  // * Declaring task's description 
-  const taskDescription = task;
-  // * Declaring task's id
-  // const taskID = task.tasks.task_id;
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-  // * Logging
-  // console.log("\t\tTask is:", taskDescription);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  // - RENDERING -
-  // Conditional rendering of MUI content (Undefined or description)
+  // - TASK INPUT -
+  // Local state for taskInput
+  const [taskInput, setTaskInput] = useState("");
+  // Local state for showing text prompt
+  const [taskInputPrompt, setTaskInputPrompt] = useState(false);
+
+  // - PAST DUE -
+  // Get the current date
+  const currentDate = new Date();
+  // Check if the task's deadline exceeds the current date
+  const isPastDue = task.deadline && new Date(task.deadline) < currentDate;
+
+  // Declaring user from store
+  const user = useSelector((store) => store.user);
+  // Declaring userID from store
+  const userID = user.id;
+
+  // Declaring checklists from store
+  const allChecklists = useSelector((store) => store.checklistsReducer);
+
+  // Function to create a new checklist
+  const handleCreateTaskButton = () => {
+    console.log("Add new task button clicked!");
+
+    // Conditional
+    if (taskInput !== "") {
+      // Dispatch action to add a new task
+      // Update the redux store as needed
+      setTaskInputPrompt(false);
+    } else {
+      setTaskInputPrompt(true);
+    }
+  };
+
+  // State to track whether the title is being edited or not in the modal
+  const [isEditingTitleInModal, setIsEditingTitleInModal] = useState(false);
+  // Local state for showing text prompt if input is too long
+  const [taskInputLengthPrompt, setTaskInputLengthPrompt] = useState(false);
+
+  // Function to handle saving the edited title in the modal
+  const handleSaveEditedTitleInModal = () => {
+    console.log("handleSaveEditedTitleInModal button clicked!");
+
+    if (taskInput !== "") {
+      // Dispatch action or perform your update logic here
+      setIsEditingTitleInModal(false);
+      setTaskInputPrompt(false);
+    } else {
+      setTaskInputPrompt(true);
+    }
+  };
+
+  // Function to handle the task closing button
+  const handleCancelEditButton = () => {
+    console.log("Cancel button clicked!");
+    setIsEditingTitleInModal(false);
+    setOpen(false);
+  };
+
   return (
-    <React.Fragment>
-      {/* {taskDescription === undefined ? (
-        <div>
-          <TriggerButton onClick={handleOpen}>task title</TriggerButton>
-          <StyledModal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            slots={{ backdrop: StyledBackdrop }}
+    <div>
+      <Box
+        sx={{
+          width: "90%",
+          bgcolor: "background.paper",
+          borderRadius: 5,
+          boxShadow: 9,
+          p: 4,
+          margin: "10px auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          color: "black",
+          fontSize: "1.27rem",
+        }}
+      >
+        {/* Task number header and delete button */}
+        <header>
+          <center>
+            <h3
+              style={{
+                margin: "3px auto 3px",
+                cursor: "pointer",
+              }}
+            >
+              {`Task ${taskNumber}`}
+            </h3>
+          </center>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "3px auto",
+            }}
           >
-            <Fade in={open}>
-              <Box sx={style}>
-                <h2 id="transition-modal-title">Text in a modal</h2>
-                <span
-                  id="transition-modal-description"
-                  style={{ marginTop: 16 }}
-                >
-                  Duis mollis, est non commodo luctus, nisi erat porttitor
-                  ligula.
-                </span>
-              </Box>
-            </Fade>
-          </StyledModal>
-        </div>
-      ) : (
-        <div>
-          <TriggerButton onClick={handleOpen}>{taskDescription}</TriggerButton>
-          <StyledModal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            slots={{ backdrop: StyledBackdrop }}
+            <TaskComplete
+              priorityID={priorityID}
+              taskNumber={taskNumber}
+              taskCompletion={task.is_completed}
+            />
+            <TaskDeadline priorityID={priorityID} taskNumber={taskNumber} />
+            <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+            }}
+            className="due-date-container"
           >
-            <Fade in={open}>
-              <Box sx={style}>
-                <h2 id="transition-modal-title">Task title</h2>
-                <span
-                  id="transition-modal-description"
-                  style={{ marginTop: 16 }}
+            {isPastDue && (
+              <div>
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: "500",
+                    margin: "5px 0 -20px",
+                  }}
+                  className="past-due-text past-due"
                 >
-                  Duis mollis, est non commodo luctus, nisi erat porttitor
-                  ligula.
-                </span>
-              </Box>
-            </Fade>
-          </StyledModal>
-        </div>
-      )} */}
-      <h3>{task.task_title}</h3>
-    </React.Fragment>
-  );
-} // - END TaskItem COMPONENT -
+                  Past due:
+                </p>
+              </div>
+            )}
+            <div>
+              <p
+                className={isPastDue ? "past-due" : ""}
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: "400",
+                }}
+              >
+                {task.due_date_formatted}
+              </p>
+            </div>
+          </div>
+        </header>
 
-// * Exporting TaskItem component
+        {/* Modal and pop up modal */}
+        <div
+          style={{
+            marginTop: "5px",
+          }}
+        >
+          <Button
+            onClick={() => setOpen(true)}
+            variant="contained"
+            style={{
+              backgroundColor: "#26abc0",
+            }}
+          >
+            {isEditingTitleInModal ? (
+              <div>
+                <TextField
+                  id="filled-basic"
+                  label="Update your task title"
+                  variant="outlined"
+                  onChange={(event) => setTaskInput(event.target.value)}
+                  value={taskInput}
+                />
+
+                <div>
+                  <Button
+                    variant="outlined"
+                    onClick={handleSaveEditedTitleInModal}
+                  >
+                    Save
+                  </Button>
+                  <Button variant="contained" onClick={handleCancelEditButton}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <span
+                onClick={() => setIsEditingTitleInModal(true)}
+                style={{ cursor: "pointer" }}
+              >
+                {task.task_title}
+              </span>
+            )}
+            {/* Rendering prompts */}
+            {taskInputPrompt && <p>Make sure you enter a task title first!</p>}
+            {taskInputLengthPrompt && (
+              <p>
+                Make sure your task title isn't too long! <br />
+                (50 characters max)
+              </p>
+            )}
+          </Button>
+        </div>
+      </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 500,
+            height: 300,
+            bgcolor: "background.paper",
+            borderRadius: 5,
+            boxShadow: 24,
+            p: 4,
+            margin: 10,
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: "poppins, sans-serif",
+              fontSize: "2rem",
+            }}
+            id="modal-title"
+          >
+            Task Details
+          </h2>
+          <h3
+            style={{
+              fontFamily: "poppins, sans-serif",
+              fontSize: "1.3rem",
+            }}
+          >
+            {isEditingTitleInModal ? (
+              <div>
+                <TextField
+                  id="filled-basic"
+                  label="Update your task title"
+                  variant="outlined"
+                  onChange={(event) => setTaskInput(event.target.value)}
+                  value={taskInput}
+                />
+
+                <Button
+                  variant="outlined"
+                  onClick={handleSaveEditedTitleInModal}
+                >
+                  Save
+                </Button>
+                <Button variant="contained" onClick={handleCancelEditButton}>
+                  Cancel
+                </Button>
+              </div>
+            ) : (
+              <span
+                onClick={() => setIsEditingTitleInModal(true)}
+                style={{ cursor: "pointer" }}
+              >
+                {task.task_title}
+              </span>
+            )}
+            {/* Rendering prompts */}
+            {taskInputPrompt && <p>Make sure you enter a task title first!</p>}
+            {taskInputLengthPrompt && (
+              <p>
+                Make sure your task title isn't too long! <br />
+                (50 characters max)
+              </p>
+            )}
+          </h3>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+
 export default TaskItem;
-
-// * MUI Backdrop 
-const Backdrop = React.forwardRef((props, ref) => {
-  const { open, ...other } = props;
-  return (
-    <Fade in={open}>
-      <div ref={ref} {...other} />
-    </Fade>
-  );
-});
-
-Backdrop.propTypes = {
-  open: PropTypes.bool,
-};
-
-// * MUI Modal Styling
-const blue = {
-  200: "#99CCF3",
-  400: "#3399FF",
-  500: "#007FFF",
-};
-
-const grey = {
-  50: "#f6f8fa",
-  100: "#eaeef2",
-  200: "#d0d7de",
-  300: "#afb8c1",
-  400: "#8c959f",
-  500: "#6e7781",
-  600: "#57606a",
-  700: "#424a53",
-  800: "#32383f",
-  900: "#24292f",
-};
-
-const StyledModal = styled(Modal)`
-  position: fixed;
-  z-index: 1300;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledBackdrop = styled(Backdrop)`
-  z-index: -1;
-  position: fixed;
-  inset: 0;
-  background-color: rgb(0 0 0 / 0.5);
-  -webkit-tap-highlight-color: transparent;
-`;
-
-const style = (theme) => ({
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  borderRadius: "12px",
-  padding: "16px 32px 24px 32px",
-  backgroundColor: theme.palette.mode === "dark" ? "#0A1929" : "white",
-  boxShadow: `0px 2px 24px ${
-    theme.palette.mode === "dark" ? "#000" : "#383838"
-  }`,
-});
-
-const TriggerButton = styled(Button)(
-  ({ theme }) => `
-  font-family: IBM Plex Sans, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  box-sizing: border-box;
-  min-height: calc(1.5em + 22px);
-  border-radius: 12px;
-  padding: 6px 12px;
-  line-height: 1.5;
-  background: white;
-  border: 1px solid ${theme.palette.mode === "dark" ? grey[800] : grey[200]};
-  color: ${theme.palette.mode === "dark" ? grey[100] : grey[900]};
-
-  &:hover {
-    background: ${theme.palette.mode === "dark" ? grey[800] : grey[50]};
-    border-color: ${theme.palette.mode === "dark" ? grey[600] : grey[300]};
-  }
-
-  &:focus-visible {
-    border-color: ${blue[400]};
-    outline: 3px solid ${theme.palette.mode === "dark" ? blue[500] : blue[200]};
-  }
-  `
-);

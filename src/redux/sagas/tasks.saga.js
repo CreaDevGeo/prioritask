@@ -1,13 +1,15 @@
 // - IMPORTING -
-import { put, takeLatest, takeEvery } from "redux-saga/effects";
+import { call, put, takeLatest, takeEvery } from "redux-saga/effects";
 import axios from "axios";
 
 // - LISTENER SAGA -
 // * priorities listener saga
 function* tasksSaga() {
-  yield takeEvery("FETCH_PRIORITY_TASKS", fetchTasks);
-  //   yield takeLatest("ADD_TASK", addPriority);
-  //   yield takeLatest("DELETE_PRIORITY", deletePriority);
+  yield takeEvery("FETCH_TASKS", fetchTasks);
+  yield takeLatest("ADD_TASK", addTask);
+  yield takeLatest("COMPLETE_TASK", completeTask);
+  yield takeLatest("UPDATE_TASK_DEADLINE", updateTaskDeadline);
+  yield takeLatest("DELETE_TASK", deleteTask);
 } // * end prioritiesSaga
 
 // - ACTION SAGAS -
@@ -35,41 +37,123 @@ function* fetchTasks(action) {
   }
 } // * end fetchPriorities
 
-// // Add Priority
-// // * Gen function to add a priority via POST
-// function* addPriority(action) {
-//   try {
-//     console.log("action.payload is:", action.payload);
-//     // Declaring checklist id and priority data as payload
-//     // const { checklistID: checklistID, priorities: priorityData } = action.payload;
+// Add Task
+// * Gen function to add a task via POST
+function* addTask(action) {
+  console.log("Gen function addTask running due to action: ", action.type);
+  try {
+    // Declaring userID from payload
+    const userID = action.payload.userID;
 
-//     // Making POST request to url with data
-//     yield axios.post(`/priorities/${checklistID}`, priorityData);
+    // Declaring priorityID from payload
+    const priorityID = action.payload.priorityID;
 
-//     // Dispatch action to fetch priorities
-//     yield put({ type: "FETCH_PRIORITIES", payload: checklistID });
-//   } catch (error) {
-//     console.log("Error adding priority:", error);
-//   }
-// } // * end addPriority
+    // Declaring taskInput from payload
+    const taskInput = action.payload.taskInput;
+
+    // Declaring taskInput from payload
+    const taskNumber = action.payload.taskNumber;
+
+    // Making POST request to url with data
+    yield axios.post("/tasks", {
+      priorityID: priorityID,
+      taskInput: taskInput,
+      taskNumber: taskNumber,
+    });
+
+    // Dispatch action to fetch tasks and wait for its completion
+    yield call(fetchTasks, { payload: { priorityID } });
+
+    // Dispatch action to fetch checklists
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
+  } catch (error) {
+    console.log("Error adding priority:", error);
+  }
+} // * end addTask
+
+// Update task completion
+// * Gen function to update a task's completion via PUT
+function* completeTask(action) {
+  console.log("Gen function completeTask running due to action: ", action.type);
+  try {
+    // Declaring userID from payload
+    const userID = action.payload.userID;
+    // Declaring priorityID from payload
+    const priorityID = action.payload.priorityID;
+    // Declaring taskNumber from payload
+    const taskNumber = action.payload.taskNumber;
+
+    // PUT request
+    yield axios.put(`/tasks/${priorityID}/${taskNumber}/completed`);
+
+    // Dispatch action to fetch tasks and wait for its completion
+    yield call(fetchTasks, { payload: { priorityID } });
+
+    // Dispatch action to fetch checklists
+    // yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
+  } catch (error) {
+    console.log("Error completing task:", error);
+  }
+} // * end completeTask
+
+// Update Task Deadline
+// * Gen function to update a task's deadline via PUT
+function* updateTaskDeadline(action) {
+  console.log(
+    "Gen function updateTaskDeadline running due to action: ",
+    action.type
+  );
+  try {
+    // Declaring userID from payload
+    const userID = action.payload.userID;
+    // Declaring priorityID from payload
+    const priorityID = action.payload.priorityID;
+    // Declaring taskNumber from payload
+    const taskNumber = action.payload.taskNumber;
+    // Declaring task deadline from payload
+    const taskDeadline = action.payload.taskDeadline;
+
+    // PUT request
+    yield axios.put(`/tasks/${priorityID}/${taskNumber}`, { taskDeadline });
+
+    // Dispatch action to fetch tasks and wait for its completion
+    yield call(fetchTasks, { payload: { priorityID } });
+
+    // Dispatch action to fetch checklists
+    // yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
+  } catch (error) {
+    console.log("Error deleting task:", error);
+  }
+} // * end updateTaskDeadline
+
+// Delete Task
+// * Gen function to delete a task via POST
+function* deleteTask(action) {
+  console.log("Gen function deleteTask running due to action: ", action.type);
+  try {
+    // Declaring userID from payload
+    const userID = action.payload.userID;
+    // Declaring priorityID from payload
+    const priorityID = action.payload.priorityID;
+    // Declaring taskNumber from payload
+    const taskNumber = action.payload.taskNumber;
+
+    // DELETE request
+    yield axios.delete(`/tasks/${priorityID}/${taskNumber}`);
+
+    // Dispatch action to fetch tasks and wait for its completion
+    yield call(fetchTasks, { payload: { priorityID } });
+
+    // Dispatch action to fetch checklists
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
+  } catch (error) {
+    console.log("Error deleting task:", error);
+  }
+} // * end deleteTask
 
 // // Possibly a PUT request to update priority
 // // But what would I be updating??
 // // I can only update the task description and to do text so maybe don't need it?
 // // Maybe priority completion?
-
-// // Delete Priority
-// // * Gen function to remove a priority via DELETE
-// function* deletePriority(action) {
-//   try {
-//     // Declaring user's id as payload
-//     const { checklistID, priorityID } = action.payload;
-
-//     yield axios.delete(`/priorities/${checklistID}/${priorityID}`);
-//     yield put({ type: "FETCH_PRIORITIES", payload: checklistID });
-//   } catch (error) {
-//     console.log("Error deleting priority:", error);
-//   }
-// }
 
 export default tasksSaga;

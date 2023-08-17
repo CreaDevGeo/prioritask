@@ -8,8 +8,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 // Components
-import TaskPriorityHeader from "../../Tasks/TaskPriorityHeader/TaskPriorityHeader";
-import TasksList from "../../Tasks/TasksList/TasksList";
 
 // - CreatePriority COMPONENT -
 export default function CreatePriority({ checklistID, priorityNumber }) {
@@ -17,9 +15,9 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
   const dispatch = useDispatch();
 
   // * Declaring user id from redux store to send refresh of checklists
-  const user = useSelector(store => store.user);
+  const user = useSelector((store) => store.user);
   // * Declaring user's id as variable
-  const userID = user.id
+  const userID = user.id;
 
   // * Function to dispatch new priority via save button click
   // Meant for update
@@ -48,19 +46,31 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
         sx={{
           top: "50%",
           left: "50%",
-          width: 200,
-          height: 300,
-          bgcolor: "background.paper",
+          width: 300,
+          height: 400,
+          bgcolor: "#d03c1b",
           borderRadius: 5,
           boxShadow: 24,
           pt: 2,
           px: 5,
           pb: 3,
+          fontFamily: "poppins, sans-serif",
+          fontSize: "1.5rem",
+          fontWeight: "600",
+          color: "white",
+          lineHeight: "35px",
         }}
       >
-        <h2>Create Priority</h2>
+        <h2>Create Priority {priorityNumber}</h2>
         <div>
-          <Button onClick={handleAddNewPriority}>Create a new priority</Button>
+          <Button
+            style={{
+              color: "white",
+            }}
+            onClick={handleAddNewPriority}
+          >
+            Create a new priority
+          </Button>
         </div>
       </Box>
     </div>

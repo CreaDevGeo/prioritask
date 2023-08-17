@@ -40,7 +40,7 @@ function* fetchPriorities(action) {
 // Add Priority
 // * Gen function to add a priority via POST
 function* addPriority(action) {
-  console.log("Gen function started with action:", action.type);
+  console.log("Gen function addPriority started with action:", action.type);
   try {
     const checklistID = action.payload.checklistID;
     const priorityNumber = action.payload.priorityNumber;
@@ -71,12 +71,23 @@ function* addPriority(action) {
 // Delete Priority
 // * Gen function to remove a priority via DELETE
 function* deletePriority(action) {
+  console.log("Gen function deletePriority started with action:", action.type);
   try {
     // Declaring user's id as payload
-    const { checklistID, priorityID } = action.payload;
+    const userID = action.payload.userID;
+    // Declaring user's priority id as payload
+    const priorityID = action.payload.priorityID;
+    // Declaring priority's checklist id as payload
+    const checklistID = action.payload.checklistID;
 
-    yield axios.delete(`/priorities/${checklistID}/${priorityID}`);
-    yield put({ type: "FETCH_PRIORITIES", payload: checklistID });
+    // DELETE request
+    yield axios.delete(`/priorities/${priorityID}`);
+
+    // Dispatch action to fetch priorities and wait for its completion
+    yield call(fetchPriorities, { payload: { checklistID } });
+
+    // Dispatch action to 
+    yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
   } catch (error) {
     console.log("Error deleting priority:", error);
   }

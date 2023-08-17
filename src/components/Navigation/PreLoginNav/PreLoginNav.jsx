@@ -3,35 +3,36 @@ import { Link } from "react-router-dom";
 import LogOutButton from "../../LogOutButton/LogOutButton";
 import "../PreLoginNav/PreLoginNav.css";
 import { useSelector } from "react-redux";
-// Components
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 import AppNav from "../AppNav/AppNav";
+
+const TopNav = styled(AppBar)(({ theme }) => ({
+  backgroundColor: "black",
+}));
 
 function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
     <div className="nav">
-      <div>
-        {/* If no user is logged in, show these links */}
-        {!user.id && (
-          // If there's no user, show login/registration links and title
-          <div>
-             <Link to="/home">
-          <h2 className="nav-title">Prime Solo Project</h2>
-        </Link>
-            <Link className="navLink" to="/login">
-              Login / Register
+      <TopNav position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div">
+            <Link to="/home" className="nav-title">
+              Prioritask
             </Link>
+          </Typography>
+          <div style={{ marginLeft: "auto" }}>
+            {!user.id && (
+              <Link to="/login">
+                Login / Register
+              </Link>
+            )}
+            {user.id && <AppNav />}
           </div>
-        )}
-
-        {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <AppNav />
-          </>
-        )}
-      </div>
+        </Toolbar>
+      </TopNav>
     </div>
   );
 }

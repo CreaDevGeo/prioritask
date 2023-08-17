@@ -1,3 +1,7 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
 html,
 body,
 #react-root {
@@ -5,7 +9,7 @@ body,
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0px;
 }
 
@@ -14,12 +18,16 @@ img {
   max-width: 100%;
 }
 
+
 /* --------------------------------------------------------------------------------
 Container
 -------------------------------------------------------------------------------- */
 
-.container {
-  padding: 20px;
+.content-container {
+  flex: 1;
+  padding-left: 260px;
+  overflow-y: auto;
+  background-color: #ffd9b4;
 }
 
 /* --------------------------------------------------------------------------------
@@ -109,4 +117,57 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+/* EVERYTHING ELSE */
+/* Landing page styling */
+
+.landing-page-h1 {
+  font-size: 7rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Navigation /* Post Login Navigation */
+.side-nav {
+  width: 240px;
+  height: 100vh;
+  background-color: rgb(26, 26, 26);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 16px;
+  padding-left: 16px;
+  position: fixed;
+  top: 0;
+}
+
+.list-item-hover:hover {
+  background-color: rgb(250, 45, 45);
+}
+
+.logout-button:hover {
+  background-color: rgb(205, 17, 17);
+}
+
+/* TaskItem */
+.due-date-container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.past-due {
+  color: red;
+  margin-right: 10px; /* Add margin to the right */
+}
+
+.past-due-text {
+  margin-left: 10px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
 }
