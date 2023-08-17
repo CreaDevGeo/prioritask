@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 // Components
 import ChecklistItem from "../ChecklistItem/ChecklistItem";
 import AddChecklistButton from "./AddChecklistButton";
+import EmptyChecklists from "../EmptyChecklists/EmptyChecklists";
 
 // - Checklists COMPONENT-
 function AllChecklists() {
@@ -58,22 +59,23 @@ function AllChecklists() {
           <AddChecklistButton />
         </div>
       </header>
-      {/* <button>Sort by rank</button> */}
-      {/* Mapping through checklist to create component */}
-      <div>
-        {allChecklists.map((checklist) => {
-          // Increment checklistNumber
-          checklistNumber++;
-
-          return (
-            <ChecklistItem
-              key={checklist.checklist_id}
-              checklist={checklist}
-              checklistNumber={checklistNumber}
-            />
-          );
-        })}
-      </div>
+      {/* Conditional rendering based on allChecklists length */}
+      {allChecklists.length === 0 ? (
+        <EmptyChecklists />
+      ) : (
+        <div>
+          {allChecklists.map((checklist) => {
+            checklistNumber++;
+            return (
+              <ChecklistItem
+                key={checklist.checklist_id}
+                checklist={checklist}
+                checklistNumber={checklistNumber}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 } // * end Checklists
