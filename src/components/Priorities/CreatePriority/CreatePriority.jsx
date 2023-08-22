@@ -1,4 +1,4 @@
-// - IMPORTING -
+// * - IMPORTING -
 // React
 import React from "react";
 // Redux
@@ -9,7 +9,7 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 // Components
 
-// - CreatePriority COMPONENT -
+// * - CreatePriority COMPONENT -
 export default function CreatePriority({ checklistID, priorityNumber }) {
   //  * Declaring useDispatch Redux hook state as variable
   const dispatch = useDispatch();
@@ -76,4 +76,4 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
       </Box>
     </div>
   );
-} // - END CreatePriority COMPONENT -
+} // * - END CreatePriority COMPONENT -

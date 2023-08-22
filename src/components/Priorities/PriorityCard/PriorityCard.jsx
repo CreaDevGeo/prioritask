@@ -1,4 +1,4 @@
-// - IMPORTING -
+// * - IMPORTING -
 // React
 import React, { useEffect } from "react";
 // Redux
@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Modal } from "@mui/material";
 
-// - PriorityCard COMPONENT -
+// * - PriorityCard COMPONENT -
 export default function PriorityCard({
   checklistID,
   priority,
@@ -38,7 +38,7 @@ export default function PriorityCard({
     console.log("Add new task button clicked!");
   }; // * end handleCreateTask
 
-  // - RENDERING -
+  // * - RENDERING -
   return (
     <div>
       <Box
@@ -99,4 +99,4 @@ export default function PriorityCard({
       </Box>
     </div>
   );
-} // - END PriorityCard COMPONENT -
+} // * - END PriorityCard COMPONENT -

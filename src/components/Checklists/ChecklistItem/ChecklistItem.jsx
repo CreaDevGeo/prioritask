@@ -1,11 +1,11 @@
-// - IMPORTING -
+// * - IMPORTING -
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../ChecklistItem/ChecklistItem.css";
 import PrioritiesList from "../../Priorities/PrioritiesList/PrioritiesList";
 import ChecklistDeleteButton from "./ChecklistDeleteButton";
 
-// - ChecklistItem COMPONENT -
+// * - ChecklistItem COMPONENT -
 function ChecklistItem({ checklist, checklistNumber }) {
   // const priorities = checklist.checklist_data.priorities;
   const checklistID = checklist.checklist_id;
@@ -19,7 +19,7 @@ function ChecklistItem({ checklist, checklistNumber }) {
 
  
 
-  // - RENDERING -
+  // * - RENDERING -
   return (
     <>
       <div
@@ -54,7 +54,7 @@ function ChecklistItem({ checklist, checklistNumber }) {
       </div>
     </>
   );
-} // - END ChecklistItem COMPONENT -
+} // * - END ChecklistItem COMPONENT -
 
-// - EXPORTING ChecklistItem COMPONENT -
+// * - EXPORTING ChecklistItem COMPONENT -
 export default ChecklistItem;

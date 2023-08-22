@@ -1,4 +1,4 @@
-// - IMPORTING -
+// * - IMPORTING -
 import { all } from "redux-saga/effects";
 // User Redux
 import loginSaga from "./login.saga";

@@ -1,4 +1,4 @@
-// - IMPORTING -
+// * - IMPORTING -
 // React
 import React, { useEffect } from "react";
 // Redux
@@ -8,7 +8,7 @@ import TaskItem from "../TaskItem/TaskItem";
 import CreateTask from "../CreateTask/CreateTask";
 import TaskItemComplete from "../TaskItem/TaskItemComplete/TaskItemComplete";
 
-// - TasksList COMPONENT -
+// * - TasksList COMPONENT -
 function TasksList({ priorityID }) {
   // * Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function TasksList({ priorityID }) {
     }
   }, [dispatch, priorityID]);
 
-  // - RENDERING -
+  // * - RENDERING -
   return (
     <div className="task-container" style={{ textAlign: "center" }}>
       {[1, 2].map((taskNumber) => {

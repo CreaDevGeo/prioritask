@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid"; // Import Grid from MUI
 import Stack from "@mui/material/Stack"; // MUI Stack
 import Button from "@mui/material/Button"; // MUI Basic Button
 
-// - LandingPage COMPONENT -
+// * - LandingPage COMPONENT -
 function LandingPage() {
   // * Declaring useHistory as variable
   const history = useHistory();

@@ -1,4 +1,4 @@
-// - IMPORTING -
+// * - IMPORTING -
 // React
 import React, { useEffect } from "react";
 // Redux
@@ -8,7 +8,7 @@ import ChecklistItem from "../ChecklistItem/ChecklistItem";
 import AddChecklistButton from "./AddChecklistButton";
 import EmptyChecklists from "../EmptyChecklists/EmptyChecklists";
 
-// - Checklists COMPONENT-
+// * - Checklists COMPONENT-
 function AllChecklists() {
   // * Declaring useDispatch hook as variable
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function AllChecklists() {
     dispatch({ type: "FETCH_ALL_CHECKLISTS", payload: user.id });
   }, []);
 
-  // - RENDERING -
+  // * - RENDERING -
   return (
     <div>
       <header
@@ -49,7 +49,7 @@ function AllChecklists() {
             marginRight: "1rem",
           }}
         >
-          CHECKLISTS
+          Checklists
         </h1>
         <div
           style={{
@@ -80,5 +80,6 @@ function AllChecklists() {
   );
 } // * end Checklists
 
-// - EXPORTING Checklists COMPONENT -
+// * - EXPORTING Checklists COMPONENT -
 export default AllChecklists;
+

@@ -1,10 +1,10 @@
-// - IMPORTING -
+// * - IMPORTING -
 // React
 import React from "react";
 // Redux
 import { useDispatch } from "react-redux";
 
-// - LogOutButton Component -
+// * - LogOutButton Component -
 function LogOutButton(props) {
   // * Declaring useDispatch as variable
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function LogOutButton(props) {
 
   }; // * end handleLogoutButton
 
-  // - RENDERING -
+  // * - RENDERING -
   return (
     <button
       // This button shows up in multiple locations and is styled differently

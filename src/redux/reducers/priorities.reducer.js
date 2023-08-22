@@ -10,5 +10,5 @@ const prioritiesReducer = (state = {}, action) => {
   }
 };
 
-// - EXPORTING prioritiesReducer -
+// * - EXPORTING prioritiesReducer -
 export default prioritiesReducer;

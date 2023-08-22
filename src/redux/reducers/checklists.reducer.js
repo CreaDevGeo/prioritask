@@ -8,5 +8,5 @@ const checklistsReducer = (state = [], action) => {
   }
 };
 
-// - EXPORTING checklistsReducer -
+// * - EXPORTING checklistsReducer -
 export default checklistsReducer;

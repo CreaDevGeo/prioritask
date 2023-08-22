@@ -8,7 +8,7 @@ const userStrategy = require("../strategies/user.strategy");
 
 const router = express.Router();
 
-// - GET -
+// * - GET -
 // * GET request for all tasks of user that is logged in
 router.get("/:priorityID", (req, res) => {
   const priorityID = req.params.priorityID;
@@ -37,7 +37,7 @@ WHERE
     });
 }); // * end GET all user's priority tasks
 
-// - GET -
+// * - GET -
 // * GET request for all task deadlines of user that is logged in
 router.get("/task-deadline", (req, res) => {
   // Query
@@ -62,7 +62,7 @@ ORDER BY
     });
 }); // * end GET request for a task
 
-// - POST -
+// * - POST -
 // * POST request for adding checklist of user that is logged in
 router.post("/", (req, res) => {
   // Declaring priority id as variable
@@ -98,7 +98,7 @@ router.post("/", (req, res) => {
     });
 }); // * end POST request for a task
 
-// - PUT: TASK DEADLINE -
+// * - PUT: TASK DEADLINE -
 // * PUT request updating selected task's completion
 router.put("/:priorityID/:taskNumber/completed", (req, res) => {
   // Declaring user's priority id as parameter
@@ -126,7 +126,7 @@ WHERE priority_id = $1 AND task_number = $2;
     });
 }); // * end PUT request for a task completion
 
-// - PUT: TASK DEADLINE -
+// * - PUT: TASK DEADLINE -
 // * PUT request of selected task's deadline
 router.put("/:priorityID/:taskNumber", (req, res) => {
   // Declaring user's priority id as parameter
@@ -155,7 +155,7 @@ router.put("/:priorityID/:taskNumber", (req, res) => {
     });
 }); // * end PUT request for a task deadline
 
-// - DELETE -
+// * - DELETE -
 // * DELETE request of user's selected task
 router.delete("/:priorityID/:taskNumber", (req, res) => {
   // Declaring user's priority id as parameter
