@@ -4,15 +4,16 @@ import React, { useState } from "react";
 // Redux
 import { useSelector } from "react-redux";
 // MUI
-import { Button, Modal, Box, TextField } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 // CSS
 import "../../App/App.css";
 // Components
-import DeleteTaskButton from "./DeleteTaskButton";
+import DeleteTaskButton from "./DeleteTask/DeleteTaskButton";
 import TaskDeadline from "./TaskDeadline/TaskDeadline";
 import TaskComplete from "./TaskComplete/TaskComplete";
-import TaskDetailsModal from "../TaskDetailsModal/TaskDetailsModal";
+import TaskDetailsModal from "./TaskDetailsModal/TaskDetailsModal";
 import TaskDueDate from "./TaskDeadline/TaskDueDate/TaskDueDate";
+import taskItemTheme from "./taskItemTheme";
 
 // * - TaskItem COMPONENT -
 function TaskItem({ priorityID, taskNumber, task }) {
@@ -23,7 +24,6 @@ function TaskItem({ priorityID, taskNumber, task }) {
   const userID = user.id;
 
   // * - STATE -
-
   // - NEW TASK FORM -
   // Local state for newTask
   const [taskInput, setTaskInput] = useState("");
@@ -36,25 +36,23 @@ function TaskItem({ priorityID, taskNumber, task }) {
   // Check if the task's deadline exceeds the current date
   const isPastDue = task.deadline && new Date(task.deadline) < currentDate;
 
+  // - TaskDetailsModal -
+const [openTaskDetailsModal, setOpenTaskDetailsModal] = useState(false);
+// Functions to handle open and close
+// Open
+const handleOpenTaskDetailsModal = () => {
+  setOpenTaskDetailsModal(true);
+};
+// Close
+const handleCloseTaskDetailsModal = () => {
+  setOpenTaskDetailsModal(false);
+};
+
 
   // * - RENDERING -
   return (
     // * Task Item Card
-    <Box
-      sx={{
-        width: "90%",
-        bgcolor: "background.paper",
-        borderRadius: 5,
-        boxShadow: 9,
-        p: 4,
-        margin: "10px auto",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        color: "black",
-        fontSize: "1.27rem",
-      }}
-    >
+    <Box sx={taskItemTheme.overrides.MuiBox.root}>
       {/* - HEADER OF TaskItem CARD -  */}
       {/* Task number, event buttons, and due date */}
       <header>
@@ -101,6 +99,12 @@ function TaskItem({ priorityID, taskNumber, task }) {
       {/* - MAIN OF TaskItem CARD-  */}
       {/* Modal of Task */}
       <main>
+        {/* Modal of Task Details */}
+        <TaskDetailsModal
+          open={openTaskDetailsModal} // Pass the open state to the modal
+          handleClose={handleCloseTaskDetailsModal} // Pass the close function to the modal
+          taskTitle={task.task_title} // Pass the task title to the modal
+        />
       </main>
       {/* - END MAIN OF TaskItem CARD - */}
     </Box>

@@ -32,7 +32,7 @@ function TasksList({ priorityID }) {
 
   // * - RENDERING -
   return (
-    <div className="task-container" style={{ textAlign: "center" }}>
+    <div className="task-container" style={{ textAlign: "center", overflowY: "auto", maxHeight: "100%" }}>
       {[1, 2].map((taskNumber) => {
         const matchingTask = tasksForPriority.find(
           (task) => task.task_number === taskNumber
