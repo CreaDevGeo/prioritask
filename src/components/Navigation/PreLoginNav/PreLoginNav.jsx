@@ -26,7 +26,9 @@ function Nav() {
           <div style={{ marginLeft: "auto" }}>
             {!user.id && (
               <Link to="/login">
-                Login / Register
+                <p style={{ marginLeft: "auto", color: "white" }}>
+                  Login / Register
+                </p>
               </Link>
             )}
             {user.id && <AppNav />}
