@@ -55,7 +55,7 @@ function AboutPage() {
               Things I've Learned 🧠
             </h2>
             <ul style={{ fontSize: "1.3rem" }}>
-              <li>Developing is time consuming</li>
+              <li>Developing can be all-consuming</li>
               <li>Your work faster when you take breaks</li>
               <li>Conditional rendering can be engagingly hard</li>
               <li>Practice more algorithms and coding challenges</li>
@@ -79,8 +79,8 @@ function AboutPage() {
             >
               <li>Updating task details</li>
               <li>Ability to mark priorities and checklists as complete</li>
-              <li>Journal feature</li>
               <li>Checklist history feature</li>
+              <li>Journal feature</li>
               <li>More Styling</li>
               <li>Refactoring</li>
             </ul>

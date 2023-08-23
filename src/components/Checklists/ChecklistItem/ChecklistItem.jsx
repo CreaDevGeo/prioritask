@@ -24,12 +24,6 @@ function ChecklistItem({ checklist, checklistNumber }) {
     <>
       <div
         className="checklist-item-box"
-        style={{
-          backgroundColor: "#26abc0",
-          borderRadius: "20px",
-          boxShadow: "5px 20px 50px -15px",
-          margin: "4rem"
-        }}
       >
         <header className="checklist-item-header">
           <center>
