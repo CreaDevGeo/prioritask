@@ -29,12 +29,8 @@ Container
   /* margin: 0 auto; */
 }
 
-.checklist-content-container {
-  flex: 1;
-  padding-left: 260px;
-  overflow-y: auto;
-  background-color: #ffd9b4;
-  margin: 0 auto;
+.about-me-content-container {
+  margin-left: 15%;
 }
 
 /* --------------------------------------------------------------------------------
