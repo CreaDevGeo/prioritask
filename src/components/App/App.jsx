@@ -42,6 +42,7 @@ function App() {
 
   // Check if user is logged in
   const isUserLoggedIn = !!user.id;
+  console.log("User logged in:", isUserLoggedIn);
 
   return (
     // Main app container
@@ -62,8 +63,10 @@ function App() {
               }`}
             >
               <Switch>
-                {/* Redirect to home */}
-                <Redirect exact from="/" to="/home" />
+                {/* If the user is already logged in, redirect to /checklists, else show RegisterPage */}
+                <Route exact path="/">
+                  {isUserLoggedIn && <Redirect to="/checklists" />}
+                </Route>
 
                 {/* Show AboutPage */}
                 <Route
