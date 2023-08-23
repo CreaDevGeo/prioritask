@@ -69,7 +69,7 @@ function TaskDeadline({ priorityID, taskNumber }) {
             label="Date"
             type="date"
             value={deadlineDate}
-            onChange={(e) => setDeadlineDate(e.target.value)}
+            onChange={(event) => setDeadlineDate(event.target.value)}
             InputLabelProps={{
               shrink: true,
             }}

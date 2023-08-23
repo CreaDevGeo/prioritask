@@ -36,19 +36,6 @@ function TaskItem({ priorityID, taskNumber, task }) {
   // Check if the task's deadline exceeds the current date
   const isPastDue = task.deadline && new Date(task.deadline) < currentDate;
 
-  // - TaskDetailsModal -
-const [openTaskDetailsModal, setOpenTaskDetailsModal] = useState(false);
-// Functions to handle open and close
-// Open
-const handleOpenTaskDetailsModal = () => {
-  setOpenTaskDetailsModal(true);
-};
-// Close
-const handleCloseTaskDetailsModal = () => {
-  setOpenTaskDetailsModal(false);
-};
-
-
   // * - RENDERING -
   return (
     // * Task Item Card
@@ -56,16 +43,13 @@ const handleCloseTaskDetailsModal = () => {
       {/* - HEADER OF TaskItem CARD -  */}
       {/* Task number, event buttons, and due date */}
       <header>
-        <center>
           <h3
             style={{
               margin: "3px auto 3px",
-              cursor: "pointer",
             }}
           >
             {`Task ${taskNumber}`}
           </h3>
-        </center>
 
         {/* Task Event Buttons */}
         <div
@@ -101,8 +85,6 @@ const handleCloseTaskDetailsModal = () => {
       <main>
         {/* Modal of Task Details */}
         <TaskDetailsModal
-          open={openTaskDetailsModal} // Pass the open state to the modal
-          handleClose={handleCloseTaskDetailsModal} // Pass the close function to the modal
           taskTitle={task.task_title} // Pass the task title to the modal
         />
       </main>

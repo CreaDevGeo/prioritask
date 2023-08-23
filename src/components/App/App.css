@@ -24,10 +24,11 @@ Container
 -------------------------------------------------------------------------------- */
 
 .content-container {
-  flex: 1;
-  padding-left: 260px;
+  /* flex: 1; */
+  /* padding-left: 260px; */
   overflow-y: auto;
   background-color: #ffd9b4;
+  /* margin: 0 auto; */
 }
 
 /* --------------------------------------------------------------------------------

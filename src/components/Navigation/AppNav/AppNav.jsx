@@ -27,12 +27,12 @@ function AppNav() {
         >
           <ListItemText primary="Checklists" />
         </ListItemButton>
-        <ListItemButton
+        {/* <ListItemButton
           className="list-item-hover"
           onClick={() => handleNavigation("/checklist-history")}
         >
           <ListItemText primary="History" />
-        </ListItemButton>
+        </ListItemButton> */}
         <ListItemButton
           className="list-item-hover"
           onClick={() => handleNavigation("/about")}

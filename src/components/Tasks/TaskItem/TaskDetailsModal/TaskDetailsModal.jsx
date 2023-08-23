@@ -1,18 +1,31 @@
-import React from "react";
+// * - IMPORTING -
+// React
+import React, {useState} from "react";
+// MUI
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 
 // * - TaskDetailsModal COMPONENT -
-function TaskDetailsModal({ open, handleClose, taskTitle }) {
+function TaskDetailsModal({ taskTitle }) {
+  // * - STATE -
+  // - TaskDetailsModal -
+  const [openTaskDetailsModal, setOpenTaskDetailsModal] = useState(false);
+
   // * - RENDERING -
   return (
-   <>
-      <Box>
+    <>
+      {/* Task Title w/ onClick function to open modal */}
+      <p 
+      onClick={() => setOpenTaskDetailsModal(true)}
+      style={{cursor: "pointer"}}
+      >
         {taskTitle}
-      </Box>
+        </p>
+
+      {/* Modal Showing Task Details */}
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openTaskDetailsModal} // Determining modal open/close
+        onClose={() => setOpenTaskDetailsModal(false)} // Setting modal close
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
@@ -35,7 +48,7 @@ function TaskDetailsModal({ open, handleClose, taskTitle }) {
           <p>{taskTitle}</p>
         </Box>
       </Modal>
-   </>
+    </>
   );
 }
 

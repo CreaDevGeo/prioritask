@@ -1,74 +1,68 @@
-//  - IMPORTING -
-// React
 import React, { useState } from "react";
-// Router
 import { useHistory } from "react-router-dom";
-// Material UI
-import CssBaseline from "@mui/material/CssBaseline"; // MUI CssBaseline
-import Box from "@mui/material/Box"; // MUI Box
-import Grid from "@mui/material/Grid"; // Import Grid from MUI
-import Stack from "@mui/material/Stack"; // MUI Stack
-import Button from "@mui/material/Button"; // MUI Basic Button
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
-// * - LandingPage COMPONENT -
 function LandingPage() {
-  // * Declaring useHistory as variable
   const history = useHistory();
 
-  // * Function to send user to login page
   const handleLoginButton = () => {
-    // Logging
     console.log("Login button clicked");
-
-    // Go to '/login' url
     history.push("/login");
-  }; // * end handleLoginButton
+  };
 
-  // * Function to send user to login page
   const handleRegisterButton = () => {
-    // Logging
-    console.log("Login button clicked");
-
-    // Go to '/login' url
+    console.log("Register button clicked");
     history.push("/registration");
-  }; // * end handleLoginButton
+  };
 
-  //  - RENDERING -
   return (
     <React.Fragment>
       <CssBaseline />
       <Grid
         container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        height="100%" // Make the Grid take the full height of the Container
+        sx={{
+          direction: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "0 auto"
+        }}
       >
         <Grid item>
           <Box component="header">
-            <h1 className="landing-page-h1">PRIORITASK</h1>
+            <h1 className="landing-page-h1">Prioritask</h1>
           </Box>
         </Grid>
 
         <Grid
           item
           sx={{
-            width: "500px", // Set your desired width for the Box elements here
-            height: "40px",
+            width: "100%",
             marginBottom: "4rem",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          <Stack spacing={5} direction="row">
+          <Stack
+            spacing={5}
+            direction="row"
+            sx={{
+              fontFamily: "poppins, sans-serif",
+              fontSize: "1.6rem",
+              lineHeight: "1.5",
+            }}
+          >
             <Box
               sx={{
-                width: "10rem", // Set your desired width for the Box elements here
-                height: "5rem",
-                backgroundColor: "black",
+                backgroundColor: "#26abc0",
                 color: "white",
                 textAlign: "center",
+                padding: "1rem",
+                borderRadius: "4px",
               }}
             >
               <p>Create and edit checklists</p>
@@ -76,11 +70,11 @@ function LandingPage() {
 
             <Box
               sx={{
-                width: "10rem", // Set your desired width for the Box elements here
-                height: "5rem",
-                backgroundColor: "black",
+                backgroundColor: "#26abc0",
                 color: "white",
                 textAlign: "center",
+                padding: "1rem",
+                borderRadius: "4px",
               }}
             >
               <p>Make priorities</p>
@@ -88,14 +82,14 @@ function LandingPage() {
 
             <Box
               sx={{
-                width: "10rem", // Set your desired width for the Box elements here
-                height: "5rem",
-                backgroundColor: "black",
+                backgroundColor: "#26abc0",
                 color: "white",
                 textAlign: "center",
+                padding: "1rem",
+                borderRadius: "4px",
               }}
             >
-              <p>Checkoff completed tasks</p>
+              <p>Check off completed tasks</p>
             </Box>
           </Stack>
         </Grid>
@@ -106,6 +100,10 @@ function LandingPage() {
               onClick={handleLoginButton}
               type="button"
               variant="contained"
+              sx={{
+                backgroundColor: "#d03c1b",
+                color: "white",
+              }}
             >
               Login
             </Button>
@@ -113,6 +111,10 @@ function LandingPage() {
               onClick={handleRegisterButton}
               type="button"
               variant="contained"
+              sx={{
+                backgroundColor: "#d03c1b",
+                color: "white",
+              }}
             >
               Register
             </Button>
