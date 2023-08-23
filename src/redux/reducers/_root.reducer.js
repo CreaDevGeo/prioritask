@@ -1,4 +1,4 @@
-// - IMPORTING -
+// * - IMPORTING -
 import { combineReducers } from 'redux';
 // User Reducers
 import errors from './errors.reducer';

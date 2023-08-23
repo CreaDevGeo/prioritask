@@ -27,7 +27,7 @@ const checklistHistoryData = [
   // Add more data entries as needed
 ];
 
-// - ChecklistHistory COMPONENT -
+// * - ChecklistHistory COMPONENT -
 function ChecklistHistory() {
   return (
     <>
@@ -79,6 +79,6 @@ function ChecklistHistory() {
       </TableContainer>
     </>
   );
-} // - END ChecklistHistory COMPONENT -
+} // * - END ChecklistHistory COMPONENT -
 
 export default ChecklistHistory;

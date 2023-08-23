@@ -34,7 +34,7 @@ function ChecklistDeleteButton({checklistID, checklistNumber}) {
 
     handleClose();
   };
-  // - RENDERING -
+  // * - RENDERING -
   return (
     <div>
       <Button variant="contained" color="error" onClick={handleOpen}>

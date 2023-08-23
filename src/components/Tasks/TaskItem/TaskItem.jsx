@@ -1,25 +1,31 @@
+// * - IMPORTING -
+// React
 import React, { useState } from "react";
+// Redux
 import { useSelector } from "react-redux";
-import { Button, Modal, Box, TextField } from "@mui/material";
-import DeleteTaskButton from "./DeleteTaskButton";
+// MUI
+import { Box, ThemeProvider } from "@mui/material";
+// CSS
+import "../../App/App.css";
+// Components
+import DeleteTaskButton from "./DeleteTask/DeleteTaskButton";
 import TaskDeadline from "./TaskDeadline/TaskDeadline";
 import TaskComplete from "./TaskComplete/TaskComplete";
-import "../../App/App.css";
+import TaskDetailsModal from "./TaskDetailsModal/TaskDetailsModal";
+import TaskDueDate from "./TaskDeadline/TaskDueDate/TaskDueDate";
+import taskItemTheme from "./taskItemTheme";
 
+// * - TaskItem COMPONENT -
 function TaskItem({ priorityID, taskNumber, task }) {
-  // Local state for modal
-  const [open, setOpen] = useState(false);
+  // * - DECLARATIONS -
+  // Declaring user from store
+  const user = useSelector((store) => store.user);
+  // Declaring userID from store
+  const userID = user.id;
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // - TASK INPUT -
-  // Local state for taskInput
+  // * - STATE -
+  // - NEW TASK FORM -
+  // Local state for newTask
   const [taskInput, setTaskInput] = useState("");
   // Local state for showing text prompt
   const [taskInputPrompt, setTaskInputPrompt] = useState(false);
@@ -30,263 +36,79 @@ function TaskItem({ priorityID, taskNumber, task }) {
   // Check if the task's deadline exceeds the current date
   const isPastDue = task.deadline && new Date(task.deadline) < currentDate;
 
-  // Declaring user from store
-  const user = useSelector((store) => store.user);
-  // Declaring userID from store
-  const userID = user.id;
+  // - TaskDetailsModal -
+const [openTaskDetailsModal, setOpenTaskDetailsModal] = useState(false);
+// Functions to handle open and close
+// Open
+const handleOpenTaskDetailsModal = () => {
+  setOpenTaskDetailsModal(true);
+};
+// Close
+const handleCloseTaskDetailsModal = () => {
+  setOpenTaskDetailsModal(false);
+};
 
-  // Declaring checklists from store
-  const allChecklists = useSelector((store) => store.checklistsReducer);
 
-  // Function to create a new checklist
-  const handleCreateTaskButton = () => {
-    console.log("Add new task button clicked!");
-
-    // Conditional
-    if (taskInput !== "") {
-      // Dispatch action to add a new task
-      // Update the redux store as needed
-      setTaskInputPrompt(false);
-    } else {
-      setTaskInputPrompt(true);
-    }
-  };
-
-  // State to track whether the title is being edited or not in the modal
-  const [isEditingTitleInModal, setIsEditingTitleInModal] = useState(false);
-  // Local state for showing text prompt if input is too long
-  const [taskInputLengthPrompt, setTaskInputLengthPrompt] = useState(false);
-
-  // Function to handle saving the edited title in the modal
-  const handleSaveEditedTitleInModal = () => {
-    console.log("handleSaveEditedTitleInModal button clicked!");
-
-    if (taskInput !== "") {
-      // Dispatch action or perform your update logic here
-      setIsEditingTitleInModal(false);
-      setTaskInputPrompt(false);
-    } else {
-      setTaskInputPrompt(true);
-    }
-  };
-
-  // Function to handle the task closing button
-  const handleCancelEditButton = () => {
-    console.log("Cancel button clicked!");
-    setIsEditingTitleInModal(false);
-    setOpen(false);
-  };
-
+  // * - RENDERING -
   return (
-    <div>
-      <Box
-        sx={{
-          width: "90%",
-          bgcolor: "background.paper",
-          borderRadius: 5,
-          boxShadow: 9,
-          p: 4,
-          margin: "10px auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          color: "black",
-          fontSize: "1.27rem",
-        }}
-      >
-        {/* Task number header and delete button */}
-        <header>
-          <center>
-            <h3
-              style={{
-                margin: "3px auto 3px",
-                cursor: "pointer",
-              }}
-            >
-              {`Task ${taskNumber}`}
-            </h3>
-          </center>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "3px auto",
-            }}
-          >
-            <TaskComplete
-              priorityID={priorityID}
-              taskNumber={taskNumber}
-              taskCompletion={task.is_completed}
-            />
-            <TaskDeadline priorityID={priorityID} taskNumber={taskNumber} />
-            <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-            }}
-            className="due-date-container"
-          >
-            {isPastDue && (
-              <div>
-                <p
-                  style={{
-                    fontSize: "1rem",
-                    fontWeight: "500",
-                    margin: "5px 0 -20px",
-                  }}
-                  className="past-due-text past-due"
-                >
-                  Past due:
-                </p>
-              </div>
-            )}
-            <div>
-              <p
-                className={isPastDue ? "past-due" : ""}
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: "400",
-                }}
-              >
-                {task.due_date_formatted}
-              </p>
-            </div>
-          </div>
-        </header>
-
-        {/* Modal and pop up modal */}
-        <div
-          style={{
-            marginTop: "5px",
-          }}
-        >
-          <Button
-            onClick={() => setOpen(true)}
-            variant="contained"
-            style={{
-              backgroundColor: "#26abc0",
-            }}
-          >
-            {isEditingTitleInModal ? (
-              <div>
-                <TextField
-                  id="filled-basic"
-                  label="Update your task title"
-                  variant="outlined"
-                  onChange={(event) => setTaskInput(event.target.value)}
-                  value={taskInput}
-                />
-
-                <div>
-                  <Button
-                    variant="outlined"
-                    onClick={handleSaveEditedTitleInModal}
-                  >
-                    Save
-                  </Button>
-                  <Button variant="contained" onClick={handleCancelEditButton}>
-                    Cancel
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <span
-                onClick={() => setIsEditingTitleInModal(true)}
-                style={{ cursor: "pointer" }}
-              >
-                {task.task_title}
-              </span>
-            )}
-            {/* Rendering prompts */}
-            {taskInputPrompt && <p>Make sure you enter a task title first!</p>}
-            {taskInputLengthPrompt && (
-              <p>
-                Make sure your task title isn't too long! <br />
-                (50 characters max)
-              </p>
-            )}
-          </Button>
-        </div>
-      </Box>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            height: 300,
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            p: 4,
-            margin: 10,
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "poppins, sans-serif",
-              fontSize: "2rem",
-            }}
-            id="modal-title"
-          >
-            Task Details
-          </h2>
+    // * Task Item Card
+    <Box sx={taskItemTheme.overrides.MuiBox.root}>
+      {/* - HEADER OF TaskItem CARD -  */}
+      {/* Task number, event buttons, and due date */}
+      <header>
+        <center>
           <h3
             style={{
-              fontFamily: "poppins, sans-serif",
-              fontSize: "1.3rem",
+              margin: "3px auto 3px",
+              cursor: "pointer",
             }}
           >
-            {isEditingTitleInModal ? (
-              <div>
-                <TextField
-                  id="filled-basic"
-                  label="Update your task title"
-                  variant="outlined"
-                  onChange={(event) => setTaskInput(event.target.value)}
-                  value={taskInput}
-                />
-
-                <Button
-                  variant="outlined"
-                  onClick={handleSaveEditedTitleInModal}
-                >
-                  Save
-                </Button>
-                <Button variant="contained" onClick={handleCancelEditButton}>
-                  Cancel
-                </Button>
-              </div>
-            ) : (
-              <span
-                onClick={() => setIsEditingTitleInModal(true)}
-                style={{ cursor: "pointer" }}
-              >
-                {task.task_title}
-              </span>
-            )}
-            {/* Rendering prompts */}
-            {taskInputPrompt && <p>Make sure you enter a task title first!</p>}
-            {taskInputLengthPrompt && (
-              <p>
-                Make sure your task title isn't too long! <br />
-                (50 characters max)
-              </p>
-            )}
+            {`Task ${taskNumber}`}
           </h3>
-        </Box>
-      </Modal>
-    </div>
+        </center>
+
+        {/* Task Event Buttons */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "3px auto",
+          }}
+        >
+          {/* Task Complete Button */}
+          <TaskComplete
+            priorityID={priorityID}
+            taskNumber={taskNumber}
+            taskCompletion={task.is_completed}
+          />
+          {/* Set Task Deadline Button */}
+          <TaskDeadline priorityID={priorityID} taskNumber={taskNumber} />
+          {/* Task Delete Button */}
+          <DeleteTaskButton priorityID={priorityID} taskNumber={taskNumber} />
+        </div>
+
+        {/* Task Due Date Component to show due date */}
+        <TaskDueDate
+          isPastDue={isPastDue}
+          taskDueDate={task.due_date_formatted}
+        />
+      </header>
+      {/* - END HEADER OF TaskItem CARD - */}
+
+      {/* - MAIN OF TaskItem CARD-  */}
+      {/* Modal of Task */}
+      <main>
+        {/* Modal of Task Details */}
+        <TaskDetailsModal
+          open={openTaskDetailsModal} // Pass the open state to the modal
+          handleClose={handleCloseTaskDetailsModal} // Pass the close function to the modal
+          taskTitle={task.task_title} // Pass the task title to the modal
+        />
+      </main>
+      {/* - END MAIN OF TaskItem CARD - */}
+    </Box>
+    // * End Task Item Card
   );
 }
 

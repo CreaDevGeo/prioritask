@@ -1,15 +1,16 @@
-// - IMPORTING -
+// * - IMPORTING -
 // React
 import React from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 // MUI
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
+import { ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 // Components
+import priorityCardsTheme from "../priorityCardsTheme";
 
-// - CreatePriority COMPONENT -
+// * - CreatePriority COMPONENT -
 export default function CreatePriority({ checklistID, priorityNumber }) {
   //  * Declaring useDispatch Redux hook state as variable
   const dispatch = useDispatch();
@@ -41,26 +42,11 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
   }; // * end handleCreateTask
 
   return (
-    <div>
+    <ThemeProvider theme={priorityCardsTheme}>
       <Box
+        sx={priorityCardsTheme.components.MuiBox.styleOverrides.root}
+        component="div"
         onClick={handleAddNewPriority}
-        sx={{
-          top: "50%",
-          left: "50%",
-          width: 300,
-          height: 400,
-          bgcolor: "#d03c1b",
-          borderRadius: 5,
-          boxShadow: 24,
-          pt: 2,
-          px: 5,
-          pb: 3,
-          fontFamily: "poppins, sans-serif",
-          fontSize: "1.5rem",
-          fontWeight: "600",
-          color: "white",
-          lineHeight: "35px",
-        }}
       >
         <h2>Create Priority {priorityNumber}</h2>
         <div>
@@ -74,6 +60,6 @@ export default function CreatePriority({ checklistID, priorityNumber }) {
           </Button>
         </div>
       </Box>
-    </div>
+    </ThemeProvider>
   );
-} // - END CreatePriority COMPONENT -
+} // * - END CreatePriority COMPONENT -

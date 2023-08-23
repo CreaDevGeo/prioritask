@@ -1,8 +1,8 @@
-// - IMPORTING -
+// * - IMPORTING -
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-// - LISTENER SAGA -
+// * - LISTENER SAGA -
 // * checklists listener saga
 function* checklistsSaga() {
   yield takeLatest("FETCH_ALL_CHECKLISTS", fetchAllChecklists);
@@ -10,7 +10,7 @@ function* checklistsSaga() {
   yield takeLatest("DELETE_CHECKLIST", deleteChecklist);
 } // * end checklistsSaga
 
-// - ACTION SAGAS -
+// * - ACTION SAGAS -
 // Fetch Checklists
 // * Gen function to get all checklists from the server
 function* fetchAllChecklists(action) {
@@ -46,7 +46,7 @@ function* addChecklist(action) {
   }
 } // * end addChecklist
 
-// - TO IMPLEMENT SOON -
+// * - TO IMPLEMENT SOON -
 // PUT request for updating rank of checklist
 // GET request for order by feature maybe? Highest to lowest rank and vise versa
 
@@ -74,5 +74,5 @@ function* deleteChecklist(action) {
   }
 } // * end deleteChecklist
 
-// - EXPORTING userSaga -
+// * - EXPORTING userSaga -
 export default checklistsSaga;

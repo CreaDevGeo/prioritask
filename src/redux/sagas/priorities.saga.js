@@ -1,8 +1,8 @@
-// - IMPORTING -
+// * - IMPORTING -
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-// - LISTENER SAGA -
+// * - LISTENER SAGA -
 // * priorities listener saga
 function* prioritiesSaga() {
   yield takeEvery("FETCH_CHECKLIST_PRIORITIES", fetchPriorities);
@@ -10,7 +10,7 @@ function* prioritiesSaga() {
   yield takeLatest("DELETE_PRIORITY", deletePriority);
 } // * end prioritiesSaga
 
-// - ACTION SAGAS -
+// * - ACTION SAGAS -
 // Fetch Priorities
 // * Gen function to get all priorities from the server
 function* fetchPriorities(action) {

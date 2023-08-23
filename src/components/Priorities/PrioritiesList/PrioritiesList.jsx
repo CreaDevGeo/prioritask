@@ -1,10 +1,10 @@
-// - IMPORTING -
+// * - IMPORTING -
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PriorityCard from "../PriorityCard/PriorityCard"
 import CreatePriority from "../CreatePriority/CreatePriority";
 
-// - PrioritiesList COMPONENT -
+// * - PrioritiesList COMPONENT -
 function PrioritiesList({ checklistID, priorities }) {
   // * Declaring useDispatch hook as a variable
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function PrioritiesList({ checklistID, priorities }) {
     });
   }, []);
 
-  // - RENDERING -
+  // * - RENDERING -
   return (
     <div className="priorities-container">
       {[1, 2, 3].map((priorityNumber) => {
@@ -60,5 +60,5 @@ function PrioritiesList({ checklistID, priorities }) {
   );
 }
 
-// - EXPORTING -
+// * - EXPORTING -
 export default PrioritiesList;
