@@ -26,7 +26,7 @@ h1 {
   gap: 4rem;
   margin: 2rem 2rem 4rem;
   padding: 0 4rem 4rem;
-  overflow: auto; /* Add overflow property for scrolling */
+  overflow: auto;
 }
 
 /* Apply justify flex-start */
@@ -39,13 +39,7 @@ h1 {
   gap: 4rem;
   margin: 2rem 2rem 4rem;
   padding: 0 4rem 4rem;
-  overflow: auto; /* Add overflow property for scrolling */
-}
-
-/* Add a min-width to ensure the content doesn't shrink beyond a certain point */
-.all-checklists-container > * {
-  min-width: 25rem; /* Adjust this value as needed */
-  /* flex-shrink: 0; Prevent items from shrinking */
+  overflow: auto;
 }
 
 .add-new-checklist-button {
