@@ -1,11 +1,9 @@
 /* ChecklistItem Style Guide */
 .checklist-item-box {
-  /* margin: 2rem; */
   background-color: #26abc0;
   width: 23rem;
   border-radius: 20px;
-  /* margin-left: 15%; */
-  margin-bottom: 4%;
+  margin: 0;
   display: flex;
   flex-direction: column;
   box-shadow: 3px 28px 43px -17px;

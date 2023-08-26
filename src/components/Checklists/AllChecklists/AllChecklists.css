@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+h1 {
+  font-family: poppins, sans-serif;
+  font-size: 7rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.all-checklists-header {
+  display: flex;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: 0 5rem;
+}
+/* Apply justify center */
+.all-checklists-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  gap: 4rem;
+  margin: 2rem 2rem 4rem;
+  padding: 0 4rem 4rem;
+  overflow: auto; /* Add overflow property for scrolling */
+}
+
+/* Apply justify flex-start */
+.all-checklists-container-flex-start {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  gap: 4rem;
+  margin: 2rem 2rem 4rem;
+  padding: 0 4rem 4rem;
+  overflow: auto; /* Add overflow property for scrolling */
+}
+
+/* Add a min-width to ensure the content doesn't shrink beyond a certain point */
+.all-checklists-container > * {
+  min-width: 25rem; /* Adjust this value as needed */
+  /* flex-shrink: 0; Prevent items from shrinking */
+}
+
+.add-new-checklist-button {
+  width: 9rem;
+}

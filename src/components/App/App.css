@@ -139,29 +139,6 @@ input {
   font-style: normal;
 }
 
-/* Navigation /* Post Login Navigation */
-.side-nav {
-  background-color: rgb(26, 26, 26);
-  color: white;
-  width: 15rem;
-  /* position: fixed; */
-}
-
-/* Navigation /* Post Login Navigation */
-/* For fixed nav */
-.nav-buttons {
-  margin-top: 2.5rem;
-  position: fixed;
-}
-
-.list-item-hover:hover {
-  background-color: rgb(250, 45, 45);
-}
-
-.logout-button:hover {
-  background-color: rgb(205, 17, 17);
-}
-
 /* TaskItem */
 .due-date-container {
   display: flex;
