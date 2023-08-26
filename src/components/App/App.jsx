@@ -67,7 +67,8 @@ function App() {
                 <Switch>
                   {/* If the user is already logged in, redirect to /checklists, else show RegisterPage */}
                   <Route exact path="/">
-                    {isUserLoggedIn && <Redirect to="/checklists" />}
+                    {isUserLoggedIn && <Redirect to="/checklists" /> }
+                    {!isUserLoggedIn && <Redirect to="/home" /> }
                   </Route>
 
                   {/* Show AboutPage */}
