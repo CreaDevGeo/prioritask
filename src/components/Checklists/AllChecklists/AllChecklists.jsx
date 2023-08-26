@@ -60,23 +60,23 @@ function AllChecklists() {
         </div>
       </header>
       {/* Conditional rendering based on allChecklists length */}
-      {allChecklists.length === 0 ? (
-        <EmptyChecklists />
-      ) : (
-        <div>
-          {allChecklists.map((checklist) => {
-            checklistNumber++;
-            return (
-              <ChecklistItem
-                key={checklist.checklist_id}
-                checklist={checklist}
-                checklistNumber={checklistNumber}
-              />
-            );
-          })}
-        </div>
-      )}
-    </div>
+        {allChecklists.length === 0 ? (
+          <EmptyChecklists />
+        ) : (
+          <div style={{ display: "flex", flexWrap: "wrap",  justifyContent:"center",gap: "2rem" }}>
+            {allChecklists.map((checklist) => {
+              checklistNumber++;
+              return (
+                <ChecklistItem
+                  key={checklist.checklist_id}
+                  checklist={checklist}
+                  checklistNumber={checklistNumber}
+                />
+              );
+            })}
+          </div>
+        )}
+      </div>
   );
 } // * end Checklists
 

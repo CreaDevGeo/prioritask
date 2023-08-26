@@ -59,7 +59,7 @@ export default function PriorityCard({
           style={{
             flex: 1, // Fill available vertical space
             overflowY: "auto", // Enable vertical scrolling
-            width: "100%", // Occupy full width
+            width: "120%", // Occupy full width
           }}
         >
           {/* TasksList component */}
