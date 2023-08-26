@@ -46,7 +46,7 @@ export default function PriorityCard({
     <ThemeProvider theme={priorityCardsTheme}>
       <Box
         sx={priorityCardsTheme.components.MuiBox.styleOverrides.root}
-        component="div"
+        component="div" 
       >
         <center>
           <h2>Priority {priorityNumber}</h2>
