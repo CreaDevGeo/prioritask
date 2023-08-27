@@ -5,6 +5,8 @@ html,
 body,
 #react-root {
   height: 100%;
+  background-color: rgb(26, 26, 26);
+  
 }
 
 body {
@@ -24,7 +26,7 @@ Container
 .content-container {
   flex: 1;
   overflow-y: auto;
-  background-color: #ffd9b4;
+  background-color: #f7d2ad;;
   margin: 0 auto;
 }
 
