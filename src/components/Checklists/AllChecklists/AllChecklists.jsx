@@ -55,7 +55,7 @@ function AllChecklists() {
           // Holding all checklists
           <div
             className={
-              allChecklists.length > 3
+              allChecklists.length > 1
                 ? "all-checklists-container-flex-start"
                 : "all-checklists-container"
             }
