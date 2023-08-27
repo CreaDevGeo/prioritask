@@ -2,7 +2,7 @@ import React from "react";
 
 function AboutPage() {
   return (
-    <div className="container" style={{ textAlign: "center" }}>
+    <div className="about-me-content-container" style={{ textAlign: "center" }}>
       <div>
         <h1
           style={{

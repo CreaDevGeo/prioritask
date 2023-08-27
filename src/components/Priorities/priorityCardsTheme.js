@@ -5,7 +5,7 @@ const priorityCardsTheme = createTheme({
     MuiBox: {
       styleOverrides: {
         root: {
-          width: 300,
+          width: 230,
           height: 400,
           margin: "1 auto",
           backgroundColor: "#d03c1b",

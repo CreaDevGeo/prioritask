@@ -17,34 +17,35 @@ function ChecklistItem({ checklist, checklistNumber }) {
   );
   console.log("\tPriorities are:", priorities);
 
- 
-
   // * - RENDERING -
   return (
     <>
-      <div
-        className="checklist-item-box"
-      >
+      <div className="checklist-item-box">
         <header className="checklist-item-header">
           <center>
-            <h2 className="checklist-heading"
-            style={{
-              fontFamily: "poppins, sans-serif",
-              fontSize: "2.5rem",
-              fontWeight: "700",
-              width: "40rem"
-            }}
-            >Checklist {checklistNumber}</h2>
+            <h2
+              className="checklist-heading"
+              style={{
+                fontFamily: "poppins, sans-serif",
+                fontSize: "2.5rem",
+                fontWeight: "700",
+                width: "40rem",
+              }}
+            >
+              Checklist {checklistNumber}
+            </h2>
           </center>
         </header>
 
         <PrioritiesList checklistID={checklistID} priorities={priorities} />
 
         {/* Delete Button */}
-        <ChecklistDeleteButton
-          checklistID={checklistID}
-          checklistNumber={checklistNumber}
-        />
+        <div className="delete-button">
+          <ChecklistDeleteButton
+            checklistID={checklistID}
+            checklistNumber={checklistNumber}
+          />
+        </div>
       </div>
     </>
   );

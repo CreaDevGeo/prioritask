@@ -3,6 +3,8 @@
 import React, { useEffect } from "react";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
+// CSS
+import "./AllChecklists.css";
 // Components
 import ChecklistItem from "../ChecklistItem/ChecklistItem";
 import AddChecklistButton from "./AddChecklistButton";
@@ -33,53 +35,47 @@ function AllChecklists() {
   // * - RENDERING -
   return (
     <div>
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center", // Center horizontally
-          margin: "30px 50px 3px",
-        }}
-      >
-        <h1
-          style={{
-            fontFamily: "poppins, sans-serif",
-            fontSize: "7rem",
-            fontWeight: "800",
-            marginRight: "1rem",
-          }}
-        >
-          Checklists
-        </h1>
-        <div
-          style={{
-            width: "9rem",
-          }}
-        >
+      <header className="all-checklists-header">
+        <h1>Checklists</h1>
+        <div className="add-new-checklist-button">
           <AddChecklistButton />
         </div>
       </header>
-      {/* Conditional rendering based on allChecklists length */}
-      {allChecklists.length === 0 ? (
-        <EmptyChecklists />
-      ) : (
-        <div>
-          {allChecklists.map((checklist) => {
-            checklistNumber++;
-            return (
-              <ChecklistItem
-                key={checklist.checklist_id}
-                checklist={checklist}
-                checklistNumber={checklistNumber}
-              />
-            );
-          })}
-        </div>
-      )}
+
+      <main
+        style={{
+          width: "100%",
+          overflowX: "auto",
+        }}
+      >
+        {/* Conditional rendering based on allChecklists length */}
+        {allChecklists.length === 0 ? (
+          <EmptyChecklists />
+        ) : (
+          // Holding all checklists
+          <div
+            className={
+              allChecklists.length > 3
+                ? "all-checklists-container-flex-start"
+                : "all-checklists-container"
+            }
+          >
+            {allChecklists.map((checklist) => {
+              checklistNumber++;
+              return (
+                <ChecklistItem
+                  key={checklist.checklist_id}
+                  checklist={checklist}
+                  checklistNumber={checklistNumber}
+                />
+              );
+            })}
+          </div>
+        )}
+      </main>
     </div>
   );
 } // * end Checklists
 
 // * - EXPORTING Checklists COMPONENT -
 export default AllChecklists;
-

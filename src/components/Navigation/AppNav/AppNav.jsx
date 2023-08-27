@@ -1,9 +1,17 @@
+// - IMPORTING -
+// React
 import React from "react";
+// Router
 import { useHistory } from "react-router-dom";
+// MUI
 import { List, ListItemButton, ListItemText } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+// Redux
 import { useDispatch } from "react-redux";
+// CSS
+import "../AppNav/AppNav.css"
 
+// - AppNav COMPONENT -
 function AppNav() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -20,38 +28,39 @@ function AppNav() {
 
   return (
     <div className="side-nav">
-      <List>
-        <ListItemButton
-          className="list-item-hover"
-          onClick={() => handleNavigation("/checklists")}
-        >
-          <ListItemText primary="Checklists" />
-        </ListItemButton>
-        {/* <ListItemButton
-          className="list-item-hover"
-          onClick={() => handleNavigation("/checklist-history")}
-        >
-          <ListItemText primary="History" />
-        </ListItemButton> */}
-        <ListItemButton
-          className="list-item-hover"
-          onClick={() => handleNavigation("/about")}
-        >
-          <ListItemText primary="About" />
-        </ListItemButton>
-        <ListItemButton className="logout-button" onClick={handleLogoutButton}>
-          <span
-            style={{
-              marginRight: "10px",
-            }}
+      <div
+      className="nav-buttons"
+      >
+        <List>
+          <ListItemButton
+            onClick={() => handleNavigation("/checklists")}
           >
-            Logout
-          </span>
-          <LogoutIcon />
-        </ListItemButton>
-      </List>
+            <ListItemText primary="Checklists" />
+          </ListItemButton>
+          {/* <ListItemButton
+            onClick={() => handleNavigation("/checklist-history")}
+          >
+            <ListItemText primary="History" />
+          </ListItemButton> */}
+          <ListItemButton
+            onClick={() => handleNavigation("/about")}
+          >
+            <ListItemText primary="About" />
+          </ListItemButton>
+          <ListItemButton onClick={handleLogoutButton}>
+            <span
+              style={{
+                marginRight: "10px",
+              }}
+            >
+              Logout
+            </span>
+            <LogoutIcon />
+          </ListItemButton>
+        </List>
+      </div>
     </div>
   );
-}
+}; // - END AppNav COMPONENT -
 
 export default AppNav;

@@ -37,8 +37,12 @@ function ChecklistDeleteButton({checklistID, checklistNumber}) {
   // * - RENDERING -
   return (
     <div>
-      <Button variant="contained" color="error" onClick={handleOpen}>
-        Delete
+      <Button
+        variant="contained"
+        onClick={handleOpen}
+        sx={{ backgroundColor: "#145c67", }}
+      >
+        Delete Checklist
       </Button>
       <Modal
         open={open}

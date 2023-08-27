@@ -1,16 +1,12 @@
 /* ChecklistItem Style Guide */
 .checklist-item-box {
-  /* margin: 2rem; */
   background-color: #26abc0;
-  width: 60%;
+  width: 23rem;
   border-radius: 20px;
-  margin-left: 15%;
-  margin-bottom: 4%;
+  margin: 0;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  overflow-y: auto;
-  box-shadow: 5px 20px 50px -15px;
+  box-shadow: 3px 28px 43px -17px;
 }
 
 .checklist-item-header {
@@ -35,17 +31,24 @@
 
 .priorities-container {
   width: 100%;
-  padding: 2rem;
+  padding: 3rem 4.93rem 5rem;
+  text-align: center;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-  gap: 2rem;
+  flex-direction: row;
+  overflow-x: auto;
+  justify-items: center; 
+  /*  align-content: center; */
+  gap: 3rem;
 }
 
 .priorities-card {
   background-color: rgb(123, 123, 123);
-  width: 18rem;
+  width: 1rem;
   height: 20rem; /* Set a fixed height for the PriorityItem component */
   margin: 20px;
+}
+
+
+.delete-button {
+  margin: 0 auto 1rem;
 }

@@ -1,0 +1,14 @@
+/* * App Navigation Style Guide */
+/* Post Login Navigation */
+
+.side-nav {
+  background-color: rgb(26, 26, 26);
+  color: white;
+  width: 15rem;
+}
+
+/* Fixed navigation text */
+.nav-buttons {
+  margin-top: 2.5rem;
+  position: fixed;
+}

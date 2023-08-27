@@ -19,6 +19,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 // Material UI
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
+import { Box } from "@mui/material";
 // CSS
 import "./App.css";
 // Components
@@ -56,75 +57,78 @@ function App() {
             }`}
           >
             {!user.id && <PreLoginNav />}
-            {user.id && <AppNav />}
-            <div
-              className={`content-container ${
-                isUserLoggedIn ? "content-margin" : ""
-              }`}
-            >
-              <Switch>
-                {/* If the user is already logged in, redirect to /checklists, else show RegisterPage */}
-                <Route exact path="/">
-                  {isUserLoggedIn && <Redirect to="/checklists" />}
-                </Route>
+            <div className="application-container">
+              {user.id && <AppNav />}
+              <div
+                className={`content-container ${
+                  isUserLoggedIn ? "content-margin" : ""
+                }`}
+              >
+                <Switch>
+                  {/* If the user is already logged in, redirect to /checklists, else show RegisterPage */}
+                  <Route exact path="/">
+                    {isUserLoggedIn && <Redirect to="/checklists" /> }
+                    {!isUserLoggedIn && <Redirect to="/home" /> }
+                  </Route>
 
-                {/* Show AboutPage */}
-                <Route
-                  // shows AboutPage at all times (logged in or not)
-                  exact
-                  path="/about"
-                >
-                  <AboutPage />
-                </Route>
+                  {/* Show AboutPage */}
+                  <Route
+                    // shows AboutPage at all times (logged in or not)
+                    exact
+                    path="/about"
+                  >
+                    <AboutPage />
+                  </Route>
 
-                {/* Show AllChecklists if logged in */}
-                <ProtectedRoute
-                  // logged in shows Checklists else shows LoginPage
-                  exact
-                  path="/checklists"
-                >
-                  <AllChecklists />
-                </ProtectedRoute>
+                  {/* Show AllChecklists if logged in */}
+                  <ProtectedRoute
+                    // logged in shows Checklists else shows LoginPage
+                    exact
+                    path="/checklists"
+                  >
+                    <AllChecklists />
+                  </ProtectedRoute>
 
-                {/* Show ChecklistHistory if logged in */}
-                <ProtectedRoute
-                  // logged in shows Checklists else shows LoginPage
-                  exact
-                  path="/checklist-history"
-                >
-                  <ChecklistHistory />
-                </ProtectedRoute>
+                  {/* Show ChecklistHistory if logged in */}
+                  <ProtectedRoute
+                    // logged in shows Checklists else shows LoginPage
+                    exact
+                    path="/checklist-history"
+                  >
+                    <ChecklistHistory />
+                  </ProtectedRoute>
 
-                {/* Show InfoPage if logged in */}
-                <ProtectedRoute
-                  // logged in shows InfoPage else shows LoginPage
-                  exact
-                  path="/info"
-                >
-                  <InfoPage />
-                </ProtectedRoute>
+                  {/* Show InfoPage if logged in */}
+                  <ProtectedRoute
+                    // logged in shows InfoPage else shows LoginPage
+                    exact
+                    path="/info"
+                  >
+                    <InfoPage />
+                  </ProtectedRoute>
 
-                {/* If the user is already logged in, redirect to /user, else show LoginPage */}
-                <Route exact path="/login">
-                  {user.id ? <Redirect to="/checklists" /> : <LoginPage />}
-                </Route>
+                  {/* If the user is already logged in, redirect to /user, else show LoginPage */}
+                  <Route exact path="/login">
+                    {user.id ? <Redirect to="/checklists" /> : <LoginPage />}
+                  </Route>
 
-                {/* If the user is already logged in, redirect to /user, else show RegisterPage */}
-                <Route exact path="/registration">
-                  {user.id ? <Redirect to="/checklists" /> : <RegisterPage />}
-                </Route>
+                  {/* If the user is already logged in, redirect to /user, else show RegisterPage */}
+                  <Route exact path="/registration">
+                    {user.id ? <Redirect to="/checklists" /> : <RegisterPage />}
+                  </Route>
 
-                {/* If the user is already logged in, redirect to /user, else show LandingPage */}
-                <Route exact path="/home">
-                  {user.id ? <Redirect to="/home" /> : <LandingPage />}
-                </Route>
+                  {/* If the user is already logged in, redirect to /user, else show LandingPage */}
+                  <Route exact path="/home">
+                    {user.id ? <Redirect to="/home" /> : <LandingPage />}
+                  </Route>
 
-                {/* If none of the other routes matched, show a 404 */}
-                <Route>
-                  <h1>404</h1>
-                </Route>
-              </Switch>
-              <Footer />
+                  {/* If none of the other routes matched, show a 404 */}
+                  <Route>
+                    <h1>404</h1>
+                  </Route>
+                </Switch>
+                <Footer />
+              </div>
             </div>
           </div>
         </Router>

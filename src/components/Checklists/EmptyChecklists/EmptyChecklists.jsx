@@ -1,8 +1,15 @@
+// - IMPORTING -
+// CSS
+import "../EmptyChecklists/EmptyChecklists.css";
+
 // * - EmptyChecklists COMPONENT -
 function EmptyChecklists() {
-    return (
-        <h2>Empty Checklist</h2>
-    )
+  return (
+    <h2 className="empty-checklists-heading">
+      You have no checklists. <br />
+      Start making some goals!
+    </h2>
+  );
 } // * - END EmptyChecklists COMPONENT -
 
 export default EmptyChecklists;
