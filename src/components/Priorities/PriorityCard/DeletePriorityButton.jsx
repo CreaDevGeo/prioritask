@@ -1,11 +1,15 @@
+// * - IMPORTING -
+// React
 import React, { useState } from "react";
+// Redux
 import { useSelector, useDispatch } from "react-redux";
+// MUI
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
+// CSS
+import "./PriorityCard.css";
 
 // Turning into a DeletePriorityButton
 function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
@@ -54,9 +58,12 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
 
   return (
     <div>
-      <Button 
-      style={{backgroundColor: "black"}}
-       onClick={handleOpen} variant="contained" color="error">
+      <Button
+        onClick={handleOpen}
+        variant="contained"
+        color="error"
+        className="delete-priority-button"
+      >
         Delete
       </Button>
       <Modal

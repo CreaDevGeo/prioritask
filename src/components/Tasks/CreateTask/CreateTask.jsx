@@ -115,6 +115,7 @@ function CreateTask({ priorityID, taskNumber }) {
             borderRadius: 5,
             boxShadow: 24,
             p: 4,
+            textAlign: "center",
             margin: 10,
           }}
         >

@@ -3,6 +3,8 @@
 import React, { useEffect } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+// CSS
+import "./TasksList.css"
 // Components
 import TaskItem from "../TaskItem/TaskItem";
 import CreateTask from "../CreateTask/CreateTask";
@@ -32,43 +34,47 @@ function TasksList({ priorityID }) {
 
   // * - RENDERING -
   return (
-    <div className="task-container" style={{ textAlign: "center", overflowY: "auto", maxHeight: "100%" }}>
-      {[1, 2].map((taskNumber) => {
-        const matchingTask = tasksForPriority.find(
-          (task) => task.task_number === taskNumber
-        );
-
-        if (matchingTask) {
-          return (
-            <div key={matchingTask.task_id} style={{ margin: "20px auto" }}>
-              {matchingTask.is_completed ? (
-                <TaskItemComplete
-                  key={matchingTask.task_id}
-                  priorityID={priorityID}
-                  task={matchingTask}
-                  taskNumber={taskNumber}
-                />
-              ) : (
-                <TaskItem
-                  key={matchingTask.task_id}
-                  priorityID={priorityID}
-                  task={matchingTask}
-                  taskNumber={taskNumber}
-                />
-              )}
-            </div>
+    <main>
+      <div className="tasks-overflow-container" >
+        {[1, 2].map((taskNumber) => {
+          const matchingTask = tasksForPriority.find(
+            (task) => task.task_number === taskNumber
           );
-        } else {
-          return (
-            <CreateTask
-              key={`createTask_${priorityID}_${taskNumber}`}
-              priorityID={priorityID}
-              taskNumber={taskNumber}
-            />
-          );
-        }
-      })}
-    </div>
+  
+          if (matchingTask) {
+            return (
+              <div key={matchingTask.task_id} style={{ margin: "20px auto" }}>
+                {matchingTask.is_completed ? (
+                  <TaskItemComplete
+                    key={matchingTask.task_id}
+                    priorityID={priorityID}
+                    task={matchingTask}
+                    taskNumber={taskNumber}
+                  />
+                ) : (
+                  <TaskItem
+                    key={matchingTask.task_id}
+                    priorityID={priorityID}
+                    task={matchingTask}
+                    taskNumber={taskNumber}
+                  />
+                )}
+              </div>
+            );
+          } else {
+            return (
+              <CreateTask
+                key={`createTask_${priorityID}_${taskNumber}`}
+                priorityID={priorityID}
+                taskNumber={taskNumber}
+              />
+            );
+          }
+        })}
+      </div>
+    </main
+   
+   >
   );
 }
 

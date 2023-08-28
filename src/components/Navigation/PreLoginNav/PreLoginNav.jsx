@@ -8,7 +8,7 @@ import { styled } from "@mui/system";
 import AppNav from "../AppNav/AppNav";
 
 const TopNav = styled(AppBar)(({ theme }) => ({
-  backgroundColor: "black",
+  backgroundColor: "rgb(26, 26, 26)",
 }));
 
 function Nav() {

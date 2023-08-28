@@ -1,0 +1,12 @@
+/* Priority Card Style Guide */
+/* Priority Card */
+.priority-card-overflow-container {
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* Priority Card Delete Button */
+.delete-priority-button {
+  background-color: black !important;
+  margin-bottom: -7rem !important;;
+}
