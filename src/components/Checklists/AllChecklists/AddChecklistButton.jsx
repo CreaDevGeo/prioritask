@@ -73,7 +73,7 @@ function AddChecklistButton() {
         aria-describedby="modal-description"
       >
         <Box className="open-modal">
-          <h2 id="modal-title">Slow your road!</h2>
+          <h2 id="modal-title">Slow Your Roll!</h2>
           <p id="modal-description">You can only have 4 checklists max.</p>
           <Button
             onClick={handleClose}
