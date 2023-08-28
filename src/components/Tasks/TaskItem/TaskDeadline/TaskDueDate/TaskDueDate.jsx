@@ -26,7 +26,6 @@ function TaskDueDate({ isPastDue, taskDueDate }) {
           style={{
             fontSize: "1rem",
             fontWeight: "400",
-            marginTop: "-35px"
           }}
         >
           {taskDueDate}
