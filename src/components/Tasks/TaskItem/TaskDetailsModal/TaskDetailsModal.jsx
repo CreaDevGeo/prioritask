@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { Input } from "@mui/material";
 // CSS
 import "./TaskDetailsModal.css";
+import "../../../App/App.css"
 // Components
 import TaskTitleCancelButton from "./TaskTitleCancelButton/TaskTitleCancelButton";
 import TaskTitleUpdate from "./TaskTitleUpdate/TaskTitleUpdate";
@@ -41,7 +42,7 @@ function TaskDetailsModal({ taskTitle, taskNumber, priorityID }) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box className="task-open-modal-container">
+        <Box className="open-modal">
           <h2 id="modal-title">Task Details</h2>
           {/* Task Title Functionality */}
           {/* Conditionally render input field if openTaskTitleUpdateInput is true */}

@@ -1,9 +1,14 @@
-
+// * - IMPORTING -
+// React
 import React, { useState } from "react";
+// Redux
 import { useDispatch, useSelector } from "react-redux";
+// MUI
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+// CSS
+import "../../App/App.css"
 
 function ChecklistDeleteButton({checklistID, checklistNumber}) {
   const [open, setOpen] = useState(false);
@@ -40,7 +45,7 @@ function ChecklistDeleteButton({checklistID, checklistNumber}) {
       <Button
         variant="contained"
         onClick={handleOpen}
-        sx={{ backgroundColor: "#145c67", }}
+        sx={{ backgroundColor: "#145c67" }}
       >
         Delete Checklist
       </Button>
@@ -50,34 +55,22 @@ function ChecklistDeleteButton({checklistID, checklistNumber}) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            height: 300,
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            p: 4,
-            margin: 10,
-          }}
-        >
-          <h2 id="modal-title">Delete Confirmation</h2>
-          <p id="modal-description">
+        <Box className="open-modal">
+          <h2>Delete Confirmation</h2>
+          <p>
             Are you sure you want to delete{" "}
             <strong>Checklist {checklistNumber}</strong>?
           </p>
           <Button
             onClick={handleDeleteChecklist}
             color="error"
-            variant="outlined"
           >
             Delete
           </Button>
-          <Button onClick={handleClose} color="primary" variant="contained">
+          <Button
+            onClick={handleClose}
+            className="cancel-button"
+          >
             Cancel
           </Button>
         </Box>

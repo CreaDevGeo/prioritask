@@ -72,21 +72,7 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            height: 300,
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            p: 4,
-            margin: 10,
-          }}
-        >
+        <Box className="open-modal">
           <h2 id="modal-title">Delete Confirmation</h2>
           <Box
             component="form"
@@ -102,13 +88,12 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
           </p>
           <Button
             onClick={handleDeletePriorityButton}
-            variant="outlined"
             color="error"
             startIcon={<DeleteIcon />}
           >
             Delete
           </Button>
-          <Button onClick={handleClose} color="primary" variant="contained">
+          <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
         </Box>

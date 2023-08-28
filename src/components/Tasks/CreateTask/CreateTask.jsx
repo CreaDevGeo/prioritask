@@ -1,9 +1,14 @@
+// * - IMPORTING -
+// React
 import React, { useState } from "react";
+// Redux
 import { useSelector, useDispatch } from "react-redux";
+// MUI
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import CreateIcon from "@mui/icons-material/Create";
 
 function CreateTask({ priorityID, taskNumber }) {
   // * Local state for modal
@@ -41,9 +46,9 @@ function CreateTask({ priorityID, taskNumber }) {
     setTaskInput(event.target.value);
     if (taskInput.length >= 50) {
       setTaskInputLengthPrompt(true);
-      setTaskInputPrompt(false)
+      setTaskInputPrompt(false);
     } else {
-      setTaskInputLengthPrompt(false)
+      setTaskInputLengthPrompt(false);
     }
   };
 
@@ -70,7 +75,6 @@ function CreateTask({ priorityID, taskNumber }) {
 
         setTaskInputPrompt(false);
         setTaskInputLengthPrompt(false);
-        
       } else {
         setTaskInputPrompt(false);
         setTaskInputLengthPrompt(true);
@@ -85,14 +89,17 @@ function CreateTask({ priorityID, taskNumber }) {
     <div style={{ textAlign: "center", margin: "10px auto" }}>
       <Button
         onClick={() => setOpen(true)}
-        variant="contained"
         style={{
           backgroundColor: "#edf7c0",
           color: "black",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          justifyItems: "center",
           fontFamily: "poppins, sans-serif",
           fontSize: "1rem",
           fontWeight: "500",
-          boxShadow: "4px 10px 0.5rem -9px"
+          boxShadow: "4px 10px 0.5rem -9px",
         }}
       >
         Add a new task
@@ -103,22 +110,7 @@ function CreateTask({ priorityID, taskNumber }) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            height: 300,
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            p: 4,
-            textAlign: "center",
-            margin: 10,
-          }}
-        >
+        <Box className="open-modal">
           <h2 id="modal-title">Enter a new task</h2>
           <Box
             component="form"
@@ -143,16 +135,17 @@ function CreateTask({ priorityID, taskNumber }) {
               variant="outlined"
               onChange={handleTaskInputChange}
               value={taskInput}
+              style={{ width: "100%" }}
             />
           </Box>
           <Button
             onClick={handleCreateTaskButton}
-            variant="contained"
-            color="primary"
+            style={{ color: "#26abc0" }}
+            startIcon={<CreateIcon />}
           >
             Create Task
           </Button>
-          <Button onClick={handleClose} color="primary" variant="outlined">
+          <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
         </Box>

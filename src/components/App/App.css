@@ -40,6 +40,24 @@ Container
   /* gap: 20px; */
 }
 
+.open-modal {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 500px !important;
+  height: 300px !important;
+  background-color: #f4f4f4 !important;
+  border-radius: 5px !important;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.1) !important;
+  padding: 16px !important;
+  margin: 10px !important;
+  text-align: center !important;
+  font-family: poppins, sans-serif !important;
+  font-size: 1.5rem !important;
+  overflow-y: auto !important; /* Enable Overflow */
+}
+
 /* --------------------------------------------------------------------------------
 Button
 -------------------------------------------------------------------------------- */

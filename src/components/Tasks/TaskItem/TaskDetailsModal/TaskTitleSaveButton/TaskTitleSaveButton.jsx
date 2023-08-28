@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 // MUI
 import { Button } from "@mui/material";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
 
 // * - TaskTitleSaveButton COMPONENT -
 function TaskTitleSaveButton({
@@ -30,7 +31,7 @@ function TaskTitleSaveButton({
     if (taskTitleUpdateInput !== "") {
       if (taskTitleUpdateInput.length <= 50) {
         dispatch({
-          type: "UPDATE_TASK",
+          type: "UPDATE_TASK_TITLE",
           payload: {
             priorityID: priorityID,
             taskTitleUpdateInput: taskTitleUpdateInput,
@@ -52,7 +53,15 @@ function TaskTitleSaveButton({
   };
 
   // * - RENDERING -
-  return <Button onClick={handleUpdateTaskTitleButton}>Save</Button>;
+  return (
+    <Button
+      style={{ color: "#26abc0" }}
+      startIcon={<SaveAsIcon />}
+      onClick={handleUpdateTaskTitleButton}
+    >
+      Save
+    </Button>
+  );
 } // * - END TaskTitleSaveButton COMPONENT -
 
 // * - END TaskTitleSaveButton COMPONENT -

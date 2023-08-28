@@ -22,8 +22,6 @@ function TaskTitleCancelButton({
   return (
     // Button to close input field of task title
     <Button
-      variant="outlined"
-      color="primary"
       className="cancel-button"
       onClick={handleCancelButton}
     >

@@ -1,5 +1,9 @@
+// * - IMPORTING -
+// React
 import React, { useState } from "react";
+// Redux
 import { useDispatch } from "react-redux";
+// MUI
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -46,23 +50,7 @@ function TaskDeadline({ priorityID, taskNumber }) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 300, 
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            p: 4,
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-            alignItems: "center",
-          }}
-        >
+        <Box className="open-modal">
           <h2 id="modal-title">Set a Deadline</h2>
           <TextField
             id="date"
@@ -76,12 +64,12 @@ function TaskDeadline({ priorityID, taskNumber }) {
           />
           <Button
             onClick={handleSetDeadline}
-            variant="contained"
-            color="primary"
+            style={{ color: "#26abc0" }}
+            startIcon={<AccessTimeIcon />}
           >
             Set Deadline
           </Button>
-          <Button onClick={handleClose} color="primary" variant="contained">
+          <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
         </Box>

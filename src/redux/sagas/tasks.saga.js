@@ -7,6 +7,7 @@ import axios from "axios";
 function* tasksSaga() {
   yield takeEvery("FETCH_TASKS", fetchTasks);
   yield takeLatest("ADD_TASK", addTask);
+  yield takeLatest("UPDATE_TASK_TITLE", updateTaskTitle);
   yield takeLatest("COMPLETE_TASK", completeTask);
   yield takeLatest("UPDATE_TASK_DEADLINE", updateTaskDeadline);
   yield takeLatest("DELETE_TASK", deleteTask);
@@ -70,6 +71,37 @@ function* addTask(action) {
     console.log("Error adding priority:", error);
   }
 } // * end addTask
+
+// Update task title
+// * Gen function to update a task's title via PUT
+function* updateTaskTitle(action) {
+  console.log(
+    "Gen function updateTaskTitle running due to action: ",
+    action.type
+  );
+  try {
+    // Declaring userID from payload
+    const taskTitleUpdateInput = action.payload.taskTitleUpdateInput;
+    // Declaring priorityID from payload
+    const priorityID = action.payload.priorityID;
+    // Declaring taskNumber from payload
+    const taskNumber = action.payload.taskNumber;
+
+    // PUT request
+    yield axios.put(
+      `/tasks/${priorityID}/${taskNumber}/task-title`,
+      { updatedTaskTitle: taskTitleUpdateInput }
+    );
+
+    // Dispatch action to fetch tasks and wait for its completion
+    yield call(fetchTasks, { payload: { priorityID } });
+
+    // Dispatch action to fetch checklists
+    // yield put({ type: "FETCH_ALL_CHECKLISTS", payload: userID });
+  } catch (error) {
+    console.log("Error updating task title:", error);
+  }
+} // * end updateTaskTitle
 
 // Update task completion
 // * Gen function to update a task's completion via PUT

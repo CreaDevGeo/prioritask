@@ -9,26 +9,7 @@
 .task-title-closed-modal:hover {
   cursor: pointer;
   line-height: 25px;
-  color: rgb(105, 105, 105);
-}
-
-/* Open Modal */
-.task-open-modal-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  height: 300px;
-  background-color: #f4f4f4;
-  border-radius: 5px;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  margin: 10px;
-  text-align: center;
-  font-family: poppins, sans-serif;
-  font-size: 1.5rem;
-  overflow-y: auto; /* Enable Overflow */
+  color: rgb(124, 124, 124);
 }
 
 /* Task Title */
@@ -39,7 +20,7 @@
 .task-title-open-modal:hover {
   cursor: pointer;
   line-height: 25px;
-  color: rgb(105, 105, 105);
+  color: rgb(124, 124, 124);
 }
 /* Cancel Button */
 
