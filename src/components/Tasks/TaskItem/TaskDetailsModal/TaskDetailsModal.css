@@ -32,6 +32,15 @@
 }
 
 /* Task Title */
+.task-title-open-modal {
+  cursor: pointer;
+  line-height: 25px;
+}
+.task-title-open-modal:hover {
+  cursor: pointer;
+  line-height: 25px;
+  color: rgb(105, 105, 105);
+}
 /* Cancel Button */
 
 
