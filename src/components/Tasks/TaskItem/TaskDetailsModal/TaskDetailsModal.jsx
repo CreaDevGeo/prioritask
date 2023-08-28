@@ -40,30 +40,32 @@ function TaskDetailsModal({ taskTitle }) {
         <Box className="task-open-modal-container">
           <h2 id="modal-title">Task Details</h2>
           {/* Task Title Functionality */}
-            {/* Conditionally render input field if openTaskTitleUpdateInput is true */}
-            {openTaskTitleUpdateInput ? (
-              <form>
-                <Input
-                  value={taskTitleUpdateInput}
-                  onChange={(event) =>
-                    setTaskTitleUpdateInput(event.target.value)
-                  }
-                />
-                {/* Save button component to update input field */}
-                
-                <TaskTitleCancelButton
-                  setOpenTaskTitleUpdateInput={setOpenTaskTitleUpdateInput}
-                />
-                {/* Cancel Button */}
-              </form>
-            ) : (
-              <p
-                onClick={() => setOpenTaskTitleUpdateInput(true)}
-                style={{ cursor: "pointer" }}
-              >
-                {taskTitle}
-              </p>
-            )}
+          {/* Conditionally render input field if openTaskTitleUpdateInput is true */}
+          {openTaskTitleUpdateInput ? (
+            <form>
+              <Input
+                value={taskTitleUpdateInput}
+                onChange={(event) =>
+                  setTaskTitleUpdateInput(event.target.value)
+                }
+              />
+              {/* Save button component to update input field */}
+
+              {/* Cancel Button */}
+              <TaskTitleCancelButton
+                setOpenTaskTitleUpdateInput={setOpenTaskTitleUpdateInput}
+                setTaskTitleUpdateInput={setTaskTitleUpdateInput}
+                taskTitle={taskTitle}
+              />
+            </form>
+          ) : (
+            <p
+              onClick={() => setOpenTaskTitleUpdateInput(true)}
+              style={{ cursor: "pointer" }}
+            >
+              {taskTitle}
+            </p>
+          )}
         </Box>
       </Modal>
     </>
