@@ -1,0 +1,27 @@
+/* TaskDetailsModal Style Guide */
+
+/* Closed Modal */
+/* Task Title Styling */
+.task-title-closed-modal {
+  cursor: pointer;
+  line-height: 25px;
+}
+.task-title-closed-modal:hover {
+  cursor: pointer;
+  line-height: 25px;
+  color: rgb(124, 124, 124);
+}
+
+/* Task Title */
+.task-title-open-modal {
+  cursor: pointer;
+  line-height: 25px;
+}
+.task-title-open-modal:hover {
+  cursor: pointer;
+  line-height: 25px;
+  color: rgb(124, 124, 124);
+}
+/* Cancel Button */
+
+

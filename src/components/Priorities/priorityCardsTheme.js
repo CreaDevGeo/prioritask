@@ -7,7 +7,7 @@ const priorityCardsTheme = createTheme({
         root: {
           width: 230,
           height: 400,
-          margin: "1 auto",
+          margin: "auto",
           backgroundColor: "#d03c1b",
           borderRadius: 5,
           boxShadow: 24,

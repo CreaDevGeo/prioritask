@@ -43,13 +43,13 @@ function TaskItem({ priorityID, taskNumber, task }) {
       {/* - HEADER OF TaskItem CARD -  */}
       {/* Task number, event buttons, and due date */}
       <header>
-          <h3
-            style={{
-              margin: "3px auto 3px",
-            }}
-          >
-            {`Task ${taskNumber}`}
-          </h3>
+        <h3
+          style={{
+            margin: "3px auto 3px",
+          }}
+        >
+          {`Task ${taskNumber}`}
+        </h3>
 
         {/* Task Event Buttons */}
         <div
@@ -86,6 +86,8 @@ function TaskItem({ priorityID, taskNumber, task }) {
         {/* Modal of Task Details */}
         <TaskDetailsModal
           taskTitle={task.task_title} // Pass the task title to the modal
+          taskNumber={taskNumber}
+          priorityID={priorityID}
         />
       </main>
       {/* - END MAIN OF TaskItem CARD - */}

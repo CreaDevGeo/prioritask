@@ -1,26 +1,39 @@
 // * - IMPORTING -
 // React
-import React, {useState} from "react";
+import React, { useState } from "react";
 // MUI
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { Input } from "@mui/material";
+// CSS
+import "./TaskDetailsModal.css";
+import "../../../App/App.css"
+// Components
+import TaskTitleCancelButton from "./TaskTitleCancelButton/TaskTitleCancelButton";
+import TaskTitleUpdate from "./TaskTitleUpdate/TaskTitleUpdate";
 
 // * - TaskDetailsModal COMPONENT -
-function TaskDetailsModal({ taskTitle }) {
+function TaskDetailsModal({ taskTitle, taskNumber, priorityID }) {
   // * - STATE -
   // - TaskDetailsModal -
+  // Modal open/close
   const [openTaskDetailsModal, setOpenTaskDetailsModal] = useState(false);
+  // Open/close input field of task title update
+  const [openTaskTitleUpdateInput, setOpenTaskTitleUpdateInput] =
+    useState(false);
+  // Task title input value
+  const [taskTitleUpdateInput, setTaskTitleUpdateInput] = useState(taskTitle);
 
   // * - RENDERING -
   return (
     <>
       {/* Task Title w/ onClick function to open modal */}
-      <p 
-      onClick={() => setOpenTaskDetailsModal(true)}
-      style={{cursor: "pointer"}}
+      <p
+        onClick={() => setOpenTaskDetailsModal(true)}
+        className="task-title-closed-modal"
       >
         {taskTitle}
-        </p>
+      </p>
 
       {/* Modal Showing Task Details */}
       <Modal
@@ -29,23 +42,36 @@ function TaskDetailsModal({ taskTitle }) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            height: 300,
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            p: 4,
-            margin: 10,
-          }}
-        >
+        <Box className="open-modal">
           <h2 id="modal-title">Task Details</h2>
-          <p>{taskTitle}</p>
+          {/* Task Title Functionality */}
+          {/* Conditionally render input field if openTaskTitleUpdateInput is true */}
+          {openTaskTitleUpdateInput ? (
+            <form>
+              {/* Component to update task title */}
+              <TaskTitleUpdate
+                setTaskTitleUpdateInput={setTaskTitleUpdateInput}
+                taskTitleUpdateInput={taskTitleUpdateInput}
+                setOpenTaskTitleUpdateInput={setOpenTaskTitleUpdateInput}
+                taskNumber={taskNumber}
+                priorityID={priorityID}
+              />
+
+              {/* Cancel Button */}
+              <TaskTitleCancelButton
+                setOpenTaskTitleUpdateInput={setOpenTaskTitleUpdateInput}
+                setTaskTitleUpdateInput={setTaskTitleUpdateInput}
+                taskTitle={taskTitle}
+              />
+            </form>
+          ) : (
+            <p
+              onClick={() => setOpenTaskTitleUpdateInput(true)}
+              className="task-title-open-modal"
+            >
+              {taskTitle}
+            </p>
+          )}
         </Box>
       </Modal>
     </>

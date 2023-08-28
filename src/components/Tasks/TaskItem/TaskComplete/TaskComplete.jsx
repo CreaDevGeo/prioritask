@@ -63,21 +63,7 @@ function TaskComplete({ priorityID, taskNumber, taskCompletion }) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            height: 300,
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            p: 4,
-            margin: 10,
-          }}
-        >
+        <Box className="open-modal">
           <h2 id="modal-title">Complete Confirmation</h2>
           <Box
             component="form"
@@ -93,13 +79,12 @@ function TaskComplete({ priorityID, taskNumber, taskCompletion }) {
           </p>
           <Button
             onClick={handleCompleteTaskButton}
-            variant="contained"
-            color="primary"
-            startIcon={<CheckCircleIcon/>}
+            style={{ color: "#26abc0" }}
+            startIcon={<CheckCircleIcon />}
           >
             Complete
           </Button>
-          <Button onClick={handleClose} variant="outlined" color="secondary">
+          <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
         </Box>

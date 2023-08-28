@@ -1,9 +1,15 @@
+// * - IMPORTING -
+// React
 import React, { useState } from "react";
+// Redux
 import { useSelector, useDispatch } from "react-redux";
+// MUI
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import CheckIcon from "@mui/icons-material/Check";
 
+// * - AddChecklistButton COMPONENT -
 function AddChecklistButton() {
   const [open, setOpen] = useState(false);
   
@@ -52,7 +58,7 @@ function AddChecklistButton() {
           color: "black",
           fontFamily: "poppins, sans-serif",
           fontSize: "1rem",
-          fontWeight: "600"
+          fontWeight: "600",
         }}
         onClick={handleNewChecklistButton}
         variant="contained"
@@ -66,25 +72,14 @@ function AddChecklistButton() {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 300,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
+        <Box className="open-modal">
           <h2 id="modal-title">Slow your road!</h2>
-          <p id="modal-description">
-            Don't get too ahead of your self with the checklist! You can only
-            have 4 max.
-          </p>
-          <Button onClick={handleClose} color="secondary">
+          <p id="modal-description">You can only have 4 checklists max.</p>
+          <Button
+            onClick={handleClose}
+            style={{ color: "#26abc0" }}
+            startIcon={<CheckIcon />}
+          >
             Okay
           </Button>
         </Box>

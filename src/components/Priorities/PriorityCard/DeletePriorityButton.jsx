@@ -1,11 +1,15 @@
+// * - IMPORTING -
+// React
 import React, { useState } from "react";
+// Redux
 import { useSelector, useDispatch } from "react-redux";
+// MUI
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
+// CSS
+import "./PriorityCard.css";
 
 // Turning into a DeletePriorityButton
 function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
@@ -54,9 +58,12 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
 
   return (
     <div>
-      <Button 
-      style={{backgroundColor: "black"}}
-       onClick={handleOpen} variant="contained" color="error">
+      <Button
+        onClick={handleOpen}
+        variant="contained"
+        color="error"
+        className="delete-priority-button"
+      >
         Delete
       </Button>
       <Modal
@@ -65,21 +72,7 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            height: 300,
-            bgcolor: "background.paper",
-            borderRadius: 5,
-            boxShadow: 24,
-            p: 4,
-            margin: 10,
-          }}
-        >
+        <Box className="open-modal">
           <h2 id="modal-title">Delete Confirmation</h2>
           <Box
             component="form"
@@ -95,13 +88,12 @@ function DeletePriorityButton({ priorityID, priorityNumber, checklistID }) {
           </p>
           <Button
             onClick={handleDeletePriorityButton}
-            variant="outlined"
             color="error"
             startIcon={<DeleteIcon />}
           >
             Delete
           </Button>
-          <Button onClick={handleClose} color="primary" variant="contained">
+          <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
         </Box>

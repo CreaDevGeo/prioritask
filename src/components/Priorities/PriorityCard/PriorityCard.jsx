@@ -8,7 +8,7 @@ import TasksList from "../../Tasks/TasksList/TasksList";
 import DeletePriorityButton from "./DeletePriorityButton";
 import priorityCardsTheme from "../priorityCardsTheme";
 // CSS
-import "../../App/App.css";
+import "./PriorityCard.css";
 // MUI
 import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
@@ -46,22 +46,15 @@ export default function PriorityCard({
     <ThemeProvider theme={priorityCardsTheme}>
       <Box
         sx={priorityCardsTheme.components.MuiBox.styleOverrides.root}
-        component="div" 
+        component="div"
       >
-        <center>
-          <h2>Priority {priorityNumber}</h2>
-        </center>
-
         {/* Want to make a render here for all task titles */}
-        <Box
-          component="div"
-          // className="scrollable-container"
-          style={{
-            flex: 1, // Fill available vertical space
-            overflowY: "auto", // Enable vertical scrolling
-            width: "120%", // Occupy full width
-          }}
-        >
+        <Box component="div" className="priority-card-overflow-container ">
+          {/* Top section */}
+          <center>
+            <h2>Priority {priorityNumber}</h2>
+          </center>
+
           {/* TasksList component */}
           <TasksList priorityID={priorityID} />
         </Box>

@@ -98,7 +98,36 @@ router.post("/", (req, res) => {
     });
 }); // * end POST request for a task
 
-// * - PUT: TASK DEADLINE -
+// * - PUT: TASK TITLE -
+// * PUT request updating selected task's title
+router.put("/:priorityID/:taskNumber/task-title", (req, res) => {
+  // Declaring user's priority id as parameter
+  const priorityID = req.params.priorityID;
+  // Declaring user's task number as parameter
+  const taskNumber = req.params.taskNumber;
+  // Declaring user's task title as parameter
+  const updatedTaskTitle = req.body.updatedTaskTitle;
+
+  // Query
+  const updateTaskTitleQuery = `
+    UPDATE tasks
+    SET task_title = $1
+    WHERE priority_id = $2 AND task_number = $3;
+  `;
+
+  pool
+    .query(updateTaskTitleQuery, [updatedTaskTitle, priorityID, taskNumber])
+    .then((result) => {
+      console.log("PUT request made to update task title!");
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Failed to update task title! Error is:", error);
+      res.sendStatus(500);
+    });
+}); // * end PUT request for a task title update
+
+// * - PUT: TASK COMPLETED -
 // * PUT request updating selected task's completion
 router.put("/:priorityID/:taskNumber/completed", (req, res) => {
   // Declaring user's priority id as parameter
