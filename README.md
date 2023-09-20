@@ -71,7 +71,3 @@ The project directory structure is organized as follows:
 - `src/`: Contains the React application code.
 - `public/`: Contains static assets for the client-side.
 - `server/`: Contains the Express App for the backend.
-
-## Contributions
-
-Contributions to Prioritask are welcome. If you'd like to contribute to the project, please fork the repository, make your changes, and submit a pull request.
