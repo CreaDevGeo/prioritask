@@ -46,7 +46,7 @@ Prioritask provides a solution by offering a task management web application tha
 
 ## Deployment
 
-To access Prioritask, you can visit the live application hosted on Herok: https://prioirtask-3d02e9c6acd9.herokuapp.com/#/home
+The initial launch of this project was hosted by Heroku but is now, no longer hosted.
 
 ## Getting Started
 
