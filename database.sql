@@ -1,3 +1,5 @@
+-- RUN RELEVANT QUERIES ONE BY ONE
+
 -- Drop the view first
 DROP VIEW IF EXISTS checklists_view;
 
