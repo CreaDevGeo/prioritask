@@ -32,7 +32,7 @@ Prioritask provides a solution by offering a task management web application tha
 
 ### Sign-In Page
 
-<img src="../prioritask/public/image/prioritask-signin-page.png" alt="Image of Prioritask website sign up and registration landing page.">
+![Sign In Page](public/image/prioritask-signin-page.png)
 
 - **Register or login**
 
