@@ -1,5 +1,8 @@
 # Prioritask
 
+## Try it out
+[Prioritask website](https://prioirtask-3d02e9c6acd9.herokuapp.com/)
+
 ## Overview
 
 Prioritask is a solo project aimed at solving the problem of streamlining to-do lists and task management. The project offers a web application that focuses on helping users manage their top priorities efficiently.
