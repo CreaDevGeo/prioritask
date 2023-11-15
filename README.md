@@ -1,6 +1,7 @@
 # Prioritask
 
 ## Try it out
+
 [Prioritask website](https://prioirtask-3d02e9c6acd9.herokuapp.com/)
 
 ## Overview
@@ -29,7 +30,6 @@ Prioritask provides a solution by offering a task management web application tha
 
 - **Deployment**: Prioritask is successfully deployed on Heroku, making it accessible to users online.
 
-
 ### Sign-In Page
 
 ![Sign In Page](public/image/prioritask-signin-page.png)
@@ -38,13 +38,13 @@ Prioritask provides a solution by offering a task management web application tha
 
 ### Checklist Page
 
-<img src="../prioritask/public/image/prioritask-checklist-page.png" alt="Image of Prioritask website checklist landing page.">
+![Checklist Page](public/image/prioritask-checklist-page.png)
 
 - **Create and manage checklists**
 
-### Other Page Features
+### Other Features Page Features
 
-<img src="../prioritask/public/image/prioritask-priorities-and-tasks.png" alt="Image of Prioritask website checklist landing page priorities, tasks, and deadline features.">
+![Other Feature Page](public/image/prioritask-priorities-and-tasks.png)
 
 - **Manage priorities**
 - **Set tasks**
@@ -53,12 +53,14 @@ Prioritask provides a solution by offering a task management web application tha
 ## Tech Stack
 
 - **Frontend**:
+
   - HTML, CSS
   - JavaScript
   - React.js
   - Material UI
 
 - **Backend**:
+
   - Node.js
   - Express.js
   - PostgreSQL
